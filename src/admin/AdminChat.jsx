@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { Send, User as UserIcon, MessageSquare } from 'lucide-react';
 
 const AdminChat = () => {
@@ -9,7 +9,7 @@ const AdminChat = () => {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const AdminChat = () => {
 
   const fetchConversations = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/chat/admin/conversations`, {
+      const res = await api.get('/chat/admin/conversations', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setConversations(res.data);
@@ -39,7 +39,7 @@ const AdminChat = () => {
 
   const fetchMessages = async (userId) => {
     try {
-      const res = await axios.get(`${apiUrl}/chat/${userId}`, {
+      const res = await api.get('/chat/${userId}', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data);
@@ -53,7 +53,7 @@ const AdminChat = () => {
     if (!newMessage.trim() || !selectedUser) return;
 
     try {
-      const res = await axios.post(`${apiUrl}/chat`, {
+      const res = await api.post('/chat', {
         receiverId: selectedUser._id,
         message: newMessage
       }, {

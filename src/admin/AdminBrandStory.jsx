@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 
 const AdminBrandStory = () => {
   const [formData, setFormData] = useState({
@@ -19,12 +19,12 @@ const AdminBrandStory = () => {
   const [founderFiles, setFounderFiles] = useState([null, null]);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/brand-story`);
+        const res = await api.get('/brand-story');
         if (res.data) {
           setFormData({
             title: res.data.title,
@@ -79,7 +79,7 @@ const AdminBrandStory = () => {
     if (founderFiles[1]) submitData.append('founder1Image', founderFiles[1]);
 
     try {
-      const res = await axios.post(`${apiUrl}/brand-story`, submitData, {
+      const res = await api.post('/brand-story', submitData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

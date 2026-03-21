@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 
@@ -12,7 +12,7 @@ const AdminCategories = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     fetchCategories();
@@ -20,7 +20,7 @@ const AdminCategories = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/categories`);
+      const res = await api.get('/categories');
       setCategories(res.data);
     } catch (err) {
       console.error(err);
@@ -54,9 +54,9 @@ const AdminCategories = () => {
 
     try {
       if (editingId) {
-        await axios.put(`${apiUrl}/admin/categories/${editingId}`, submitData, { headers });
+        await api.put('/admin/categories/${editingId}', submitData, { headers });
       } else {
-        await axios.post(`${apiUrl}/admin/categories`, submitData, { headers });
+        await api.post('/admin/categories', submitData, { headers });
       }
       setFormData({ name: '', slug: '', image: '' });
       setImageFile(null);
@@ -74,7 +74,7 @@ const AdminCategories = () => {
   const deleteCategory = async (id) => {
     if (!window.confirm('Delete this category?')) return;
     try {
-      await axios.delete(`${apiUrl}/admin/categories/${id}`, {
+      await api.delete('/admin/categories/${id}', {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchCategories();

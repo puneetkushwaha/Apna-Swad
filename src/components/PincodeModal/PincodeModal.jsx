@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import { MapPin, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './PincodeModal.css';
@@ -31,9 +31,9 @@ const PincodeModal = () => {
       localStorage.setItem('userPincode', pincode);
       
       if (user) {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+        
         const token = localStorage.getItem('token');
-        const res = await axios.post(`${apiUrl}/user/pincode`, { pincode }, {
+        const res = await api.post('/user/pincode', { pincode }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         updateUser(res.data); // Update global user state

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 
@@ -20,7 +20,7 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token'); // Use standard token
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     fetchData();
@@ -29,8 +29,8 @@ const AdminProducts = () => {
   const fetchData = async () => {
     try {
       const [prodRes, catRes] = await Promise.all([
-        axios.get(`${apiUrl}/products`),
-        axios.get(`${apiUrl}/categories`)
+        api.get('/products'),
+        api.get('/categories')
       ]);
       setProducts(prodRes.data);
       setCategories(catRes.data);
@@ -126,9 +126,9 @@ const AdminProducts = () => {
 
     try {
       if (editingId) {
-        await axios.put(`${apiUrl}/admin/products/${editingId}`, submitData, { headers });
+        await api.put(`/admin/products/${editingId}`, submitData, { headers });
       } else {
-        await axios.post(`${apiUrl}/admin/products`, submitData, { headers });
+        await api.post('/admin/products', submitData, { headers });
       }
       setFormData({ 
         name: '', description1: '', description2: '', description3: '', 
@@ -154,7 +154,7 @@ const AdminProducts = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm('Delete this product?')) return;
     try {
-      await axios.delete(`${apiUrl}/admin/products/${id}`, {
+      await api.delete(`/admin/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();

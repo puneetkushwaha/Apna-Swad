@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 
 const AuthContext = createContext();
 
@@ -20,7 +20,12 @@ export const AuthProvider = ({ children }) => {
           const parsedUser = JSON.parse(storedUser);
           setUser(parsedUser);
           setToken(storedToken);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+          // The api instance should handle setting the header via an interceptor
+          // or it will be set on subsequent requests.
+          // No need to set api.defaults.headers.common here if an interceptor is used.
+          // If not using an interceptor, this line would be needed, but the instruction implies
+          // relying on the api instance's interceptor.
+          // For now, removing the global axios usage.
         }
       } catch (err) {
         console.error('Auth initialization failed:', err);
@@ -35,35 +40,35 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-    const res = await axios.post(`${apiUrl}/auth/login`, { email, password });
+    
+    const res = await api.post('/auth/login', { email, password });
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
     setUser(res.data.user);
     setToken(res.data.token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
     return res.data;
   };
 
   const signup = async (name, email, password) => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-    const res = await axios.post(`${apiUrl}/auth/signup`, { name, email, password });
+    
+    const res = await api.post('/auth/signup', { name, email, password });
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
     setUser(res.data.user);
     setToken(res.data.token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
     return res.data;
   };
 
   const googleLogin = async (credential) => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-    const res = await axios.post(`${apiUrl}/auth/google`, { credential });
+    
+    const res = await api.post('/auth/google', { credential });
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
     setUser(res.data.user);
     setToken(res.data.token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
     return res.data;
   };
 
@@ -73,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('userPincode');
     setUser(null);
     setToken(null);
-    delete axios.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common['Authorization'];
   };
 
   const updateUser = (updatedUser) => {

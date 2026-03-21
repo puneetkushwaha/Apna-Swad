@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import './TestimonialTicker.css';
 
 const TestimonialTicker = () => {
   const [reviews, setReviews] = useState([]);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/reviews`);
+        const res = await api.get('/reviews');
         setReviews(res.data.filter(r => r.type === 'text' && r.active));
       } catch (err) {
         console.error('Error fetching reviews:', err);

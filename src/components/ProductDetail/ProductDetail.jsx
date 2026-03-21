@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/api';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { Heart, Share2, Star, Truck, ShieldCheck, Leaf, Clock, Package, MessageSquare } from 'lucide-react';
@@ -38,8 +38,8 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/products/${id}`);
+        
+        const res = await api.get(`/products/${id}`);
         setProduct(res.data);
         setActiveImage(res.data.image);
       } catch (err) {

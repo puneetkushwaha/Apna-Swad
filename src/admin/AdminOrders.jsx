@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { Package, Truck, CheckCircle, XCircle, Search, Eye, Edit, Printer, FileText } from 'lucide-react';
 
 const AdminOrders = () => {
@@ -14,7 +14,7 @@ const AdminOrders = () => {
     carrierName: ''
   });
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/orders`, {
+      const res = await api.get('/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(res.data);
@@ -36,7 +36,7 @@ const AdminOrders = () => {
 
   const handlePrintLabel = async (orderId) => {
     try {
-      const res = await axios.get(`${apiUrl}/orders/${orderId}/label`, {
+      const res = await api.get('/orders/${orderId}/label', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data && res.data.label_url) {
@@ -51,7 +51,7 @@ const AdminOrders = () => {
 
   const handlePrintInvoice = async (orderId) => {
     try {
-      const res = await axios.get(`${apiUrl}/orders/${orderId}/invoice`, {
+      const res = await api.get('/orders/${orderId}/invoice', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data && res.data.invoice_url) {
@@ -67,7 +67,7 @@ const AdminOrders = () => {
   const handleUpdateStatus = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${apiUrl}/orders/${selectedOrder._id}/status`, trackingData, {
+      await api.put('/orders/${selectedOrder._id}/status', trackingData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchOrders();
@@ -81,7 +81,7 @@ const AdminOrders = () => {
 
   const handleManualSync = async (orderId) => {
     try {
-      const res = await axios.post(`${apiUrl}/orders/${orderId}/sync`, {}, {
+      const res = await api.post('/orders/${orderId}/sync', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Sync successful!');

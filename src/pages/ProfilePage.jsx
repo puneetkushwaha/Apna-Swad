@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../api/api';
 import { User, Mail, LogOut, ArrowLeft, Phone, MapPin, Camera, Edit2, Save, X, Briefcase, Truck, Star } from 'lucide-react';
 import ReviewModal from '../components/Modals/ReviewModal';
 import './ProfilePage.css';
@@ -41,9 +41,9 @@ const ProfilePage = () => {
   const fetchUserOrders = async () => {
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${apiUrl}/orders/myorders`, {
+      const res = await api.get('/orders/myorders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(res.data);
@@ -59,9 +59,9 @@ const ProfilePage = () => {
     
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      await axios.put(`${apiUrl}/orders/${orderId}/cancel`, {}, {
+      await api.put('/orders/${orderId}/cancel', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchUserOrders();
@@ -77,9 +77,9 @@ const ProfilePage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      await axios.put(`${apiUrl}/orders/${editingOrder._id}/update-shipping`, {
+      await api.put('/orders/${editingOrder._id}/update-shipping', {
         shippingAddress: editOrderAddress
       }, {
         headers: { Authorization: `Bearer ${token}` }
@@ -184,9 +184,9 @@ const ProfilePage = () => {
 
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      const res = await axios.post(`${apiUrl}/user/avatar`, uploadData, {
+      const res = await api.post('/user/avatar', uploadData, {
         headers: { 
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
@@ -204,9 +204,9 @@ const ProfilePage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      const res = await axios.put(`${apiUrl}/user/profile`, formData, {
+      const res = await api.put('/user/profile', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       updateUser(res.data);

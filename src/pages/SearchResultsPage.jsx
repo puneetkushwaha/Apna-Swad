@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/api';
 import ProductCard from '../components/ProductCard/ProductCard';
 import './SearchResultsPage.css';
 
@@ -15,8 +15,8 @@ const SearchResultsPage = () => {
       if (!query) return;
       setLoading(true);
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/products`);
+        
+        const res = await api.get('/products');
         // Basic frontend filter for now, or backend search if implemented
         const filtered = res.data.filter(p => 
           p.name.toLowerCase().includes(query.toLowerCase()) || 

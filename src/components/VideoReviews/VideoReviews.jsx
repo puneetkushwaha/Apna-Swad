@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import axios from 'axios';
+import api from '../../api/api';
 import './VideoReviews.css';
 
 const VideoReviews = () => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/reviews`);
+        const res = await api.get('/reviews');
         // Filter active video reviews. Use a reliable fallback video if none found.
         const activeVideos = res.data.filter(r => r.type === 'video' && r.active);
         if (activeVideos.length === 0) {

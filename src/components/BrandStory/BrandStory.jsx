@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 
 const BrandStory = () => {
   const [story, setStory] = useState(null);
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/brand-story`);
+        const res = await api.get('/brand-story');
         setStory(res.data);
       } catch (err) {
         console.error('Error fetching story:', err);

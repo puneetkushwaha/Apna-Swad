@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import { MessageCircle, X, Send, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation } from 'react-router-dom';
@@ -32,7 +32,7 @@ const ChatWidget = () => {
     scrollToBottom();
   }, [messages]);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const ChatWidget = () => {
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/chat/${user._id}`, {
+      const res = await api.get('/chat/${user._id}', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data);
@@ -67,7 +67,7 @@ const ChatWidget = () => {
     if (!newMessage.trim() || !user) return;
 
     try {
-      const res = await axios.post(`${apiUrl}/chat`, {
+      const res = await api.post('/chat', {
         message: newMessage
       }, {
         headers: { Authorization: `Bearer ${token}` }

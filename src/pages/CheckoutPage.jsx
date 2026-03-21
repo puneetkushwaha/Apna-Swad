@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../api/api';
 import { 
     ChevronLeft, 
     ShieldCheck, 
@@ -116,8 +116,8 @@ const CheckoutPage = () => {
         setLoading(true);
         // ... (rest of online payment logic)
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-            const { data: orderData } = await axios.post(`${apiUrl}/payment/create-order`, {
+            
+            const { data: orderData } = await api.post('/payment/create-order', {
                 amount: cartTotal,
                 currency: 'INR'
             });
@@ -131,13 +131,13 @@ const CheckoutPage = () => {
                 order_id: orderData.id,
                 handler: async (response) => {
                     try {
-                        const verifyRes = await axios.post(`${apiUrl}/payment/verify-payment`, response);
+                        const verifyRes = await api.post('/payment/verify-payment', response);
                         
                         if (verifyRes.data.status === 'success') {
                             // Save address to profile if selected
                             if (saveToProfile) {
                                 try {
-                                    const updateRes = await axios.put(`${apiUrl}/user/profile`, {
+                                    const updateRes = await api.put('/user/profile', {
                                         name: shippingAddress.fullName,
                                         phone: shippingAddress.phone,
                                         address: {
@@ -158,7 +158,7 @@ const CheckoutPage = () => {
                                 }
                             }
 
-                             await axios.post(`${apiUrl}/orders`, {
+                             await api.post('/orders', {
                                 items: cartItems.map(item => ({
                                     product: item._id,
                                     name: item.name,
@@ -208,11 +208,11 @@ const CheckoutPage = () => {
     const handleFreeOrder = async () => {
         setLoading(true);
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+            
             
             if (saveToProfile) {
                 try {
-                    const updateRes = await axios.put(`${apiUrl}/user/profile`, {
+                    const updateRes = await api.put('/user/profile', {
                         name: shippingAddress.fullName,
                         phone: shippingAddress.phone,
                         address: {
@@ -233,7 +233,7 @@ const CheckoutPage = () => {
                 }
             }
 
-            await axios.post(`${apiUrl}/orders`, {
+            await api.post('/orders', {
                 items: cartItems.map(item => ({
                     product: item._id,
                     name: item.name,
@@ -268,11 +268,11 @@ const CheckoutPage = () => {
     const handleCodOrder = async () => {
         setLoading(true);
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+            
             
             if (saveToProfile) {
                 try {
-                    const updateRes = await axios.put(`${apiUrl}/user/profile`, {
+                    const updateRes = await api.put('/user/profile', {
                         name: shippingAddress.fullName,
                         phone: shippingAddress.phone,
                         address: {
@@ -293,7 +293,7 @@ const CheckoutPage = () => {
                 }
             }
 
-            await axios.post(`${apiUrl}/orders`, {
+            await api.post('/orders', {
                 items: cartItems.map(item => ({
                     product: item._id,
                     name: item.name,

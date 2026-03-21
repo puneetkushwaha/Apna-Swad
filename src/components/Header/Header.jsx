@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { User as UserIcon, LogOut, Search, ShoppingCart, ShieldCheck, Zap, ChevronDown, Package, MessageSquare, Star, Truck, Heart, Menu, X } from 'lucide-react';
-import axios from 'axios';
+import api from '../../api/api';
 import './Header.css';
 import NotificationBell from './NotificationBell';
 
@@ -22,12 +22,12 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/categories`);
+        const res = await api.get('/categories');
         setCategories(res.data);
       } catch (err) {
         console.error('Error fetching categories:', err);

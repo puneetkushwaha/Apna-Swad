@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Admin.css';
@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const token = localStorage.getItem('token');
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     fetchData();
@@ -19,8 +19,8 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [prodRes, catRes] = await Promise.all([
-        axios.get(`${apiUrl}/products`),
-        axios.get(`${apiUrl}/categories`)
+        api.get('/products'),
+        api.get('/categories')
       ]);
       setProducts(prodRes.data);
       setCategories(catRes.data);

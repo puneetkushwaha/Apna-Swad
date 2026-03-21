@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { Megaphone, Save, CheckCircle } from 'lucide-react';
 import './AdminAnnouncement.css';
 
@@ -12,8 +12,8 @@ const AdminAnnouncement = () => {
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/announcements`);
+        
+        const res = await api.get('/announcements');
         if (res.data) {
           setText(res.data.text);
           setIsActive(res.data.isActive);
@@ -30,9 +30,9 @@ const AdminAnnouncement = () => {
     setLoading(true);
     setMessage('');
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      await axios.post(`${apiUrl}/announcements`, { text, isActive }, {
+      await api.post('/announcements', { text, isActive }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage('Announcement updated successfully!');

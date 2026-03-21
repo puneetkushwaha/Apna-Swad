@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import { MapPin } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './AnnouncementBoard.css';
@@ -12,8 +12,8 @@ const AnnouncementBoard = () => {
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/announcements`);
+        
+        const res = await api.get('/announcements');
         if (res.data && res.data.isActive) {
           setAnnouncement(res.data.text);
         }

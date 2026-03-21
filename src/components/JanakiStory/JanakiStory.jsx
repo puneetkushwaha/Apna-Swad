@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import './JanakiStory.css';
 
 const DhyantisStory = () => {
@@ -12,8 +12,8 @@ const DhyantisStory = () => {
   React.useEffect(() => {
     const fetchStory = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/brand-story`);
+        
+        const res = await api.get('/brand-story');
         if (res.data) {
           setStory({
             videoUrl: res.data.videoUrl || '/video.mp4',

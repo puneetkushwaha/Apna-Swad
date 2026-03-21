@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
 const AdminBanners = () => {
@@ -9,7 +9,7 @@ const AdminBanners = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+  
 
   useEffect(() => {
     fetchBanners();
@@ -17,7 +17,7 @@ const AdminBanners = () => {
 
   const fetchBanners = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/banners`);
+      const res = await api.get('/banners');
       setBanners(res.data);
     } catch (err) {
       console.error(err);
@@ -32,7 +32,7 @@ const AdminBanners = () => {
     formData.append('title', title);
 
     try {
-      await axios.post(`${apiUrl}/banners`, formData, {
+      await api.post('/banners', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -51,7 +51,7 @@ const AdminBanners = () => {
   const deleteBanner = async (id) => {
     if (!window.confirm('Remove this banner?')) return;
     try {
-      await axios.delete(`${apiUrl}/banners/${id}`, {
+      await api.delete('/banners/${id}', {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchBanners();

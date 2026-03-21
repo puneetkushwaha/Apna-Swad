@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import { Star } from 'lucide-react';
 import './ProductReviewTicker.css';
 
@@ -19,8 +19,8 @@ const ProductReviewTicker = ({ productId }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/product-reviews/${productId}`);
+        
+        const res = await api.get(`/product-reviews/${productId}`);
         setRealReviews(res.data);
       } catch (err) {
         console.error('Error fetching product reviews:', err);

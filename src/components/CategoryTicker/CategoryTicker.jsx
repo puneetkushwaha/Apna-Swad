@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/api';
 import './CategoryTicker.css';
 
 const CategoryTicker = () => {
@@ -9,8 +9,8 @@ const CategoryTicker = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/categories`);
+        
+        const res = await api.get('/categories');
         setCategories(res.data);
       } catch (err) {
         console.error('Error fetching categories:', err);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import ProductCard from '../ProductCard/ProductCard';
 import './NewArrivals.css';
 
@@ -14,9 +14,9 @@ const NewArrivals = () => {
     try {
       setLoading(true);
       const skip = isLoadMore ? newArrivals.length : 0;
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       // Fetch limit + 1 to check if there are more
-      const res = await axios.get(`${apiUrl}/products?sortBy=newest&limit=${limit + 1}&skip=${skip}`);
+      const res = await api.get(`/products?sortBy=newest&limit=${limit + 1}&skip=${skip}`);
       
       if (res.data && res.data.length > 0) {
         setIsDemo(false);

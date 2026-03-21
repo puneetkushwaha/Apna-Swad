@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/api';
 import './DhyantisDevPicks.css';
 
 const DhyantisDevPicks = () => {
@@ -10,9 +10,9 @@ const DhyantisDevPicks = () => {
   useEffect(() => {
     const fetchPicks = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+        
         // Fetch top 3 best sellers
-        const res = await axios.get(`${apiUrl}/products?isBestSeller=true&limit=3`);
+        const res = await api.get('/products?isBestSeller=true&limit=3');
         setProducts(res.data);
       } catch (err) {
         console.error('Error fetching dev picks:', err);

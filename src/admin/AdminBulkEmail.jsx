@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import './Admin.css';
 import { Send, Mail, Type, AlignLeft, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 

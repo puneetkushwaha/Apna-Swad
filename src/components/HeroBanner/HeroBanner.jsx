@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import './HeroBanner.css';
 
 const HeroBanner = () => {
@@ -10,8 +10,8 @@ const HeroBanner = () => {
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
-        const res = await axios.get(`${apiUrl}/banners`);
+        
+        const res = await api.get('/banners');
         setBanners(res.data);
       } catch (err) {
         console.error('Error fetching banners:', err);

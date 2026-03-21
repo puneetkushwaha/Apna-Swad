@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Star, X } from 'lucide-react';
-import axios from 'axios';
+import api from '../../api/api';
 import './ReviewModal.css';
 
 const ReviewModal = ({ product, onClose, onSuccess }) => {
@@ -16,9 +16,9 @@ const ReviewModal = ({ product, onClose, onSuccess }) => {
     setError('');
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
+      
       const token = localStorage.getItem('token');
-      await axios.post(`${apiUrl}/product-reviews`, {
+      await api.post('/product-reviews', {
         productId: product._id,
         rating,
         comment
