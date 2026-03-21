@@ -10,7 +10,7 @@ import './ProductDetail.css';
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, buyNow } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [product, setProduct] = useState(null);
   const [activeImage, setActiveImage] = useState(null);
@@ -133,7 +133,7 @@ const ProductDetail = () => {
               <button 
                 className="btn-premium btn-fill"
                 onClick={() => {
-                  addToCart(product, quantity);
+                  buyNow(product, quantity);
                   navigate('/checkout');
                 }}
               >

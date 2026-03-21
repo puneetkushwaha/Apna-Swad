@@ -141,6 +141,14 @@
   width: 100%;
 }
 
+.product-actions-premium {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+}
+
 .cart-pill-btn {
   width: 100%;
   padding: 12px 0;
@@ -152,11 +160,30 @@
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: auto;
-  /* Pushes to bottom */
 }
 
 .cart-pill-btn:hover {
-  background: #4a2c2a;
+  background: rgba(74, 44, 42, 0.05);
+  transform: translateY(-2px);
+}
+
+.buy-now-btn-premium {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  background: var(--secondary);
   color: white;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.2);
+}
+
+.buy-now-btn-premium:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 44, 42, 0.3);
 }

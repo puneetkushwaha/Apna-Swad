@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useCart();
+  const { addToCart, buyNow } = useCart();
+  const navigate = useNavigate();
 
   return (
     <div className="product-card">
@@ -24,12 +25,23 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </Link>
-      <button
-        className="cart-pill-btn"
-        onClick={() => addToCart(product)}
-      >
-        Add to cart
-      </button>
+      <div className="product-actions-premium">
+        <button
+          className="cart-pill-btn"
+          onClick={() => addToCart(product)}
+        >
+          Add to cart
+        </button>
+        <button
+          className="buy-now-btn-premium"
+          onClick={() => {
+            buyNow(product);
+            navigate('/checkout');
+          }}
+        >
+          BUY NOW
+        </button>
+      </div>
     </div>
   );
 };

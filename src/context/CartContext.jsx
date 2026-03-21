@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import api from '../api/api';
 
 const CartContext = createContext();
 
@@ -11,6 +12,7 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
+  const { user } = useAuth();
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem('apnaSwadCart');
     return savedCart ? JSON.parse(savedCart) : [];
@@ -18,7 +20,20 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('apnaSwadCart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    
+    // Sync to backend if user is logged in
+    if (user) {
+      const syncTimeout = setTimeout(async () => {
+        try {
+          await api.post('/user/sync-cart', { cartItems });
+        } catch (err) {
+          console.error('Failed to sync cart:', err);
+        }
+      }, 2000); // 2 second delay to debounce
+      
+      return () => clearTimeout(syncTimeout);
+    }
+  }, [cartItems, user]);
 
   const addToCart = (product, quantity = 1) => {
     setCartItems(prev => {
@@ -51,6 +66,10 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
+  const buyNow = (product, quantity = 1) => {
+    setCartItems([{ ...product, quantity }]);
+  };
+
   const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -61,6 +80,7 @@ export const CartProvider = ({ children }) => {
       removeFromCart,
       updateQuantity,
       clearCart,
+      buyNow,
       cartTotal,
       cartCount
     }}>

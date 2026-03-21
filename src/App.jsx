@@ -12,6 +12,7 @@ import AdminAnnouncement from './admin/AdminAnnouncement';
 import AdminOrders from './admin/AdminOrders';
 import AdminChat from './admin/AdminChat';
 import AdminBulkEmail from './admin/AdminBulkEmail';
+import InstagramFeed from './components/InstagramFeed/InstagramFeed';
 import ChatWidget from './components/Chat/ChatWidget';
 import AnnouncementBoard from './components/AnnouncementBoard/AnnouncementBoard';
 import PincodeModal from './components/PincodeModal/PincodeModal';
@@ -101,6 +102,7 @@ function App() {
                 <div className="reveal"><VideoReviews /></div>
                 <div className="reveal"><DhyantisDevPicks /></div>
                 <div className="reveal"><DhyantisStory /></div>
+                <InstagramFeed />
                 <div className="reveal"><LastBanner /></div>
               </>
             } />

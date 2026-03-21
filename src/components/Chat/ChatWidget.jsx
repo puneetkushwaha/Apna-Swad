@@ -8,8 +8,8 @@ import './ChatWidget.css';
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [isAI, setIsAI] = useState(true); // AI enabled by default for elite experience
+  const [isTyping, setIsTyping] = useState(false);
   const { user } = useAuth();
   const messagesEndRef = useRef(null);
 
@@ -21,31 +21,21 @@ const ChatWidget = () => {
 
   useEffect(() => {
     const handleToggle = () => {
-      console.log('Chat toggle event received');
       setIsOpen(true);
     };
     window.addEventListener('toggleChat', handleToggle);
     return () => window.removeEventListener('toggleChat', handleToggle);
   }, []);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (isOpen && user) {
+    if (isOpen && user && !isAI) {
       fetchMessages();
       const interval = setInterval(fetchMessages, 5000);
       return () => clearInterval(interval);
     }
-  }, [isOpen, user]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  }, [isOpen, user, isAI]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -53,7 +43,7 @@ const ChatWidget = () => {
 
   const fetchMessages = async () => {
     try {
-      const res = await api.get('/chat/${user._id}', {
+      const res = await api.get(`/chat/${user._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data);
@@ -66,16 +56,32 @@ const ChatWidget = () => {
     e.preventDefault();
     if (!newMessage.trim() || !user) return;
 
-    try {
-      const res = await api.post('/chat', {
-        message: newMessage
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setMessages([...messages, res.data]);
-      setNewMessage('');
-    } catch (err) {
-      console.error('Error sending message:', err);
+    const userMsg = { message: newMessage, createdAt: new Date(), isAdmin: false };
+    setMessages(prev => [...prev, userMsg]);
+    setNewMessage('');
+    
+    if (isAI) {
+      setIsTyping(true);
+      try {
+        const res = await api.post('/ai/chat', { message: newMessage }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setMessages(prev => [...prev, res.data]);
+      } catch (err) {
+        setMessages(prev => [...prev, { message: "Concierge is resting. Switching to support...", isAdmin: true }]);
+        setIsAI(false);
+      } finally {
+        setIsTyping(false);
+      }
+    } else {
+      try {
+        const res = await api.post('/chat', { message: newMessage }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        // Human support updates are handled by the fetch interval
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
     }
   };
 
@@ -94,13 +100,22 @@ const ChatWidget = () => {
             <div className="brand-status">
               <div className="brand-logo-small">AS</div>
               <div>
-                <h4>Support Heritage</h4>
-                <p>We're online</p>
+                <h4>{isAI ? 'AI Concierge' : 'Support Heritage'}</h4>
+                <p>{isAI ? 'Instant Answers' : "We're online"}</p>
               </div>
             </div>
-            <button className="close-chat-btn" onClick={() => setIsOpen(false)}>
-              <X size={20} />
-            </button>
+            <div className="chat-header-actions">
+              <button 
+                className={`ai-toggle-btn ${isAI ? 'active' : ''}`}
+                onClick={() => setIsAI(!isAI)}
+                title={isAI ? "Switch to Human Support" : "Switch to AI Concierge"}
+              >
+                AI
+              </button>
+              <button className="close-chat-btn" onClick={() => setIsOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
           <div className="messages-container">
@@ -112,7 +127,7 @@ const ChatWidget = () => {
             ) : (
               <>
                 <div className="welcome-chat-text">
-                  <p>Namaste! How can we assist you with your heritage snacks today?</p>
+                  <p>Namaste! {isAI ? "I'm your AI snack concierge. Ask me for recommendations!" : "How can we assist you with your heritage snacks today?"}</p>
                 </div>
                 {messages.map((msg, idx) => (
                   <div key={idx} className={`chat-msg ${msg.isAdmin ? 'received' : 'sent'}`}>
@@ -122,6 +137,13 @@ const ChatWidget = () => {
                     </div>
                   </div>
                 ))}
+                {isTyping && (
+                  <div className="chat-msg received">
+                    <div className="msg-content typing">
+                      <span></span><span></span><span></span>
+                    </div>
+                  </div>
+                )}
                 <div ref={messagesEndRef} />
               </>
             )}
@@ -130,11 +152,11 @@ const ChatWidget = () => {
           {user && (
             <form className="chat-input-premium" onSubmit={handleSendMessage}>
               <input 
-                placeholder="Type your Query..." 
+                placeholder={isAI ? "Ask AI for a snack..." : "Type your Query..."}
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
               />
-              <button type="submit" className="btn-send-chat" disabled={!newMessage.trim()}>
+              <button type="submit" className="btn-send-chat" disabled={!newMessage.trim() || isTyping}>
                 <Send size={18} />
               </button>
             </form>
