@@ -34,7 +34,7 @@ const Header = () => {
       }
     };
     fetchCategories();
-  }, [apiUrl]);
+  }, []);
 
   useEffect(() => {
     const logoInterval = setInterval(() => {

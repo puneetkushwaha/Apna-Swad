@@ -29,7 +29,7 @@ const VideoReviews = () => {
       }
     };
     fetchVideos();
-  }, [apiUrl]);
+  }, []);
 
   const VideoModal = ({ video, onClose }) => (
     <div className="video-modal-overlay active" onClick={onClose}>

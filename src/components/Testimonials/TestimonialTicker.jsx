@@ -17,7 +17,7 @@ const TestimonialTicker = () => {
       }
     };
     fetchReviews();
-  }, [apiUrl]);
+  }, []);
 
   const line1 = reviews.slice(0, Math.ceil(reviews.length / 2));
   const line2 = reviews.slice(Math.ceil(reviews.length / 2));
