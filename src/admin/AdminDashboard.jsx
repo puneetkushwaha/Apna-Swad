@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const token = localStorage.getItem('token');
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
 
   useEffect(() => {
     fetchData();

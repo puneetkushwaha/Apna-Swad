@@ -14,7 +14,7 @@ const NewArrivals = () => {
     try {
       setLoading(true);
       const skip = isLoadMore ? newArrivals.length : 0;
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       // Fetch limit + 1 to check if there are more
       const res = await axios.get(`${apiUrl}/products?sortBy=newest&limit=${limit + 1}&skip=${skip}`);
       

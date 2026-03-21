@@ -13,7 +13,7 @@ const BestSellers = () => {
     try {
       setLoading(true);
       const skip = isLoadMore ? bestSellers.length : 0;
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       // Fetch limit + 1 to check if there are more
       const res = await axios.get(`${apiUrl}/products?isBestSeller=true&limit=${limit + 1}&skip=${skip}`);
       

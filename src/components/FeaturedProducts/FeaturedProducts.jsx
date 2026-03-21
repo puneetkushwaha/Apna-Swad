@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
         const res = await axios.get(`${apiUrl}/products?sortBy=salesCount&limit=6`);
         if (res.data && res.data.length > 0) {
           setFeaturedProducts(res.data);

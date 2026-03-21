@@ -7,7 +7,7 @@ import './BrandJourney.css';
 const BrandJourney = () => {
   const navigate = useNavigate();
   const [story, setStory] = useState(null);
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
 
   useEffect(() => {
     const fetchStory = async () => {

@@ -31,7 +31,7 @@ const PincodeModal = () => {
       localStorage.setItem('userPincode', pincode);
       
       if (user) {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
         const token = localStorage.getItem('token');
         const res = await axios.post(`${apiUrl}/user/pincode`, { pincode }, {
           headers: { Authorization: `Bearer ${token}` }

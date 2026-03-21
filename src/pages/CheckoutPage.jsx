@@ -116,7 +116,7 @@ const CheckoutPage = () => {
         setLoading(true);
         // ... (rest of online payment logic)
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
             const { data: orderData } = await axios.post(`${apiUrl}/payment/create-order`, {
                 amount: cartTotal,
                 currency: 'INR'
@@ -208,7 +208,7 @@ const CheckoutPage = () => {
     const handleFreeOrder = async () => {
         setLoading(true);
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
             
             if (saveToProfile) {
                 try {
@@ -268,7 +268,7 @@ const CheckoutPage = () => {
     const handleCodOrder = async () => {
         setLoading(true);
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
             
             if (saveToProfile) {
                 try {

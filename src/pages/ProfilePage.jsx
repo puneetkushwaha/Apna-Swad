@@ -41,7 +41,7 @@ const ProfilePage = () => {
   const fetchUserOrders = async () => {
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       const token = localStorage.getItem('token');
       const res = await axios.get(`${apiUrl}/orders/myorders`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -59,7 +59,7 @@ const ProfilePage = () => {
     
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       const token = localStorage.getItem('token');
       await axios.put(`${apiUrl}/orders/${orderId}/cancel`, {}, {
         headers: { Authorization: `Bearer ${token}` }
@@ -77,7 +77,7 @@ const ProfilePage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       const token = localStorage.getItem('token');
       await axios.put(`${apiUrl}/orders/${editingOrder._id}/update-shipping`, {
         shippingAddress: editOrderAddress
@@ -184,7 +184,7 @@ const ProfilePage = () => {
 
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       const token = localStorage.getItem('token');
       const res = await axios.post(`${apiUrl}/user/avatar`, uploadData, {
         headers: { 
@@ -204,7 +204,7 @@ const ProfilePage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
       const token = localStorage.getItem('token');
       const res = await axios.put(`${apiUrl}/user/profile`, formData, {
         headers: { Authorization: `Bearer ${token}` }

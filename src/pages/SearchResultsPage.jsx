@@ -15,7 +15,7 @@ const SearchResultsPage = () => {
       if (!query) return;
       setLoading(true);
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
         const res = await axios.get(`${apiUrl}/products`);
         // Basic frontend filter for now, or backend search if implemented
         const filtered = res.data.filter(p => 

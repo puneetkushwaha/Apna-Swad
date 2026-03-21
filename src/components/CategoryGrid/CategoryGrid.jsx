@@ -9,7 +9,7 @@ const CategoryGrid = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
         const res = await axios.get(`${apiUrl}/categories`);
         setCategories(res.data);
       } catch (err) {

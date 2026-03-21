@@ -21,7 +21,7 @@ export const NotificationProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.get('http://localhost:5000/api/notifications', config);
+      const { data } = await axios.get('import.meta.env.VITE_API_URL/notifications', config);
       if (data.success) {
         setNotifications(data.data);
         setUnreadCount(data.data.filter(n => !n.isRead).length);
@@ -40,7 +40,7 @@ export const NotificationProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.put(`http://localhost:5000/api/notifications/${id}/read`, {}, config);
+      await axios.put(`import.meta.env.VITE_API_URL/notifications/${id}/read`, {}, config);
       setNotifications(prev => 
         prev.map(n => n._id === id ? { ...n, isRead: true } : n)
       );
@@ -57,7 +57,7 @@ export const NotificationProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.put('http://localhost:5000/api/notifications/read-all', {}, config);
+      await axios.put('import.meta.env.VITE_API_URL/notifications/read-all', {}, config);
       setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
       setUnreadCount(0);
     } catch (error) {

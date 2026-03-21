@@ -14,7 +14,7 @@ const AdminOrders = () => {
     carrierName: ''
   });
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
   const token = localStorage.getItem('token');
 
   useEffect(() => {

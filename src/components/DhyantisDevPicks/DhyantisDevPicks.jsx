@@ -10,7 +10,7 @@ const DhyantisDevPicks = () => {
   useEffect(() => {
     const fetchPicks = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = import.meta.env.VITE_API_URL || 'import.meta.env.VITE_API_URL';
         // Fetch top 3 best sellers
         const res = await axios.get(`${apiUrl}/products?isBestSeller=true&limit=3`);
         setProducts(res.data);
