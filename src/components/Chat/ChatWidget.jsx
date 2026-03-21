@@ -8,7 +8,7 @@ import './ChatWidget.css';
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [isAI, setIsAI] = useState(true); // AI enabled by default for elite experience
+  const [isAI, setIsAI] = useState(true); 
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -20,14 +20,6 @@ const ChatWidget = () => {
       setIsOpen(true);
     }
   }, [location.hash]);
-
-  useEffect(() => {
-    const handleToggle = () => {
-      setIsOpen(true);
-    };
-    window.addEventListener('toggleChat', handleToggle);
-    return () => window.removeEventListener('toggleChat', handleToggle);
-  }, []);
 
   const token = localStorage.getItem('token');
 
@@ -43,11 +35,13 @@ const ChatWidget = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
+
   const fetchMessages = async () => {
     try {
-      const res = await api.get(`/chat/${user._id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get(`/chat/${user._id}`);
       setMessages(res.data);
     } catch (err) {
       console.error('Error fetching messages:', err);
@@ -55,36 +49,41 @@ const ChatWidget = () => {
   };
 
   const handleSendMessage = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!newMessage.trim() || !user) return;
 
     const userMsg = { message: newMessage, createdAt: new Date(), isAdmin: false };
     setMessages(prev => [...prev, userMsg]);
+    const sentMsg = newMessage;
     setNewMessage('');
     
     if (isAI) {
       setIsTyping(true);
       try {
-        const res = await api.post('/ai/chat', { message: newMessage }, {
-          headers: { Authorization: `Bearer ${token}` }
+        const res = await api.post('/ai/chat', { 
+            message: sentMsg,
+            chatHistory: messages.slice(-5) 
         });
         setMessages(prev => [...prev, res.data]);
       } catch (err) {
-        setMessages(prev => [...prev, { message: "Concierge is resting. Switching to support...", isAdmin: true }]);
+        setMessages(prev => [...prev, { message: "The concierge is resting. Switching to support...", isAdmin: true }]);
         setIsAI(false);
       } finally {
         setIsTyping(false);
       }
     } else {
       try {
-        const res = await api.post('/chat', { message: newMessage }, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        // Human support updates are handled by the fetch interval
+        await api.post('/chat', { message: sentMsg });
       } catch (err) {
         console.error('Error sending message:', err);
       }
     }
+  };
+
+  const handleQuickQuestion = (q) => {
+    setNewMessage(q);
+    // Optional: auto-submit
+    // setTimeout(() => handleSendMessage(), 100);
   };
 
   return (
@@ -101,9 +100,9 @@ const ChatWidget = () => {
           <div className="chat-header-premium">
             <div className="brand-status">
               <div className="brand-logo-small">AS</div>
-              <div>
-                <h4>{isAI ? 'AI Concierge' : 'Support Heritage'}</h4>
-                <p>{isAI ? 'Instant Answers' : "We're online"}</p>
+              <div className="header-text">
+                <h4 className="high-contrast-text">{isAI ? 'AI Concierge' : 'Support Heritage'}</h4>
+                <p className="high-contrast-text">{isAI ? 'Elite Assistance' : "We're online"}</p>
               </div>
             </div>
             <div className="chat-header-actions">
@@ -128,12 +127,24 @@ const ChatWidget = () => {
               </div>
             ) : (
               <>
-                <div className="welcome-chat-text">
-                  <p>Namaste! {isAI ? "I'm your AI snack concierge. Ask me for recommendations!" : "How can we assist you with your heritage snacks today?"}</p>
+                <div className="welcome-chat-text shadow-premium-sm">
+                  <p>Namaste! {isAI ? "I'm your AI snack concierge. How can I help you today?" : "How can we assist you with your heritage snacks?"}</p>
+                  {isAI && (
+                    <div className="quick-questions-container">
+                      <p className="quick-hint">Quick Links:</p>
+                      <div className="quick-chips">
+                        {['Suggest something spicy', 'Best sellers?', 'Healthy snacks?', 'Track order'].map((q) => (
+                          <button key={q} onClick={() => handleQuickQuestion(q)}>
+                            {q}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 {messages.map((msg, idx) => (
                   <div key={idx} className={`chat-msg ${msg.isAdmin ? 'received' : 'sent'}`}>
-                    <div className="msg-content">
+                    <div className="msg-content shadow-premium-sm">
                       <p>{msg.message}</p>
                       <span className="msg-time">{new Date(msg.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                     </div>

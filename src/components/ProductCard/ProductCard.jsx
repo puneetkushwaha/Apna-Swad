@@ -32,15 +32,6 @@ const ProductCard = ({ product }) => {
         >
           Add to cart
         </button>
-        <button
-          className="buy-now-btn-premium"
-          onClick={() => {
-            buyNow(product);
-            navigate('/checkout');
-          }}
-        >
-          BUY NOW
-        </button>
       </div>
     </div>
   );

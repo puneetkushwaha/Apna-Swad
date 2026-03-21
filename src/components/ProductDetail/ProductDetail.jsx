@@ -125,19 +125,11 @@ const ProductDetail = () => {
 
             <div className="action-buttons">
               <button 
-                className="btn-premium btn-outline"
+                className="btn-premium btn-fill"
                 onClick={() => addToCart(product, quantity)}
+                style={{ width: '100%' }}
               >
                 Add to cart
-              </button>
-              <button 
-                className="btn-premium btn-fill"
-                onClick={() => {
-                  buyNow(product, quantity);
-                  navigate('/checkout');
-                }}
-              >
-                BUY NOW
               </button>
             </div>
 
