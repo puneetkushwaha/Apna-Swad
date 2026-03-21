@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Lock, Loader2 } from 'lucide-react';
+import { User, Mail, Lock, Loader2, AlertCircle } from 'lucide-react';
+import './LoginPage.css';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -41,63 +42,95 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2 className="brand-font">Create Account</h2>
-        <p>Join the Apna Swad family</p>
+    <div className="auth-page-wrapper">
+      <div className="auth-bg-decoration top-right"></div>
+      <div className="auth-bg-decoration bottom-left"></div>
+
+      <div className="auth-card-premium">
+        <div className="auth-logo-section">
+          <Link to="/">
+            <img src="/mascot_logo.png" alt="Apna Swad Mascot" />
+          </Link>
+          <h2 className="brand-font">Create Account</h2>
+          <p className="auth-subtitle">Join the Apna Swad heritage family</p>
+        </div>
         
-        {error && <div className="auth-error">{error}</div>}
+        {error && (
+          <div className="auth-error-premium">
+            <AlertCircle size={16} />
+            {error}
+          </div>
+        )}
         
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
-            <User size={18} />
-            <input 
-              type="text" 
-              placeholder="Full Name" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-            />
+        <form onSubmit={handleSubmit} className="auth-form-premium">
+          <div className="input-block-premium">
+            <label>Full Name</label>
+            <div className="input-wrapper-premium">
+              <User size={18} className="input-icon" />
+              <input 
+                type="text" 
+                className="input-premium"
+                placeholder="John Doe" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                required 
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <Mail size={18} />
-            <input 
-              type="email" 
-              placeholder="Email Address" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-            />
+
+          <div className="input-block-premium">
+            <label>Email Address</label>
+            <div className="input-wrapper-premium">
+              <Mail size={18} className="input-icon" />
+              <input 
+                type="email" 
+                className="input-premium"
+                placeholder="you@example.com" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <Lock size={18} />
-            <input 
-              type="password" 
-              placeholder="Password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-            />
+
+          <div className="input-block-premium">
+            <label>Password</label>
+            <div className="input-wrapper-premium">
+              <Lock size={18} className="input-icon" />
+              <input 
+                type="password" 
+                className="input-premium"
+                placeholder="••••••••" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+              />
+            </div>
           </div>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? <Loader2 className="animate-spin" /> : 'Sign Up'}
+
+          <button type="submit" className="btn btn-primary login-btn-premium" disabled={loading}>
+            {loading ? <Loader2 className="animate-spin" /> : 'Start Your Experience'}
           </button>
         </form>
 
-        <div className="auth-divider">
-          <span>OR</span>
+        <div className="auth-divider-premium">
+          <span>SECURE SOCIAL SIGNUP</span>
         </div>
 
-        <div className="google-auth-btn">
+        <div className="google-auth-wrapper">
           <GoogleLogin 
             onSuccess={handleGoogleSuccess} 
             onError={() => setError('Google Login Failed')}
-            useOneTap
+            theme="outline"
+            size="large"
+            text="signup_with"
+            shape="circle"
+            width="370"
           />
         </div>
 
-        <p className="auth-footer">
-          Already have an account? <Link to="/login">Login</Link>
+        <p className="auth-footer-premium">
+          Already have an account? <Link to="/login">Sign in here</Link>
         </p>
       </div>
     </div>
