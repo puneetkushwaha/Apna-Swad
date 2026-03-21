@@ -10,6 +10,8 @@ const ChatWidget = () => {
   const location = useLocation();
   const [isAI, setIsAI] = useState(true); // AI enabled by default for elite experience
   const [isTyping, setIsTyping] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
   const { user } = useAuth();
   const messagesEndRef = useRef(null);
 
