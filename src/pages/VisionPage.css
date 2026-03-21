@@ -1,0 +1,230 @@
+.vision-page {
+    overflow-x: hidden;
+}
+
+.vision-hero {
+    padding: 180px 0 100px;
+    background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+    border-bottom: 1px solid rgba(74, 44, 42, 0.05);
+}
+
+.vision-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--text-main);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 100px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.vision-hero .display-1 {
+    font-size: 5rem;
+    color: var(--text-main);
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.lead-text {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    font-family: var(--font-serif);
+    font-style: italic;
+}
+
+/* Section Layout */
+.vision-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.vision-grid.reverse {
+    grid-template-columns: 0.9fr 1.1fr;
+}
+
+.vision-grid.reverse .vision-text-block {
+    order: 2;
+}
+
+.vision-grid.reverse .vision-image-block {
+    order: 1;
+}
+
+.section-intro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.vision-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--secondary);
+}
+
+.vision-icon.light {
+    color: var(--white);
+}
+
+.vision-text-block h2 {
+    font-size: 2.8rem;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.vision-text-block p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.vision-text-block strong {
+    color: var(--text-main);
+}
+
+.light-text h2, .light-text p, .light-text strong {
+    color: var(--white) !important;
+}
+
+/* Image Framing */
+.premium-frame {
+    position: relative;
+    padding: 15px;
+    background: var(--white);
+    border: 1px solid rgba(74, 44, 42, 0.1);
+    box-shadow: 0 30px 60px rgba(74, 44, 42, 0.1);
+    border-radius: 4px;
+    transform: rotate(2deg);
+    transition: transform 0.5s ease;
+}
+
+.vision-grid.reverse .premium-frame {
+    transform: rotate(-2deg);
+}
+
+.premium-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.border-light {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.vision-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+}
+
+.vision-caption {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Background Variations */
+.bg-soft {
+    background-color: var(--cream);
+}
+
+.bg-brand {
+    background-color: var(--text-main);
+}
+
+/* CTA Section */
+.vision-cta {
+    padding: 120px 0;
+}
+
+.max-width-centered {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+
+.cta-text {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.luxury-btn {
+    padding: 20px 40px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.luxury-btn-outline {
+    padding: 20px 40px;
+    font-size: 1.1rem;
+    border: 2px solid var(--text-main);
+}
+
+/* Mobile Styling */
+@media (max-width: 968px) {
+    .vision-hero .display-1 {
+        font-size: 3.5rem;
+    }
+    .vision-grid, .vision-grid.reverse {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    .vision-grid.reverse .vision-text-block {
+        order: 1;
+    }
+    .vision-grid.reverse .vision-image-block {
+        order: 2;
+    }
+    .vision-text-block h2 {
+        font-size: 2.2rem;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .luxury-btn, .luxury-btn-outline {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* Animations */
+.fade-in-left {
+    animation: fadeInLeft 1s ease-out;
+}
+
+.fade-in-right {
+    animation: fadeInRight 1s ease-out;
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}

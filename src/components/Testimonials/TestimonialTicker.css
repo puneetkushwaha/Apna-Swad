@@ -1,0 +1,107 @@
+.testimonials-section {
+  padding: 40px 0 20px;
+  background-color: var(--cream);
+  overflow: hidden;
+}
+
+.testimonials-section .section-header {
+  margin-bottom: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.testimonials-section .section-header h2 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  color: var(--text-main);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.testimonials-section .section-header h2 span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--secondary);
+}
+
+.tickers-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonial-ticker-line {
+  display: flex;
+  white-space: nowrap;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 20px;
+}
+
+.testimonial-ticker-line.ltr .testimonial-track {
+  animation: scroll-ltr 40s linear infinite;
+}
+
+.testimonial-ticker-line.rtl .testimonial-track {
+  animation: scroll-rtl 40s linear infinite;
+}
+
+.testimonial-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 25px 10px 10px;
+  background: var(--white);
+  border-radius: 100px;
+  box-shadow: 0 8px 25px rgba(74, 44, 42, 0.04);
+  border: 1px solid rgba(74, 44, 42, 0.03);
+  transition: all 0.3s ease;
+  min-width: max-content;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(74, 44, 42, 0.1);
+  border-color: var(--secondary);
+}
+
+.user-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--cream);
+}
+
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+@keyframes scroll-ltr {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+@keyframes scroll-rtl {
+  0% { transform: translateX(-33.33%); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section .section-header h2 {
+    font-size: 2.5rem;
+  }
+}

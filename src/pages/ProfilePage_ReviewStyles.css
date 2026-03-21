@@ -1,0 +1,27 @@
+.mini-item-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.review-trigger-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #fff;
+  border: 1px solid #f5a623;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.review-trigger-btn:hover {
+  transform: scale(1.1);
+  background: #fcfaf3;
+}

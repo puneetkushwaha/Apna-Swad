@@ -1,0 +1,141 @@
+.announcement-board {
+  width: 100%;
+  height: 40px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.announcement-flex {
+  display: flex;
+  justify-content: center; /* Center the ticker */
+  align-items: center;
+  height: 100%;
+  padding: 0 40px;
+  position: relative; /* For absolute positioning of pincode */
+}
+
+/* Ticker Section */
+.ticker-section {
+  max-width: 60%; /* Keep it centered and bounded */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.ticker-wrapper {
+  white-space: nowrap;
+  display: flex;
+}
+
+.ticker-text {
+  display: inline-block;
+  animation: ticker-roll 30s linear infinite;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ticker-text span {
+  display: inline-block;
+  padding-right: 80px;
+}
+
+@keyframes ticker-roll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+/* Pincode Section */
+.pincode-section {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.pincode-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.pincode-display:hover {
+  opacity: 0.8;
+}
+
+.pincode-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.pin-icon-small {
+  color: var(--secondary);
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.install-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.install-link:hover {
+  color: var(--secondary);
+}
+
+.unassigned {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .announcement-board {
+    height: auto;
+    position: fixed; /* Keep it fixed on mobile too */
+    top: 90px;
+  }
+  .announcement-flex {
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px 20px;
+    justify-content: center;
+  }
+  .ticker-section {
+    max-width: 100%;
+    width: 100%;
+  }
+  .pincode-section {
+    position: static; /* Reset from absolute */
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+  .pincode-text {
+    font-size: 0.75rem;
+  }
+}

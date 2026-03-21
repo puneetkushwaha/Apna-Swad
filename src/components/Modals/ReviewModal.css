@@ -1,0 +1,38 @@
+.review-modal-content {
+  max-width: 500px !important;
+}
+
+.rating-input-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 30px;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.star-btn:hover {
+  transform: scale(1.2);
+}
+
+.modal-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: none;
+  background: #fcfaf3;
+}
+
+.error-message {
+  color: #e11d48;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  text-align: center;
+}

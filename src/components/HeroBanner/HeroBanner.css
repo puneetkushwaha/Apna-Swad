@@ -1,0 +1,158 @@
+.hero-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--background);
+}
+
+.banner-track {
+  display: flex;
+  height: 650px;
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.banner-slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.banner-controls-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 15px 0;
+  background-color: var(--background);
+  border-top: 1px solid rgba(74, 44, 42, 0.05);
+  border-bottom: 1px solid rgba(74, 44, 42, 0.05);
+}
+
+.controls-main {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.banner-dots {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #4a2c2a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: #4a2c2a;
+  transform: scale(1.2);
+}
+
+.nav-arrow {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #4a2c2a;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.nav-arrow:hover {
+  opacity: 1;
+}
+
+.nav-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pause-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #4a2c2a;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  padding-left: 30px;
+  border-left: 1px solid rgba(74, 44, 42, 0.1);
+}
+
+.pause-toggle:hover {
+  opacity: 1;
+}
+
+.pause-toggle svg {
+  width: 12px;
+  height: 12px;
+}
+
+.hero-banner-placeholder {
+  height: 650px;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.banner-title {
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  color: var(--text-main);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: var(--letter-spacing-tight);
+  font-weight: 900;
+}
+
+.banner-title .accent {
+  color: var(--text-main);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero-banner-placeholder p {
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  color: var(--text-main);
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .banner-track, .hero-banner-placeholder {
+    height: 450px;
+  }
+  .banner-title {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-track, .hero-banner-placeholder {
+    height: 350px;
+  }
+  .banner-controls-bar {
+    gap: 20px;
+    padding: 10px 0;
+  }
+  .pause-toggle {
+    padding-left: 15px;
+  }
+}

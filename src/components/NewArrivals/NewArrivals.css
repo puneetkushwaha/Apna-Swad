@@ -1,0 +1,67 @@
+.new-arrivals-section {
+  padding: 100px 0;
+  background-color: var(--background);
+  position: relative;
+}
+
+.new-arrivals-section .section-header {
+  margin-bottom: 60px;
+}
+
+.new-arrivals-section .subtitle {
+  color: var(--secondary);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.new-arrivals-section h2 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  color: var(--text-main);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.new-arrivals-section .product-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .new-arrivals-section .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .new-arrivals-section h2 {
+    font-size: 2.5rem;
+  }
+  .new-arrivals-section .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .new-arrivals-section .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.view-all-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.view-all-btn {
+  border-radius: 50px;
+  padding: 12px 35px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}

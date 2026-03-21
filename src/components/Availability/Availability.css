@@ -1,0 +1,67 @@
+.availability-section {
+  padding: 80px 0 60px;
+  background-color: var(--cream);
+  text-align: center;
+}
+
+.availability-section h2 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--text-main);
+  margin-bottom: 40px;
+}
+
+.platforms-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.platform-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 30px 40px;
+  border: 1px solid rgba(74, 44, 42, 0.05);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.platform-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.platform-card img {
+  height: 45px;
+  opacity: 0.8;
+}
+
+.store-locator {
+  margin-top: 140px;
+  padding: 120px 60px;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(74, 44, 42, 0.08);
+  box-shadow: var(--shadow-hero);
+}
+
+.locator-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  color: var(--text-main);
+  margin-bottom: 40px;
+}
+
+.locator-content p {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  line-height: 1.8;
+}

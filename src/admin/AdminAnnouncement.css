@@ -1,0 +1,134 @@
+.admin-announcement-page {
+  padding: 40px;
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+.admin-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-md);
+  border: var(--border-subtle);
+}
+
+.card-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.title-icon {
+  color: var(--secondary);
+  margin-bottom: 15px;
+}
+
+.card-header h2 {
+  font-size: 2.2rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.card-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.announcement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.form-group textarea {
+  width: 100%;
+  height: 120px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(74, 44, 42, 0.1);
+  background: rgba(74, 44, 42, 0.02);
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.form-group textarea:focus {
+  border-color: var(--secondary);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkbox-group input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: var(--text-main);
+  color: var(--white);
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 153, 51, 0.2);
+}
+
+.status-message {
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.status-message.success {
+  background: rgba(46, 213, 115, 0.1);
+  color: #2ed573;
+}
+
+.status-message.error {
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+}
+
+@media (max-width: 600px) {
+  .admin-announcement-page {
+    padding: 20px;
+  }
+}

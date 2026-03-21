@@ -1,0 +1,68 @@
+.product-review-ticker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  background: transparent;
+}
+
+.ticker-line {
+  display: flex;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll-ltr 40s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* Reuse Testimonial Card Styles if possible, or replicate exactly */
+.product-review-ticker-wrapper .testimonial-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 25px 10px 10px;
+  background: #ffffff;
+  border-radius: 100px;
+  box-shadow: 0 8px 25px rgba(74, 44, 42, 0.04);
+  border: 1px solid rgba(74, 44, 42, 0.03);
+  transition: all 0.3s ease;
+  min-width: max-content;
+}
+
+.product-review-ticker-wrapper .user-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fcfaf3;
+}
+
+.product-review-ticker-wrapper .user-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.reviewer-name-mini {
+  font-weight: 700;
+  color: #4a2c2a;
+}
+
+@keyframes scroll-ltr {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+.ticker-loading {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-style: italic;
+}

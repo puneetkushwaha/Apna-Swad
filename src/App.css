@@ -1,0 +1,183 @@
+/* Brand Story Section */
+.brand-story {
+  padding: var(--section-padding);
+  background: var(--background);
+}
+
+.story-content {
+  display: flex;
+  align-items: center;
+  gap: 120px;
+}
+
+.story-image {
+  flex: 1.2;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 40px 40px 0 var(--primary);
+}
+
+.story-text {
+  flex: 1;
+}
+
+.story-tag {
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+}
+
+.story-title {
+  font-size: 4rem;
+  color: var(--text-main);
+  margin-bottom: 40px;
+  line-height: 1.1;
+}
+
+.story-text p {
+  margin-bottom: 30px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+
+
+/* Auth Pages */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
+  background: var(--primary);
+}
+
+.auth-card {
+  background: var(--white);
+  padding: 60px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  border: var(--border-subtle);
+  animation: fadeInUp 0.8s ease;
+}
+
+.auth-card h2 {
+  color: var(--text-main);
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.auth-card p {
+  color: var(--text-main);
+  opacity: 0.7;
+  margin-bottom: 30px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--background);
+  padding: 15px 25px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.form-group:focus-within {
+  border-color: var(--text-main);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.02);
+}
+
+.form-group svg {
+  color: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.form-group input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 1rem;
+  outline: none;
+  color: var(--text-main);
+}
+
+.auth-error {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--primary);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.auth-divider {
+  margin: 30px 0;
+  position: relative;
+  height: 1px;
+  background: rgba(128, 0, 0, 0.1);
+}
+
+.auth-divider span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  padding: 0 15px;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  opacity: 0.5;
+  font-weight: 700;
+}
+
+.google-auth-btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.auth-footer {
+  font-size: 0.95rem;
+  margin-top: 10px !important;
+}
+
+.auth-footer a {
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+.auth-footer a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Profile Page removed - moved to ProfilePage.css */
+
+@media (max-width: 1024px) {
+  .story-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
