@@ -1,4 +1,4 @@
-import api from '../api/api';
+import axios from 'axios';
 
 // Ensure baseURL ends with /api even if not specified in the .env
 const getBaseURL = () => {
