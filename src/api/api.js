@@ -2,18 +2,20 @@ import axios from 'axios';
 
 // Ensure baseURL ends with /api even if not specified in the .env
 const getBaseURL = () => {
-    let url = import.meta.env.VITE_API_URL;
+    // Priority: 1. Environment Variable, 2. Hardcoded Production Fallback, 3. Localhost
+    let url = import.meta.env.VITE_API_URL || 'https://apna-swad-backend.onrender.com';
     
-    // Fallback for development if VITE_API_URL is missing or is just a placeholder
-    if (!url || url.includes('import.meta.env')) {
-        url = 'http://localhost:5000/api';
+    // Ensure it's a valid string and not a placeholder
+    if (typeof url !== 'string' || url.includes('localhost') && import.meta.env.PROD) {
+      url = 'https://apna-swad-backend.onrender.com';
     }
-
+    
     // Ensure it ends with /api
     if (!url.endsWith('/api') && !url.endsWith('/api/')) {
         url = url.endsWith('/') ? `${url}api` : `${url}/api`;
     }
 
+    console.log('API Base URL:', url); // For debugging in browser console
     return url;
 };
 
