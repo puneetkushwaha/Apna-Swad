@@ -438,31 +438,40 @@
   }
 
   .logo-container {
-    position: relative;
-    left: auto;
-    transform: none;
+    flex: 1;
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 10;
+    min-width: 0;
+  }
+
+  .logo-wrapper {
+    width: clamp(80px, 20vw, 110px);
+    height: 48px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-toggle {
+    display: flex;
     align-items: center;
-    flex: 1;
-  }
-
-  .mobile-toggle {
-    margin-right: 15px;
-  }
-
-  .header-actions {
-    margin-left: 15px;
-  }
-
-  .mobile-toggle {
-    position: relative;
+    justify-content: center;
+    flex: 0 0 44px; /* Fixed size, no shrink */
     z-index: 1100;
   }
 
   .header-actions {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto; /* No shrink */
     z-index: 1100;
+    padding-right: 5px;
+  }
+
+  .header-content {
+    padding: 0 10px !important;
   }
 }
 
