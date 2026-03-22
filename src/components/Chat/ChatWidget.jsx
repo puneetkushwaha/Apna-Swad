@@ -15,12 +15,25 @@ const ChatWidget = () => {
   const { user } = useAuth();
   const messagesEndRef = useRef(null);
 
-  const quickOptions = [
-    { label: 'Suggest Best Sellers', icon: <ShoppingBag size={14} />, query: 'What are your best sellers?' },
-    { label: 'Track Order', icon: <Truck size={14} />, query: 'How can I track my order?' },
-    { label: 'Talk to Human', icon: <Headphones size={14} />, type: 'whatsapp' },
-    { label: 'Pricing & Offers', icon: <CreditCard size={14} />, query: 'Any ongoing offers or discounts?' },
-    { label: 'FAQs', icon: <HelpCircle size={14} />, query: 'Frequently asked questions' },
+  const faqOptions = [
+    { label: "Talk to Human", type: "whatsapp", icon: <Headphones size={14} /> },
+    { label: "Suggest Best Sellers", query: "What are your best sellers?", icon: <ShoppingBag size={14} /> },
+    { label: "Track my order", query: "How can I track my order status?", icon: <Truck size={14} /> },
+    { label: "What exactly is Thekua?", query: "What exactly is Shuddh Swad Thekua?" },
+    { label: "How do I place an order?", query: "How do I place an order on the website?" },
+    { label: "How many pieces are there?", query: "How many pieces of Thekua are there in a pack?" },
+    { label: "What is the shelf-life of Thekua?", query: "What is the shelf-life or expiry of Shuddh Swad Thekua?" },
+    { label: "How long does delivery take?", query: "How long does it take for the orders to be delivered?" },
+    { label: "What is your return policy?", query: "What is your return and refund policy?" },
+    { label: "Are your snacks hygienic and safe?", query: "Are Shuddh Swad snacks hygienic, safe and authenticated?" },
+    { label: "What ingredients do you use?", query: "What are the ingredients in Shuddh Swad Thekua?" },
+    { label: "What varieties do you sell?", query: "What varieties and flavours of Thekua do you sell?" },
+    { label: "Can I gift these to friends?", query: "Can I gift Shuddh Swad snacks to my friends or family?" },
+    { label: "What payment methods do you accept?", query: "What payment methods do you accept?", icon: <CreditCard size={14} /> },
+    { label: "What are the delivery charges?", query: "What are the shipping and delivery charges?" },
+    { label: "Why don't you sell on Instagram?", query: "Why don't you sell your snacks on Instagram directly?" },
+    { label: "How to get free Thekua?", query: "Tell me about the Chhat Puja exclusive offer for free thekua." },
+    { label: "How can I contact you?", query: "How can I contact Apna Swad if I have more questions?" },
   ];
 
   useEffect(() => {
@@ -59,7 +72,12 @@ const ChatWidget = () => {
   const handleSendMessage = async (e, customMsg = null) => {
     if (e) e.preventDefault();
     const messageToSend = customMsg || newMessage;
-    if (!messageToSend.trim() || !user) return;
+    if (!messageToSend.trim()) return;
+
+    if (!user) {
+        window.location.href = '/login';
+        return;
+    }
 
     const userMsg = { message: messageToSend, createdAt: new Date(), isAdmin: false };
     setMessages(prev => [...prev, userMsg]);
@@ -88,8 +106,8 @@ const ChatWidget = () => {
     }
   };
 
-  const handleOptionClick = (option) => {
-    if (option.type === 'whatsapp') {
+  const handleFaqClick = (faq) => {
+    if (faq.type === 'whatsapp') {
       const promptMsg = { 
         message: "I can connect you with our heritage expert on WhatsApp for personalized assistance. Would you like to proceed?", 
         createdAt: new Date(), 
@@ -99,7 +117,7 @@ const ChatWidget = () => {
       setMessages(prev => [...prev, promptMsg]);
       return;
     }
-    handleSendMessage(null, option.query);
+    handleSendMessage(null, faq.query);
   };
 
   const renderMessageContent = (msg) => {
@@ -150,48 +168,40 @@ const ChatWidget = () => {
       )}
 
       {isOpen && (
-        <div className="chat-window-elite shadow-premium">
-          <div className="chat-header-elite">
-            <div className="header-left">
-              <div className="header-avatar-status">
-                <div className="avatar-wrapper">
-                  <MessageSquare size={20} color="white" />
-                </div>
-                <div className="status-dot"></div>
-              </div>
-              <div className="header-info">
-                <h3>Apna Swad Support</h3>
-                <span>Always Online</span>
-              </div>
+        <div className="chat-window-elite dash-active shadow-premium">
+          <div className="chat-header-modern">
+            <div className="header-top">
+              <h3>Chat with us</h3>
+              <X size={24} className="close-btn-modern" onClick={() => setIsOpen(false)} />
             </div>
-            <div className="header-actions">
-              <Maximize2 size={16} className="header-icon" />
-              <X size={20} className="header-icon" onClick={() => setIsOpen(false)} />
-            </div>
+            <p className="header-sub">👋 Hi, message us with any questions. We're happy to help!</p>
           </div>
 
-          <div className="messages-container-elite">
-            {!user ? (
-              <div className="chat-login-prompt">
-                <p>Namaste! Please sign in to experience our premium concierge.</p>
-                <button className="btn btn-primary" onClick={() => window.location.href = '/login'}>Sign In</button>
+          <div className="chat-content-scroller">
+            {messages.length === 0 ? (
+              <div className="chat-dashboard-view">
+                <div className="quick-input-card shadow-sm" onClick={() => messagesEndRef.current?.scrollIntoView()}>
+                  <span>Write message</span>
+                  <Send size={18} className="input-placeholder-icon" />
+                </div>
+
+                <div className="instant-answers-section">
+                  <h4 className="section-label">Instant answers</h4>
+                  <div className="faq-list">
+                    {faqOptions.map((faq, i) => (
+                      <button key={i} className="faq-card-btn" onClick={() => handleFaqClick(faq)}>
+                        <div className="faq-label-group">
+                          {faq.icon && <span className="faq-icon-mini">{faq.icon}</span>}
+                          <span>{faq.label}</span>
+                        </div>
+                        <ChevronRight size={16} className="faq-arrow" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : (
-              <>
-                <div className="welcome-elite">
-                  <p>Handcrafting Heritage Deliciously.</p>
-                  <h3>Namaste! 🙏 I'm your Apna Swad guide. How can I sweeten your day?</h3>
-                </div>
-
-                <div className="initial-options">
-                  {quickOptions.map((opt, i) => (
-                    <button key={i} className="elite-option-btn" onClick={() => handleOptionClick(opt)}>
-                      <span className="option-icon">{opt.icon}</span>
-                      <span className="option-label">{opt.label}</span>
-                    </button>
-                  ))}
-                </div>
-
+              <div className="messages-list-real">
                 {messages.map((msg, idx) => (
                   <div key={idx} className={`chat-msg-elite ${msg.isAdmin ? 'received' : 'sent'} ${msg.type || ''}`}>
                     <div className="msg-content-elite">
@@ -209,24 +219,23 @@ const ChatWidget = () => {
                   </div>
                 )}
                 <div ref={messagesEndRef} />
-              </>
+              </div>
             )}
           </div>
 
-          {user && (
-            <div className="chat-footer-elite">
-              <form className="chat-input-wrapper-elite" onSubmit={handleSendMessage}>
-                <input 
-                  placeholder="Type your message..."
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <button type="submit" className="elite-send-btn" disabled={!newMessage.trim() || isTyping}>
-                  <Send size={18} />
-                </button>
-              </form>
-            </div>
-          )}
+          <div className="chat-footer-modern">
+            <form className="chat-input-modern-form" onSubmit={handleSendMessage}>
+              <input 
+                placeholder="Write a message..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                autoFocus={messages.length > 0}
+              />
+              <button type="submit" className="modern-send-btn" disabled={!newMessage.trim() || isTyping}>
+                <Send size={18} />
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
