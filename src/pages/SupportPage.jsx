@@ -28,14 +28,14 @@ const SupportPage = () => {
           <MessageCircle className="icon" size={40} />
           <h3>Live WhatsApp Support</h3>
           <p>Get instant answers from our heritage experts on WhatsApp.</p>
-          <a href="https://wa.me/91XXXXXXXXXX" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Chat Now</a>
+          <a href="https://wa.me/918810905170" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Chat Now</a>
         </div>
         
         <div className="support-card box-shadow">
           <Phone className="icon" size={40} />
           <h3>24/7 Helpline</h3>
           <p>Call our dedicated support line anytime for urgent assistance.</p>
-          <a href="tel:+91XXXXXXXXXX" className="btn btn-outline">+91 XXX XXX XXXX</a>
+          <a href="tel:+918810905170" className="btn btn-outline">+91 8810905170</a>
         </div>
 
         <div className="support-card box-shadow">

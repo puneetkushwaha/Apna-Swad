@@ -6,47 +6,64 @@ const ReturnPolicy = () => {
     <div className="policy-page container section">
       <SEO 
         title="Return & Refund Policy | Apna Swad"
-        description="Information about returns, cancellations, and refunds for Apna Swad products."
+        description="Transparent return and refund policy for Apna Swad traditional snacks."
         url="/return-policy"
       />
       <div className="section-header">
         <h1 className="brand-font">Return & Refund Policy</h1>
-        <p>Last updated: March 2026</p>
+        <p>At Apna Swad, we are committed to delivering the highest quality snacks. Since our products are perishable food items, we follow a specific policy to ensure fairness and hygiene.</p>
       </div>
       
       <div className="policy-content">
         <section>
-          <p>At Apna Swad, we take pride in the quality of our traditional snacks. Due to the perishable nature of our products, our return policy is governed by the following guidelines.</p>
+          <h2>General Guidelines</h2>
+          <p>As we deal with handcrafted, perishable food products made without preservatives, we typically do not offer a "general change of mind" return. However, your satisfaction is our priority.</p>
         </section>
 
         <section>
-          <h2>Cancellations</h2>
-          <p>You can cancel your order within 2 hours of placement for a full refund. Once the order has been processed for shipping, cancellations are not possible.</p>
-        </section>
-
-        <section>
-          <h2>Returns</h2>
-          <p>As we deal with food products, we generally do not accept returns. However, we will provide a replacement or refund in the following cases:</p>
+          <h2>Eligibility for Refund or Replacement</h2>
+          <p>We will gladly provide a full refund or a fresh replacement if:</p>
           <ul>
-            <li>Product received is damaged or tampered with.</li>
-            <li>Incorrect product delivered.</li>
-            <li>Product has expired upon arrival.</li>
+            <li><strong>Damage:</strong> The outer packaging is severely tampered with or the inner seal is broken upon arrival.</li>
+            <li><strong>Wrong Item:</strong> You received a product different from what you ordered.</li>
+            <li><strong>Quality Issues:</strong> The product exhibits unexpected quality issues (e.g., rancidity or foreign particles).</li>
           </ul>
         </section>
 
         <section>
-          <h2>Refund Process</h2>
-          <p>If you encounter any of the issues mentioned above, please contact us within 24 hours of delivery with photographic evidence. Once verified, we will initiate a refund or replacement within 5-7 business days.</p>
+          <h2>Reporting a Problem</h2>
+          <p>To initiate a claim, please follow these steps within <strong>24 hours</strong> of receiving the delivery:</p>
+          <ul>
+            <li>Contact us via WhatsApp at <a href="https://wa.me/918810905170">8810905170</a> or email <a href="mailto:support@apnaswad.store">support@apnaswad.store</a>.</li>
+            <li>Provide your Order ID and clear photographs/videos of the concern.</li>
+            <li>Keep the product and original packaging until the claim is processed.</li>
+          </ul>
         </section>
 
         <section>
-          <h2>Quality Guarantee</h2>
-          <p>We ensure that our products are made without preservatives and palm oil. If you have concerns about the quality, please reach out to us, and we will do our best to make it right.</p>
+          <h2>Cancellations</h2>
+          <p>Orders can be cancelled within <strong>2 hours</strong> of placement. Once an order is prepared for dispatch or handed over to our shipping partner, cancellations are not possible as these are fresh batches made to order.</p>
+        </section>
+
+        <section>
+          <h2>Refund Processing</h2>
+          <p>Once your claim is approved, the refund will be processed to your original payment method within 5-7 business days. For COD orders, we will request your bank details for a direct transfer.</p>
+        </section>
+
+        <section>
+          <h2>Non-Refundable Scenarios</h2>
+          <p>Refunds will not be issued for:</p>
+          <ul>
+            <li>Incomplete or incorrect shipping address provided by the customer.</li>
+            <li>Multiple failed delivery attempts by our partner.</li>
+            <li>Refusal of the package by the customer at the time of delivery.</li>
+          </ul>
         </section>
 
         <section>
           <h2>Contact Us</h2>
-          <p>For any return or refund requests, please contact:</p>
+          <p>For any help with your order, reach out to our Heritage Support:</p>
+          <p>WhatsApp: <a href="https://wa.me/918810905170">8810905170</a></p>
           <p>Email: <a href="mailto:support@apnaswad.store">support@apnaswad.store</a></p>
         </section>
       </div>
@@ -60,6 +77,8 @@ const ReturnPolicy = () => {
           font-size: 1.8rem;
           margin: 40px 0 20px;
           color: var(--text-main);
+          border-bottom: 2px solid var(--cream);
+          padding-bottom: 10px;
         }
         .policy-content section {
           margin-bottom: 30px;
@@ -74,12 +93,16 @@ const ReturnPolicy = () => {
           margin-top: 15px;
         }
         .policy-content li {
-          margin-bottom: 10px;
+          margin-bottom: 12px;
           list-style: disc;
+        }
+        .policy-content strong {
+          color: var(--text-main);
         }
         .policy-content a {
           color: var(--secondary);
           text-decoration: underline;
+          font-weight: 600;
         }
       `}</style>
     </div>

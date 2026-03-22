@@ -44,7 +44,6 @@ import ShippingPolicy from './pages/ShippingPolicy';
 import ReturnPolicy from './pages/ReturnPolicy';
 import ContactPage from './pages/ContactPage';
 import SustainabilityPage from './pages/SustainabilityPage';
-import StoreLocatorPage from './pages/StoreLocatorPage';
 import SupportPage from './pages/SupportPage';
 import './App.css';
 
@@ -175,7 +174,6 @@ function App() {
             <Route path="/return-policy" element={<ReturnPolicy />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/sustainability" element={<SustainabilityPage />} />
-            <Route path="/store-locator" element={<StoreLocatorPage />} />
             <Route path="/support" element={<SupportPage />} />
             
             <Route path="/admin/login" element={<AdminLogin />} />

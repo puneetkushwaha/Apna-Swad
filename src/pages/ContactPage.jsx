@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Instagram, Linkedin, MessageCircle, Utensils, Heart, ShieldCheck } from 'lucide-react';
 import SEO from '../components/SEO/SEO';
 import api from '../api/api';
 
@@ -23,7 +23,7 @@ const ContactPage = () => {
     setStatus({ type: '', message: '' });
     try {
       await api.post('/contact', formData);
-      setStatus({ type: 'success', message: 'Thank you! Your message has been sent. Our team will get back to you soon.' });
+      setStatus({ type: 'success', message: 'Namaste! Your message has reached our kitchen. We will get back to you soon.' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
       setStatus({ type: 'error', message: 'Something went wrong. Please try again later.' });
@@ -36,231 +36,359 @@ const ContactPage = () => {
     <div className="contact-page container section">
       <SEO 
         title="Contact Us | Apna Swad"
-        description="Get in touch with the Apna Swad team for queries, bulk orders, or feedback."
+        description="Experience the tagda heritage of Apna Swad. Get in touch with our Lucknow team for queries, bulk orders, or just a friendly chat."
         url="/contact"
       />
       
-      <div className="section-header">
-        <h1 className="brand-font">Get in Touch</h1>
-        <p>We'd love to hear from you. Whether you have a question about our traditional snacks, bulk orders, or just want to share your shuddh swad experience.</p>
+      <div className="hero-compact reveal">
+        <h1 className="brand-font">Let's Talk <span>Swad</span></h1>
+        <p>From the heart of Lucknow to your doorstep, we're here to preserve the authentic flavors of India.</p>
       </div>
 
-      <div className="contact-grid">
-        <div className="contact-info reveal">
-          <div className="info-card">
-            <h3>Contact Information</h3>
-            <div className="info-item">
-              <Mail className="icon" size={24} />
-              <div>
-                <p className="label">Email Us</p>
+      <div className="contact-main-grid">
+        <div className="contact-sidebar reveal">
+          <div className="contact-card primary-card">
+            <h3>Direct Contact</h3>
+            <div className="contact-item">
+              <div className="icon-box"><Phone size={20} /></div>
+              <div className="text-box">
+                <span className="label">Call Our Kitchen</span>
+                <a href="tel:+918810905170">+91 8810905170</a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="icon-box"><MessageCircle size={20} /></div>
+              <div className="text-box">
+                <span className="label">WhatsApp Support</span>
+                <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer">Chat with us</a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="icon-box"><Mail size={20} /></div>
+              <div className="text-box">
+                <span className="label">Email Inquiry</span>
                 <a href="mailto:support@apnaswad.store">support@apnaswad.store</a>
               </div>
             </div>
-            <div className="info-item">
-              <Phone className="icon" size={24} />
-              <div>
-                <p className="label">Call Us</p>
-                <a href="tel:+91XXXXXXXXXX">+91 XXX XXX XXXX</a>
+            <div className="contact-item">
+              <div className="icon-box"><MapPin size={20} /></div>
+              <div className="text-box">
+                <span className="label">Our Presence</span>
+                <p>Lucknow, Uttar Pradesh, India</p>
               </div>
             </div>
-            <div className="info-item">
-              <MapPin className="icon" size={24} />
-              <div>
-                <p className="label">Location</p>
-                <p>New Delhi, India - Delivering Heritage Worldwide</p>
-              </div>
-            </div>
+          </div>
 
-            <div className="social-connect">
-              <p>Connect with us:</p>
-              <div className="social-icons">
-                <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
-                <a href="https://www.linkedin.com/company/apnaswad-the-heritage-of-taste/" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
-                <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener noreferrer"><MessageCircle size={20} /></a>
-              </div>
+          <div className="feature-badges">
+            <div className="badge-item">
+              <Utensils size={18} />
+              <span>Handcrafted</span>
+            </div>
+            <div className="badge-item">
+              <ShieldCheck size={18} />
+              <span>Zero Palm Oil</span>
+            </div>
+            <div className="badge-item">
+              <Heart size={18} />
+              <span>Zero Preservatives</span>
             </div>
           </div>
         </div>
 
-        <div className="contact-form-container reveal">
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Full Name</label>
-              <input 
-                type="text" 
-                name="name" 
-                value={formData.name} 
-                onChange={handleChange} 
-                placeholder="Enter your name" 
-                required 
-              />
+        <div className="contact-content reveal">
+          <div className="form-wrapper">
+            <div className="form-header">
+              <h2>Send us a Message</h2>
+              <p>Have a custom order request or want to collaborate? Fill the form below.</p>
             </div>
-            <div className="form-group">
-              <label>Email Address</label>
-              <input 
-                type="email" 
-                name="email" 
-                value={formData.email} 
-                onChange={handleChange} 
-                placeholder="Enter your email" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Subject</label>
-              <input 
-                type="text" 
-                name="subject" 
-                value={formData.subject} 
-                onChange={handleChange} 
-                placeholder="What is this regarding?" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Message</label>
-              <textarea 
-                name="message" 
-                value={formData.message} 
-                onChange={handleChange} 
-                placeholder="How can we help you?" 
-                rows="5" 
-                required 
-              ></textarea>
-            </div>
-            
-            {status.message && (
-              <div className={`status-message ${status.type}`}>
-                {status.message}
-              </div>
-            )}
 
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Sending...' : (
-                <>
-                  Send Message <Send size={18} style={{ marginLeft: '10px' }} />
-                </>
+            <form className="tagda-form" onSubmit={handleSubmit}>
+              <div className="input-grid">
+                <div className="field-group">
+                  <label>Your Name</label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    placeholder="e.g. Rahul Sharma" 
+                    required 
+                  />
+                </div>
+                <div className="field-group">
+                  <label>Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    placeholder="e.g. rahul@example.com" 
+                    required 
+                  />
+                </div>
+              </div>
+              
+              <div className="field-group">
+                <label>Subject</label>
+                <input 
+                  type="text" 
+                  name="subject" 
+                  value={formData.subject} 
+                  onChange={handleChange} 
+                  placeholder="Bulk order, partnership, or feedback?" 
+                  required 
+                />
+              </div>
+
+              <div className="field-group">
+                <label>Message</label>
+                <textarea 
+                  name="message" 
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  placeholder="Tell us what's on your mind..." 
+                  rows="4" 
+                  required 
+                ></textarea>
+              </div>
+
+              {status.message && (
+                <div className={`status-box ${status.type}`}>
+                  {status.message}
+                </div>
               )}
-            </button>
-          </form>
+
+              <button type="submit" className="tagda-btn" disabled={loading}>
+                {loading ? 'Sending Request...' : (
+                  <>
+                    Submit Message <Send size={20} style={{ marginLeft: '12px' }} />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
       <style jsx>{`
-        .contact-grid {
-          display: grid;
-          grid-template-columns: 1fr 1.5fr;
-          gap: 60px;
-          margin-top: 40px;
+        .contact-page {
+          max-width: 1200px;
+          margin-top: 20px;
         }
-        .info-card {
+        .hero-compact {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+        .hero-compact h1 {
+          font-size: clamp(3rem, 8vw, 5rem);
+          margin-bottom: 15px;
+          color: var(--text-main);
+        }
+        .hero-compact h1 span {
+          color: var(--secondary);
+          position: relative;
+        }
+        .hero-compact h1 span::after {
+          content: '';
+          position: absolute;
+          bottom: 10px;
+          left: 0;
+          width: 100%;
+          height: 12px;
+          background: rgba(255, 153, 51, 0.2);
+          z-index: -1;
+        }
+        .hero-compact p {
+          font-size: 1.25rem;
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .contact-main-grid {
+          display: grid;
+          grid-template-columns: 380px 1fr;
+          gap: 50px;
+        }
+
+        .contact-card.primary-card {
           background: var(--text-main);
           color: var(--white);
-          padding: 60px;
-          border-radius: 24px;
-          height: 100%;
+          padding: 40px;
+          border-radius: 32px;
+          box-shadow: 0 30px 60px rgba(74, 44, 42, 0.15);
         }
-        .info-card h3 {
-          font-size: 2.2rem;
-          margin-bottom: 40px;
-        }
-        .info-item {
-          display: flex;
-          gap: 20px;
+        .primary-card h3 {
+          font-size: 1.8rem;
           margin-bottom: 35px;
+          color: var(--white);
         }
-        .info-item .icon {
-          color: var(--secondary);
-          flex-shrink: 0;
-        }
-        .info-item .label {
-          font-size: 0.8rem;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          opacity: 0.7;
-          margin-bottom: 5px;
-        }
-        .info-item a, .info-item p:not(.label) {
-          font-size: 1.1rem;
-          font-weight: 500;
-        }
-        .social-connect {
-          margin-top: 60px;
-          padding-top: 40px;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .social-icons {
+        .contact-item {
           display: flex;
           gap: 20px;
-          margin-top: 15px;
+          margin-bottom: 30px;
         }
-        .social-icons a {
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+        .icon-box {
+          width: 48px;
+          height: 48px;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: var(--transition);
+          color: var(--secondary);
+          flex-shrink: 0;
         }
-        .social-icons a:hover {
-          background: var(--secondary);
-          border-color: var(--secondary);
-          transform: translateY(-3px);
+        .text-box .label {
+          display: block;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          opacity: 0.6;
+          margin-bottom: 4px;
+        }
+        .text-box a, .text-box p {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: inherit;
         }
 
-        .contact-form {
+        .feature-badges {
+          margin-top: 40px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+        .badge-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 15px 20px;
+          background: var(--cream);
+          border-radius: 16px;
+          color: var(--text-main);
+          font-weight: 600;
+          font-size: 0.95rem;
+          border: 1px solid rgba(74, 44, 42, 0.05);
+        }
+        .badge-item svg {
+          color: var(--secondary);
+        }
+
+        .form-wrapper {
+          background: var(--white);
+          padding: 60px;
+          border-radius: 32px;
+          border: var(--border-subtle);
+          box-shadow: var(--shadow-sm);
+        }
+        .form-header {
+          margin-bottom: 40px;
+        }
+        .form-header h2 {
+          font-size: 2.2rem;
+          margin-bottom: 10px;
+          color: var(--text-main);
+        }
+        .form-header p {
+          color: var(--text-muted);
+        }
+
+        .tagda-form {
           display: flex;
           flex-direction: column;
           gap: 25px;
         }
-        .form-group {
+        .input-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        .field-group {
           display: flex;
           flex-direction: column;
           gap: 10px;
         }
-        .form-group label {
-          font-weight: 600;
+        .field-group label {
+          font-weight: 700;
           font-size: 0.9rem;
           color: var(--text-main);
         }
-        .form-group input, .form-group textarea {
-          padding: 18px;
-          border: 1px solid rgba(74, 44, 42, 0.1);
-          border-radius: 12px;
-          background: var(--cream);
-          color: var(--text-main);
+        .field-group input, .field-group textarea {
+          padding: 18px 25px;
+          border: 1.5px solid rgba(74, 44, 42, 0.08);
+          border-radius: 16px;
+          background: #fdfdfd;
           font-family: inherit;
+          font-size: 1rem;
           transition: var(--transition);
         }
-        .form-group input:focus, .form-group textarea:focus {
+        .field-group input:focus, .field-group textarea:focus {
           outline: none;
           border-color: var(--secondary);
           box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+          background: var(--white);
         }
-        .status-message {
-          padding: 15px;
-          border-radius: 8px;
-          font-size: 0.95rem;
-          margin-bottom: 20px;
+
+        .tagda-btn {
+          margin-top: 15px;
+          padding: 20px 40px;
+          background: var(--text-main);
+          color: var(--white);
+          border: none;
+          border-radius: 16px;
+          font-weight: 700;
+          font-size: 1.1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: var(--transition);
         }
-        .status-message.success {
-          background: #e6f4ea;
-          color: #1e7e34;
+        .tagda-btn:hover:not(:disabled) {
+          background: var(--secondary);
+          transform: translateY(-3px);
+          box-shadow: 0 15px 30px rgba(255, 153, 51, 0.3);
         }
-        .status-message.error {
-          background: #fce8e6;
-          color: #d93025;
+        .tagda-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .status-box {
+          padding: 18px;
+          border-radius: 12px;
+          font-weight: 600;
+        }
+        .status-box.success {
+          background: #ecfdf5;
+          color: #065f46;
+          border: 1px solid #a7f3d0;
+        }
+        .status-box.error {
+          background: #fef2f2;
+          color: #991b1b;
+          border: 1px solid #fecaca;
         }
 
         @media (max-width: 1024px) {
-          .contact-grid {
+          .contact-main-grid {
             grid-template-columns: 1fr;
             gap: 40px;
           }
-          .info-card {
+          .form-wrapper {
             padding: 40px;
+          }
+        }
+        @media (max-width: 640px) {
+          .input-grid {
+            grid-template-columns: 1fr;
+          }
+          .form-wrapper {
+            padding: 30px 20px;
+          }
+          .hero-compact h1 {
+            font-size: 2.5rem;
           }
         }
       `}</style>

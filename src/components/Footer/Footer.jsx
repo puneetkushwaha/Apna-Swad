@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="social-links">
               <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
               <a href="https://www.linkedin.com/company/apnaswad-the-heritage-of-taste/" target="_blank" rel="noopener noreferrer" className="social-icon"><Linkedin size={18} /></a>
-              <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener noreferrer" className="social-icon"><MessageCircle size={18} /></a>
+              <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer" className="social-icon"><MessageCircle size={18} /></a>
               <a href="https://www.youtube.com/@ApnaSwad" target="_blank" rel="noopener noreferrer" className="social-icon"><Youtube size={18} /></a>
             </div>
           </div>
@@ -34,7 +34,6 @@ const Footer = () => {
             <ul>
               <li><Link to="/contact">Contact Us</Link></li>
               <li><Link to="/sustainability">Sustainability</Link></li>
-              <li><Link to="/store-locator">Store Locator</Link></li>
               <li><Link to="/support">24/7 Heritage Support</Link></li>
             </ul>
           </div>
