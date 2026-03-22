@@ -173,4 +173,11 @@
   .brand-font {
     font-size: 2.5rem;
   }
+  .pick-image-container {
+    aspect-ratio: 3/4;
+    height: 380px; /* Force taller height on mobile */
+  }
+  .dev-pick-frame {
+    padding: 15px;
+  }
 }

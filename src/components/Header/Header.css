@@ -438,12 +438,21 @@
   }
 
   .logo-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    left: auto;
+    transform: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+  }
+
+  .mobile-toggle {
+    margin-right: 15px;
+  }
+
+  .header-actions {
+    margin-left: 15px;
   }
 
   .mobile-toggle {
