@@ -35,6 +35,8 @@ import CartPage from './pages/CartPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { WishlistProvider } from './context/WishlistContext';
+import WishlistPage from './pages/WishlistPage';
 import SEO from './components/SEO/SEO';
 import './App.css';
 
