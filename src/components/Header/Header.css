@@ -48,8 +48,8 @@
 
 .logo-wrapper {
   position: relative;
-  height: clamp(40px, 6vw, 64px);
-  width: clamp(100px, 15vw, 140px);
+  height: clamp(45px, 7vw, 75px);
+  width: clamp(120px, 18vw, 180px);
   display: flex;
   align-items: center;
 }
@@ -76,7 +76,7 @@
 }
 
 .text-logo {
-  height: 48px;
+  height: 56px;
   top: 50%;
   transform: translateY(-50%) scale(0.9);
 }
