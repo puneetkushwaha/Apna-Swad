@@ -2,14 +2,19 @@
 
 :root {
   /* Elite Pearl & Cream Aesthetic */
-  --background: #FDFBF7; /* Warm Pearl White */
+  --background: #FDFBF7;
+  /* Warm Pearl White */
   --primary: #FDFBF7;
-  --secondary: #FF9933;   /* Signature Saffron (Accent) */
-  --cream: #F5F2ED;       /* Elite Heritage Cream */
+  --secondary: #FF9933;
+  /* Signature Saffron (Accent) */
+  --cream: #F5F2ED;
+  /* Elite Heritage Cream */
   --white: #FFFFFF;
-  --text-main: #4A2C2A;   /* Deep Mahogany Brown (Elite) */
-  --text-muted: #8B7E74;   /* Warm Muted Tone */
-  
+  --text-main: #4A2C2A;
+  /* Deep Mahogany Brown (Elite) */
+  --text-muted: #8B7E74;
+  /* Warm Muted Tone */
+
   /* Typography Design Tokens */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Outfit', 'Inter', sans-serif;
@@ -28,7 +33,7 @@
   --border-radius: 24px;
   --border-subtle: 1px solid rgba(74, 44, 42, 0.05);
   --glass-bg: rgba(255, 255, 255, 0.9);
-  
+
   /* Blending Gradients */
   --grad-cream-white: linear-gradient(to bottom, var(--background), var(--white));
   --grad-white-cream: linear-gradient(to bottom, var(--white), var(--background));
@@ -46,7 +51,8 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--background); /* Use Warm Pearl for continuity */
+  background-color: var(--background);
+  /* Use Warm Pearl for continuity */
   color: var(--text-main);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -55,15 +61,28 @@ body {
 }
 
 main {
-  padding-top: clamp(100px, 12vw, 130px); /* Responsive header + announcement offset */
+  padding-top: clamp(100px, 12vw, 130px);
+  /* Responsive header + announcement offset */
   min-height: calc(100vh - 130px);
 }
 
-h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
-h2 { font-size: clamp(2rem, 6vw, 3.5rem); }
-h3 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
 
-h1, h2, h3, h4, .brand-font {
+h2 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+.brand-font {
   font-family: var(--font-serif);
   font-weight: 500;
   line-height: 1.1;
@@ -168,14 +187,29 @@ img {
 
 /* Micro Animations */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .reveal {
@@ -219,5 +253,7 @@ img {
 }
 
 @keyframes premium-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

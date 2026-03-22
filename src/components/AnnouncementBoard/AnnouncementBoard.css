@@ -51,8 +51,13 @@
 }
 
 @keyframes ticker-roll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.33%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.33%);
+  }
 }
 
 /* Pincode Section */
@@ -119,22 +124,26 @@
     position: fixed;
     top: 90px;
   }
+
   .announcement-flex {
     flex-direction: column;
     gap: 5px;
     padding: 10px 20px;
     justify-content: center;
   }
+
   .ticker-section {
     max-width: 100%;
     width: 100%;
   }
+
   .pincode-section {
     position: static;
     width: 100%;
     justify-content: center;
     gap: 12px;
   }
+
   .pincode-text {
     font-size: 0.75rem;
   }
