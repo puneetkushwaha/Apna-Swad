@@ -13,10 +13,10 @@ const InstagramFeed = () => {
   // Note: Using the AI generated local paths for demonstration in this environment
   // In a real app, these would be Cloudinary or Instagram API URLs.
   const localFeed = [
-    { id: 1, image: '/insta_heritage_1_1774122243628.png', likes: '1.2k', comments: '45' },
-    { id: 2, image: '/insta_heritage_2_1774122260627.png', likes: '850', comments: '32' },
-    { id: 3, image: '/insta_heritage_3_1774122279941.png', likes: '2.1k', comments: '89' },
-    { id: 4, image: '/insta_heritage_4_1774122294722.png', likes: '1.5k', comments: '67' },
+    { id: 1, image: '/insta_1.png', likes: '1.2k', comments: '45' },
+    { id: 2, image: '/insta_2.png', likes: '850', comments: '32' },
+    { id: 3, image: '/insta_3.png', likes: '2.1k', comments: '89' },
+    { id: 4, image: '/insta_4.png', likes: '1.5k', comments: '67' },
   ];
 
   return (

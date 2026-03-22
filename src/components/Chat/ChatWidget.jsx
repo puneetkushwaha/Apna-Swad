@@ -136,9 +136,15 @@ const ChatWidget = () => {
     <div className={`chat-widget-wrapper ${isOpen ? 'open' : ''}`}>
       {!isOpen && (
         <div className="chat-trigger-group">
-          <button className="chat-support-label glass shadow-premium" onClick={() => setIsOpen(true)}>24/7 Support</button>
+          <div className="chat-support-badge shadow-premium" onClick={() => setIsOpen(true)} style={{cursor: 'pointer', pointerEvents: 'auto'}}>
+            <span className="pulse-dot"></span>
+            24/7 Heritage Support
+          </div>
           <button className="chat-trigger-btn shadow-premium" onClick={() => setIsOpen(true)}>
-            <MessageSquare size={26} />
+            <div className="btn-inner-icon">
+              <MessageSquare size={26} />
+              <span className="notification-ping"></span>
+            </div>
           </button>
         </div>
       )}
@@ -174,7 +180,7 @@ const ChatWidget = () => {
               <>
                 <div className="welcome-elite">
                   <p>Handcrafting Heritage Deliciously.</p>
-                  <h3>How can we help you today?</h3>
+                  <h3>Namaste! 🙏 I'm your Apna Swad guide. How can I sweeten your day?</h3>
                 </div>
 
                 <div className="initial-options">
