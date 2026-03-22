@@ -39,7 +39,7 @@ const AdminChat = () => {
 
   const fetchMessages = async (userId) => {
     try {
-      const res = await api.get('/chat/${userId}', {
+      const res = await api.get(`/chat/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data);

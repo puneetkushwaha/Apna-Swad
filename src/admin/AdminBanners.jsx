@@ -51,7 +51,7 @@ const AdminBanners = () => {
   const deleteBanner = async (id) => {
     if (!window.confirm('Remove this banner?')) return;
     try {
-      await api.delete('/banners/${id}', {
+      await api.delete(`/banners/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchBanners();

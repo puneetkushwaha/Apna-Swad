@@ -36,7 +36,7 @@ const AdminOrders = () => {
 
   const handlePrintLabel = async (orderId) => {
     try {
-      const res = await api.get('/orders/${orderId}/label', {
+      const res = await api.get(`/orders/${orderId}/label`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data && res.data.label_url) {
@@ -51,7 +51,7 @@ const AdminOrders = () => {
 
   const handlePrintInvoice = async (orderId) => {
     try {
-      const res = await api.get('/orders/${orderId}/invoice', {
+      const res = await api.get(`/orders/${orderId}/invoice`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data && res.data.invoice_url) {
@@ -67,7 +67,7 @@ const AdminOrders = () => {
   const handleUpdateStatus = async (e) => {
     e.preventDefault();
     try {
-      await api.put('/orders/${selectedOrder._id}/status', trackingData, {
+      await api.put(`/orders/${selectedOrder._id}/status`, trackingData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchOrders();
@@ -81,7 +81,7 @@ const AdminOrders = () => {
 
   const handleManualSync = async (orderId) => {
     try {
-      const res = await api.post('/orders/${orderId}/sync', {}, {
+      const res = await api.post(`/orders/${orderId}/sync`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Sync successful!');

@@ -56,7 +56,7 @@ const AdminReviews = () => {
   const deleteReview = async (id) => {
     if (!window.confirm('Delete this feedback?')) return;
     try {
-      await api.delete('/reviews/${id}', {
+      await api.delete(`/reviews/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchReviews();

@@ -54,7 +54,7 @@ const AdminCategories = () => {
 
     try {
       if (editingId) {
-        await api.put('/admin/categories/${editingId}', submitData, { headers });
+        await api.put(`/admin/categories/${editingId}`, submitData, { headers });
       } else {
         await api.post('/admin/categories', submitData, { headers });
       }
@@ -74,7 +74,7 @@ const AdminCategories = () => {
   const deleteCategory = async (id) => {
     if (!window.confirm('Delete this category?')) return;
     try {
-      await api.delete('/admin/categories/${id}', {
+      await api.delete(`/admin/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchCategories();
