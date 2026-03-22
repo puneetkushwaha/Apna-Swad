@@ -45,6 +45,7 @@ import ReturnPolicy from './pages/ReturnPolicy';
 import ContactPage from './pages/ContactPage';
 import SustainabilityPage from './pages/SustainabilityPage';
 import SupportPage from './pages/SupportPage';
+import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
   return (
     <WishlistProvider>
       <div className="app">
+        <ScrollToTop />
         {(!isAdminPath || (isAdminPath && !isAdminLogin)) && <Header />}
         {!isAdminPath && <AnnouncementBoard />}
         

@@ -143,12 +143,16 @@
 .footer-legal {
   display: flex;
   gap: 20px;
+  position: relative;
+  z-index: 10001; /* Higher than ChatWidget */
 }
 
 .footer-legal a {
   color: var(--text-muted);
   font-size: 0.85rem;
   text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .footer-legal a:hover {

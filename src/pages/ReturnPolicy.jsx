@@ -60,51 +60,12 @@ const ReturnPolicy = () => {
           </ul>
         </section>
 
-        <section>
-          <h2>Contact Us</h2>
+        <div className="policy-footer" style={{ marginTop: '40px', padding: '30px', background: '#fcfaf8', borderRadius: '16px', border: '1px solid rgba(74, 44, 42, 0.05)' }}>
           <p>For any help with your order, reach out to our Heritage Support:</p>
-          <p>WhatsApp: <a href="https://wa.me/918810905170">8810905170</a></p>
-          <p>Email: <a href="mailto:support@apnaswad.store">support@apnaswad.store</a></p>
-        </section>
+          <p style={{ fontWeight: 'bold' }}>WhatsApp: <a href="https://wa.me/918810905170" style={{ color: '#FF9933' }}>8810905170</a></p>
+          <p style={{ fontWeight: 'bold' }}>Email: <a href="mailto:support@apnaswad.store" style={{ color: '#FF9933' }}>support@apnaswad.store</a></p>
+        </div>
       </div>
-
-      <style jsx>{`
-        .policy-page {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-        .policy-content h2 {
-          font-size: 1.8rem;
-          margin: 40px 0 20px;
-          color: var(--text-main);
-          border-bottom: 2px solid var(--cream);
-          padding-bottom: 10px;
-        }
-        .policy-content section {
-          margin-bottom: 30px;
-        }
-        .policy-content p, .policy-content li {
-          color: var(--text-muted);
-          line-height: 1.8;
-          font-size: 1.1rem;
-        }
-        .policy-content ul {
-          padding-left: 20px;
-          margin-top: 15px;
-        }
-        .policy-content li {
-          margin-bottom: 12px;
-          list-style: disc;
-        }
-        .policy-content strong {
-          color: var(--text-main);
-        }
-        .policy-content a {
-          color: var(--secondary);
-          text-decoration: underline;
-          font-weight: 600;
-        }
-      `}</style>
     </div>
   );
 };
