@@ -27,7 +27,7 @@ const InstagramFeed = () => {
             <Instagram size={32} className="insta-icon" />
             <h2 className="brand-font">On the Gram</h2>
           </div>
-          <p className="insta-subtitle">Join our community of heritage snack lovers <span className="highlight">@ApnaSwad</span></p>
+          <p className="insta-subtitle">Join our community of heritage snack lovers <span className="highlight">@apnaswad_india</span></p>
         </div>
 
         <div className="insta-grid">
@@ -47,7 +47,7 @@ const InstagramFeed = () => {
         </div>
         
         <div className="insta-footer">
-          <a href="https://instagram.com/apnaswad" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+          <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
             Follow our Journey
           </a>
         </div>

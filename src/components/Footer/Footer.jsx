@@ -12,7 +12,7 @@ const Footer = () => {
             <img src="/text_logo.png" alt="Apna Swad" className="footer-logo-text" />
             <p>Authentic Indian snacks, handcrafted with love and zero preservatives. Bringing the taste of tradition to your doorstep.</p>
             <div className="social-links">
-              <a href="#" className="social-icon"><Instagram size={18} /></a>
+              <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
               <a href="#" className="social-icon"><Facebook size={18} /></a>
               <a href="#" className="social-icon"><Twitter size={18} /></a>
               <a href="#" className="social-icon"><Linkedin size={18} /></a>
