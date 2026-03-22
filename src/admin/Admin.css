@@ -692,3 +692,144 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--admin-accent);
 }
+
+/* Admin Modal Refinement */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 26, 25, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000; /* Extremely high to stay above chat widget */
+  padding: 20px;
+}
+
+.admin-modal {
+  background: white;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 28px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+  overflow: hidden;
+  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  padding: 30px;
+  background: var(--admin-bg);
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.close-btn {
+  background: var(--admin-accent-soft);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--admin-accent);
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: var(--admin-accent);
+  color: white;
+}
+
+.admin-form-premium {
+  padding: 30px;
+}
+
+.admin-actions-grid-premium {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-full {
+  width: 100%;
+  padding: 15px !important;
+}
+
+/* Order Detail Grid */
+.order-detail-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+  padding: 30px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.detail-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--admin-accent);
+  border-bottom: 2px solid var(--admin-accent-soft);
+  padding-bottom: 8px;
+}
+
+.order-item-row-premium {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.item-thumb-premium {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.item-name-premium {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.order-total-bar-premium {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .order-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-modal {
+    max-width: 95%;
+  }
+}
