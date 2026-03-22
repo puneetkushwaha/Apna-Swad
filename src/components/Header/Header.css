@@ -19,7 +19,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0;
+  padding: 0 20px; /* Added padding to prevent overflow */
   gap: clamp(10px, 2vw, 15px);
 }
 

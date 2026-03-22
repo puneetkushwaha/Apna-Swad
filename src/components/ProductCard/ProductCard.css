@@ -11,6 +11,9 @@
 }
 
 @media (max-width: 480px) {
+  .product-image-area {
+    height: 380px !important; /* Force taller vertical images on mobile */
+  }
   .product-title {
     font-size: 0.8rem;
     min-height: 2.2rem;
