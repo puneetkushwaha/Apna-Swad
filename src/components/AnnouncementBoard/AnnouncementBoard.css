@@ -1,8 +1,8 @@
 .announcement-board {
   width: 100%;
   height: 40px;
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: #FDFBF7;
+  color: #2d1a18;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -10,21 +10,21 @@
   top: 90px;
   left: 0;
   z-index: 999;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(74, 44, 42, 0.08);
 }
 
 .announcement-flex {
   display: flex;
-  justify-content: center; /* Center the ticker */
+  justify-content: center;
   align-items: center;
   height: 100%;
   padding: 0 40px;
-  position: relative; /* For absolute positioning of pincode */
+  position: relative;
 }
 
 /* Ticker Section */
 .ticker-section {
-  max-width: 60%; /* Keep it centered and bounded */
+  max-width: 60%;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -38,11 +38,11 @@
 .ticker-text {
   display: inline-block;
   animation: ticker-roll 30s linear infinite;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.9);
+  color: #2d1a18;
 }
 
 .ticker-text span {
@@ -79,7 +79,7 @@
 
 .pincode-text {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--secondary);
 }
 
@@ -90,7 +90,7 @@
 .separator {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(74, 44, 42, 0.1);
 }
 
 .install-link {
@@ -98,9 +98,9 @@
   align-items: center;
   gap: 6px;
   text-decoration: none;
-  color: #ffffff;
+  color: #2d1a18;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   transition: color 0.3s ease;
 }
 
@@ -110,19 +110,19 @@
 
 .unassigned {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(74, 44, 42, 0.5);
 }
 
 @media (max-width: 768px) {
   .announcement-board {
     height: auto;
-    position: fixed; /* Keep it fixed on mobile too */
+    position: fixed;
     top: 90px;
   }
   .announcement-flex {
     flex-direction: column;
     gap: 5px;
-    padding: 8px 20px;
+    padding: 10px 20px;
     justify-content: center;
   }
   .ticker-section {
@@ -130,10 +130,10 @@
     width: 100%;
   }
   .pincode-section {
-    position: static; /* Reset from absolute */
+    position: static;
     width: 100%;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
   }
   .pincode-text {
     font-size: 0.75rem;

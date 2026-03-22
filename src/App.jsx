@@ -13,6 +13,7 @@ import AdminOrders from './admin/AdminOrders';
 import AdminChat from './admin/AdminChat';
 import AdminBulkEmail from './admin/AdminBulkEmail';
 import InstagramFeed from './components/InstagramFeed/InstagramFeed';
+import YouTubeFeed from './components/YouTubeFeed/YouTubeFeed';
 import ChatWidget from './components/Chat/ChatWidget';
 import AnnouncementBoard from './components/AnnouncementBoard/AnnouncementBoard';
 import ProductDetail from './components/ProductDetail/ProductDetail';
@@ -112,6 +113,7 @@ function App() {
                 <div className="reveal"><DhyantisDevPicks /></div>
                 <div className="reveal"><DhyantisStory /></div>
                 <InstagramFeed />
+                <YouTubeFeed />
                 <div className="reveal"><LastBanner /></div>
               </>
             } />

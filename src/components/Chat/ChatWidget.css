@@ -63,7 +63,7 @@
   width: 10px;
   height: 10px;
   background: #ef4444;
-  border: 2px solid var(--text-main, #2d1a18);
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
   animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
@@ -76,14 +76,14 @@
   width: 65px;
   height: 65px;
   border-radius: 22px;
-  background: var(--text-main, #2d1a18);
+  background: #FDFBF7;
   color: var(--secondary, #FF9933);
-  border: none;
+  border: 1px solid rgba(74, 44, 42, 0.1);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 15px 35px rgba(74, 44, 42, 0.2);
+  box-shadow: 0 10px 25px rgba(74, 44, 42, 0.08);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
