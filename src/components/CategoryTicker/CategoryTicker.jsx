@@ -19,8 +19,23 @@ const CategoryTicker = () => {
     fetchCategories();
   }, []);
 
+  // Predefined categories for Coming Soon anticipation
+  const comingSoonCats = [
+    { _id: 'cs1', name: 'Handcrafted Namkeen', slug: 'namkeen' },
+    { _id: 'cs2', name: 'Traditional Sweets', slug: 'sweets' },
+    { _id: 'cs3', name: 'Festive Combos', slug: 'festive-combos' }
+  ];
+
+  // Combine fetched categories with coming soon ones, ensuring no duplicates if they are added to DB later
+  const uniqueCategories = [...categories];
+  comingSoonCats.forEach(cs => {
+    if (!categories.find(c => c.slug.toLowerCase() === cs.slug.toLowerCase())) {
+      uniqueCategories.push(cs);
+    }
+  });
+
   // Double the categories for seamless loop
-  const displayCategories = [...categories, ...categories, ...categories];
+  const displayCategories = [...uniqueCategories, ...uniqueCategories, ...uniqueCategories];
 
   return (
     <div className="category-ticker-section">

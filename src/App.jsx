@@ -38,6 +38,14 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistPage from './pages/WishlistPage';
 import SEO from './components/SEO/SEO';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import ShippingPolicy from './pages/ShippingPolicy';
+import ReturnPolicy from './pages/ReturnPolicy';
+import ContactPage from './pages/ContactPage';
+import SustainabilityPage from './pages/SustainabilityPage';
+import StoreLocatorPage from './pages/StoreLocatorPage';
+import SupportPage from './pages/SupportPage';
 import './App.css';
 
 function App() {
@@ -160,6 +168,15 @@ function App() {
             
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/category/:slug" element={<CategoryPage />} />
+            
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/return-policy" element={<ReturnPolicy />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/sustainability" element={<SustainabilityPage />} />
+            <Route path="/store-locator" element={<StoreLocatorPage />} />
+            <Route path="/support" element={<SupportPage />} />
             
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<ProtectedRoute adminOnly={true}><AdminDashboard /></ProtectedRoute>} />
