@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../api/api';
 import ProductCard from '../components/ProductCard/ProductCard';
+import Skeleton from '../components/Loader/Skeleton';
 import './SearchResultsPage.css';
 
 const SearchResultsPage = () => {
@@ -40,7 +41,11 @@ const SearchResultsPage = () => {
       </div>
 
       {loading ? (
-        <div className="loading">Searching...</div>
+        <div className="product-grid">
+          {Array(6).fill(0).map((_, i) => (
+            <Skeleton key={i} type="card" />
+          ))}
+        </div>
       ) : (
         <div className="product-grid">
           {products.length > 0 ? (

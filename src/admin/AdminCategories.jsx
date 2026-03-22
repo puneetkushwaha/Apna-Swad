@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Loader/Skeleton';
 import './Admin.css';
 
 const AdminCategories = () => {
@@ -10,6 +11,7 @@ const AdminCategories = () => {
   const [imagePreview, setImagePreview] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   
@@ -20,10 +22,13 @@ const AdminCategories = () => {
 
   const fetchCategories = async () => {
     try {
+      setFetching(true);
       const res = await api.get('/categories');
       setCategories(res.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setFetching(false);
     }
   };
 
@@ -113,7 +118,7 @@ const AdminCategories = () => {
             </div>
             <div style={{marginTop: '30px', display: 'flex', gap: '15px'}}>
               <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Committing...' : (editingId ? 'Update Identity' : 'Establish Category')}
+                {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : (editingId ? 'Update Identity' : 'Establish Category')}
               </button>
               {editingId && <button onClick={() => setEditingId(null)} className="btn-outline">Cancel</button>}
             </div>
@@ -123,19 +128,31 @@ const AdminCategories = () => {
         <div className="admin-list-premium">
           <h2 className="admin-form-title">Current Hierarchy</h2>
           <div className="admin-items-grid-premium">
-            {categories.map(c => (
-              <div key={c._id} className="admin-item-premium">
-                <img src={c.image} alt={c.name} className="admin-item-img" />
-                <div className="admin-item-info">
-                  <h4>{c.name}</h4>
-                  <p className="premium-subtitle">Slug: /{c.slug}</p>
-                  <div className="admin-item-actions" style={{ marginTop: '15px' }}>
-                    <button className="btn-outline btn-small" onClick={() => { setEditingId(c._id); setFormData(c); window.scrollTo({top: 0, behavior: 'smooth'}); }}>Edit</button>
-                    <button onClick={() => deleteCategory(c._id)} className="btn-outline btn-small btn-delete">Delete</button>
+            {fetching ? (
+              Array(4).fill(0).map((_, i) => (
+                <div key={i} className="admin-item-premium">
+                  <Skeleton type="rect" style={{ height: '150px', width: '100%' }} />
+                  <div className="admin-item-info">
+                    <Skeleton type="title" />
+                    <Skeleton type="text" />
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              categories.map(c => (
+                <div key={c._id} className="admin-item-premium">
+                  <img src={c.image} alt={c.name} className="admin-item-img" />
+                  <div className="admin-item-info">
+                    <h4>{c.name}</h4>
+                    <p className="premium-subtitle">Slug: /{c.slug}</p>
+                    <div className="admin-item-actions" style={{ marginTop: '15px' }}>
+                      <button className="btn-outline btn-small" onClick={() => { setEditingId(c._id); setFormData(c); window.scrollTo({top: 0, behavior: 'smooth'}); }}>Edit</button>
+                      <button onClick={() => deleteCategory(c._id)} className="btn-outline btn-small btn-delete">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

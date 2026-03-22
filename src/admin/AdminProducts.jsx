@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Loader/Skeleton';
 import './Admin.css';
 
 const AdminProducts = () => {
@@ -18,6 +19,7 @@ const AdminProducts = () => {
   const [galleryPreviews, setGalleryPreviews] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
   const token = localStorage.getItem('token'); // Use standard token
   
@@ -28,6 +30,7 @@ const AdminProducts = () => {
 
   const fetchData = async () => {
     try {
+      setFetching(true);
       const [prodRes, catRes] = await Promise.all([
         api.get('/products'),
         api.get('/categories')
@@ -36,6 +39,8 @@ const AdminProducts = () => {
       setCategories(catRes.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setFetching(false);
     }
   };
 
@@ -257,7 +262,7 @@ const AdminProducts = () => {
             </div>
             <div style={{ marginTop: '30px', display: 'flex', gap: '15px' }}>
               <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Processing...' : (editingId ? 'Save Changes' : 'Create Product')}
+                {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : (editingId ? 'Save Changes' : 'Create Product')}
               </button>
               {editingId && <button onClick={() => setEditingId(null)} className="btn-outline">Cancel</button>}
             </div>
@@ -267,54 +272,67 @@ const AdminProducts = () => {
         <div className="admin-list-premium">
           <h2 className="admin-form-title">Current Selection</h2>
           <div className="admin-items-grid-premium">
-            {products.map(p => (
-              <div key={p._id} className="admin-item-premium">
-                <div className="admin-item-images">
-                  <img src={p.image} alt={p.name} className="admin-item-img" />
-                </div>
-                <div className="admin-item-info">
-                  <span className="item-category-tag">{p.category?.name}</span>
-                  <h4>{p.name}</h4>
-                  <div className="item-meta-stats">
-                    <span>₹{p.price}</span>
-                    <span className="dot">•</span>
-                    <span>{p.weight}</span>
-                    <span className="dot">•</span>
-                    <span>Sales: {p.salesCount || 0}</span>
-                  </div>
-                  <div className="admin-item-actions">
-                    <button className="btn-outline btn-small" onClick={() => { 
-                      const paragraphs = (p.description || '').split('\n\n');
-                      setEditingId(p._id); 
-                      
-                      // Explicitly pick fields to avoid polluting formData with system fields
-                      setFormData({ 
-                        name: p.name || '',
-                        price: p.price || '',
-                        weight: p.weight || '',
-                        category: p.category?._id || '',
-                        image: p.image || '',
-                        hoverImage: p.hoverImage || '',
-                        tags: p.tags?.join(', ') || '',
-                        salesCount: p.salesCount || 0,
-                        isBestSeller: p.isBestSeller || false,
-                        shelfLife: p.shelfLife || '',
-                        storageInstructions: p.storageInstructions || '',
-                        description1: paragraphs[0] || '',
-                        description2: paragraphs[1] || '',
-                        description3: paragraphs[2] || '',
-                        images: p.images || [] // Keep reference for preview if needed
-                      }); 
-                      
-                      setGalleryPreviews(p.images || []);
-                      setGalleryFiles([]); 
-                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
-                    }}>Edit</button>
-                    <button onClick={() => deleteProduct(p._id)} className="btn-outline btn-small btn-delete">Delete</button>
+            {fetching ? (
+              Array(6).fill(0).map((_, i) => (
+                <div key={i} className="admin-item-premium">
+                  <Skeleton type="rect" style={{ height: '180px', width: '100%' }} />
+                  <div className="admin-item-info">
+                    <Skeleton type="text" style={{ width: '40%' }} />
+                    <Skeleton type="title" />
+                    <Skeleton type="text" />
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              products.map(p => (
+                <div key={p._id} className="admin-item-premium">
+                  <div className="admin-item-images">
+                    <img src={p.image} alt={p.name} className="admin-item-img" />
+                  </div>
+                  <div className="admin-item-info">
+                    <span className="item-category-tag">{p.category?.name}</span>
+                    <h4>{p.name}</h4>
+                    <div className="item-meta-stats">
+                      <span>₹{p.price}</span>
+                      <span className="dot">•</span>
+                      <span>{p.weight}</span>
+                      <span className="dot">•</span>
+                      <span>Sales: {p.salesCount || 0}</span>
+                    </div>
+                    <div className="admin-item-actions">
+                      <button className="btn-outline btn-small" onClick={() => { 
+                        const paragraphs = (p.description || '').split('\n\n');
+                        setEditingId(p._id); 
+                        
+                        // Explicitly pick fields to avoid polluting formData with system fields
+                        setFormData({ 
+                          name: p.name || '',
+                          price: p.price || '',
+                          weight: p.weight || '',
+                          category: p.category?._id || '',
+                          image: p.image || '',
+                          hoverImage: p.hoverImage || '',
+                          tags: p.tags?.join(', ') || '',
+                          salesCount: p.salesCount || 0,
+                          isBestSeller: p.isBestSeller || false,
+                          shelfLife: p.shelfLife || '',
+                          storageInstructions: p.storageInstructions || '',
+                          description1: paragraphs[0] || '',
+                          description2: paragraphs[1] || '',
+                          description3: paragraphs[2] || '',
+                          images: p.images || [] // Keep reference for preview if needed
+                        }); 
+                        
+                        setGalleryPreviews(p.images || []);
+                        setGalleryFiles([]); 
+                        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                      }}>Edit</button>
+                      <button onClick={() => deleteProduct(p._id)} className="btn-outline btn-small btn-delete">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

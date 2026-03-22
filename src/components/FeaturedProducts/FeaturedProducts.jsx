@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import ProductCard from '../ProductCard/ProductCard';
+import Skeleton from '../Loader/Skeleton';
 import './FeaturedProducts.css';
 
 const FeaturedProducts = () => {
@@ -43,12 +44,14 @@ const FeaturedProducts = () => {
         </div>
         
         <div className="product-grid">
-          {featuredProducts.length > 0 ? (
+          {loading ? (
+            Array(6).fill(0).map((_, i) => (
+              <Skeleton key={i} type="card" />
+            ))
+          ) : (
             featuredProducts.map((product, index) => (
               <ProductCard key={product._id === 'demo' ? `demo-${index}` : product._id} product={product} />
             ))
-          ) : (
-             <div className="text-center w-full py-20">Loading trending picks...</div>
           )}
         </div>
       </div>

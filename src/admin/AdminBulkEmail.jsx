@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import api from '../api/api';
 import './Admin.css';
-import { Send, Mail, Type, AlignLeft, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, Mail, Type, AlignLeft, CheckCircle2, AlertCircle } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminBulkEmail = () => {
   const [subject, setSubject] = useState('');
@@ -113,9 +114,7 @@ const AdminBulkEmail = () => {
             disabled={loading}
           >
             {loading ? (
-              <>
-                <Loader2 className="animate-spin" size={20} /> Sending to all users...
-              </>
+              <Skeleton type="text" style={{ width: '180px', background: 'rgba(255,255,255,0.2)', margin: 0 }} />
             ) : (
               <>
                 <Send size={20} /> Send Professional Email

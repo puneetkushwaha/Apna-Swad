@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { Send, User as UserIcon, MessageSquare } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminChat = () => {
   const [conversations, setConversations] = useState([]);
@@ -26,6 +27,7 @@ const AdminChat = () => {
 
   const fetchConversations = async () => {
     try {
+      setLoading(true);
       const res = await api.get('/chat/admin/conversations', {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -66,8 +68,6 @@ const AdminChat = () => {
     }
   };
 
-  if (loading) return <div className="admin-loader">Loading Conversations...</div>;
-
   return (
     <div className="admin-chat-page section">
       <div className="container">
@@ -78,22 +78,34 @@ const AdminChat = () => {
           <div className="conversation-sidebar">
             <h3 className="sidebar-title">Active Inquiries</h3>
             <div className="conversation-list">
-              {conversations.map(conv => (
-                <div 
-                  key={conv._id} 
-                  className={`conversation-item ${selectedUser?._id === conv._id ? 'active' : ''}`}
-                  onClick={() => setSelectedUser(conv.user)}
-                >
-                  <div className="avatar-small">
-                    {conv.user.avatar ? <img src={conv.user.avatar} alt="" /> : <UserIcon size={20} />}
+              {loading ? (
+                Array(4).fill(0).map((_, i) => (
+                  <div key={i} className="conversation-item">
+                    <Skeleton type="circle" style={{ width: '40px', height: '40px' }} />
+                    <div className="conv-info">
+                      <Skeleton type="text" style={{ width: '100px' }} />
+                      <Skeleton type="text" style={{ width: '140px', height: '12px' }} />
+                    </div>
                   </div>
-                  <div className="conv-info">
-                    <span className="conv-name">{conv.user.name}</span>
-                    <span className="conv-preview">{conv.lastMessage}</span>
+                ))
+              ) : (
+                conversations.map(conv => (
+                  <div 
+                    key={conv._id} 
+                    className={`conversation-item ${selectedUser?._id === conv._id ? 'active' : ''}`}
+                    onClick={() => setSelectedUser(conv.user)}
+                  >
+                    <div className="avatar-small">
+                      {conv.user.avatar ? <img src={conv.user.avatar} alt="" /> : <UserIcon size={20} />}
+                    </div>
+                    <div className="conv-info">
+                      <span className="conv-name">{conv.user.name}</span>
+                      <span className="conv-preview">{conv.lastMessage}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
-              {conversations.length === 0 && <p className="empty-msg">No active chats.</p>}
+                ))
+              )}
+              {!loading && conversations.length === 0 && <p className="empty-msg">No active chats.</p>}
             </div>
           </div>
 

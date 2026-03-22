@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/api';
+import Skeleton from '../Loader/Skeleton';
 import './DhyantisDevPicks.css';
 
 const DhyantisDevPicks = () => {
@@ -23,7 +24,21 @@ const DhyantisDevPicks = () => {
     fetchPicks();
   }, []);
 
-  if (loading) return null;
+  if (loading) return (
+    <section className="dhyantis-dev-picks-section">
+      <div className="dev-picks-container">
+        <div className="section-header">
+           <Skeleton type="title" style={{ width: '250px', margin: '0 auto 10px' }} />
+           <Skeleton type="text" style={{ width: '400px', margin: '0 auto' }} />
+        </div>
+        <div className="picks-grid">
+          {Array(3).fill(0).map((_, i) => (
+            <Skeleton key={i} type="card" />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
   if (products.length === 0) return null;
 
   return (

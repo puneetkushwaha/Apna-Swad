@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Lock, Phone, Loader2, AlertCircle } from 'lucide-react';
+import { User, Mail, Lock, Phone, AlertCircle } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 import './LoginPage.css';
 
 const SignupPage = () => {
@@ -126,7 +127,7 @@ const SignupPage = () => {
           </div>
 
           <button type="submit" className="btn btn-primary login-btn-premium" disabled={loading}>
-            {loading ? <Loader2 className="animate-spin" /> : 'Start Your Experience'}
+            {loading ? <Skeleton type="text" style={{ width: '150px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Start Your Experience'}
           </button>
         </form>
 

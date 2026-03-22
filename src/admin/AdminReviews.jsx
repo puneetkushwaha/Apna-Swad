@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -111,7 +112,7 @@ const AdminReviews = () => {
             )}
             <div style={{marginTop: '30px'}}>
               <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Archiving...' : 'Publish Testimony'}
+                {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Publish Testimony'}
               </button>
             </div>
           </form>
@@ -120,19 +121,30 @@ const AdminReviews = () => {
         <div className="admin-list-premium">
           <h2 className="admin-form-title">Patron Chronicles</h2>
           <div className="admin-items-grid-premium">
-            {reviews.map(review => (
-              <div key={review._id} className="admin-item-premium">
-                <div className="admin-item-info">
-                  <span className="item-category-tag">{review.type === 'text' ? 'Written Reflection' : 'Cinematic Review'}</span>
-                  <h4>{review.name}</h4>
-                  {review.type === 'text' && <p style={{marginTop: '10px', fontStyle: 'italic', color: 'var(--admin-text-light)'}}>"{review.text}"</p>}
-                  {review.type === 'video' && <div style={{marginTop: '15px'}}><video src={review.videoUrl} width="100%" controls style={{borderRadius: '12px', maxHeight: '200px', objectFit: 'cover'}} /></div>}
-                  <div className="admin-item-actions" style={{ marginTop: '20px' }}>
-                    <button onClick={() => deleteReview(review._id)} className="btn-outline btn-small btn-delete">Redact</button>
+            {loading && reviews.length === 0 ? (
+              Array(3).fill(0).map((_, i) => (
+                <div key={i} className="admin-item-premium">
+                  <Skeleton type="text" style={{ width: '100px', marginBottom: '10px' }} />
+                  <Skeleton type="title" style={{ width: '150px', marginBottom: '15px' }} />
+                  <Skeleton type="text" style={{ height: '60px', marginBottom: '20px' }} />
+                  <Skeleton type="text" style={{ width: '80px', height: '30px' }} />
+                </div>
+              ))
+            ) : (
+              reviews.map(review => (
+                <div key={review._id} className="admin-item-premium">
+                  <div className="admin-item-info">
+                    <span className="item-category-tag">{review.type === 'text' ? 'Written Reflection' : 'Cinematic Review'}</span>
+                    <h4>{review.name}</h4>
+                    {review.type === 'text' && <p style={{marginTop: '10px', fontStyle: 'italic', color: 'var(--admin-text-light)'}}>"{review.text}"</p>}
+                    {review.type === 'video' && <div style={{marginTop: '15px'}}><video src={review.videoUrl} width="100%" controls style={{borderRadius: '12px', maxHeight: '200px', objectFit: 'cover'}} /></div>}
+                    <div className="admin-item-actions" style={{ marginTop: '20px' }}>
+                      <button onClick={() => deleteReview(review._id)} className="btn-outline btn-small btn-delete">Redact</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>

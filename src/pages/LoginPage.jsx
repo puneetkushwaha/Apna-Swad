@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, Loader2, AlertCircle } from 'lucide-react';
+import { Mail, Lock, AlertCircle } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -93,7 +94,7 @@ const LoginPage = () => {
           </div>
 
           <button type="submit" className="btn btn-primary login-btn-premium" disabled={loading}>
-            {loading ? <Loader2 className="animate-spin" /> : 'Log In to Account'}
+            {loading ? <Skeleton type="text" style={{ width: '120px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Log In to Account'}
           </button>
         </form>
 

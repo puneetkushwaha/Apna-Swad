@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
 import { User, Mail, LogOut, ArrowLeft, Phone, MapPin, Camera, Edit2, Save, X, Briefcase, Truck, Star } from 'lucide-react';
 import ReviewModal from '../components/Modals/ReviewModal';
+import Skeleton from '../components/Loader/Skeleton';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -154,8 +155,32 @@ const ProfilePage = () => {
 
   if (authLoading) {
     return (
-      <div className="profile-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <div className="premium-loader"></div>
+      <div className="profile-container section">
+        <div className="profile-card reveal">
+          <div className="profile-layout">
+            <aside className="profile-sidebar">
+              <Skeleton type="circle" style={{ width: '120px', height: '120px', margin: '0 auto 20px' }} />
+              <Skeleton type="title" style={{ width: '150px', margin: '0 auto 10px' }} />
+              <Skeleton type="text" style={{ width: '100px', margin: '0 auto 30px' }} />
+              <div style={{ padding: '20px' }}>
+                <Skeleton type="text" style={{ height: '40px', marginBottom: '10px' }} />
+                <Skeleton type="text" style={{ height: '40px', marginBottom: '10px' }} />
+                <Skeleton type="text" style={{ height: '40px' }} />
+              </div>
+            </aside>
+            <main className="profile-content-area" style={{ padding: '40px' }}>
+              <Skeleton type="title" style={{ width: '250px', marginBottom: '30px' }} />
+              <div className="profile-info-grid">
+                {Array(6).fill(0).map((_, i) => (
+                  <div key={i} className="info-block">
+                    <Skeleton type="text" style={{ width: '60px', marginBottom: '8px' }} />
+                    <Skeleton type="text" style={{ height: '24px' }} />
+                  </div>
+                ))}
+              </div>
+            </main>
+          </div>
+        </div>
       </div>
     );
   }
@@ -370,7 +395,7 @@ const ProfilePage = () => {
 
                     <div className="form-actions">
                       <button type="submit" className="btn-save" disabled={loading}>
-                        {loading ? 'Saving...' : <><Save size={18} /> Save Changes</>}
+                        {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : <><Save size={18} /> Save Changes</>}
                       </button>
                       <button type="button" className="btn-cancel" onClick={() => setIsEditing(false)}>
                         Cancel
@@ -422,70 +447,89 @@ const ProfilePage = () => {
                 
                 {orders.length > 0 ? (
                   <div className="orders-timeline">
-                    {orders.map(order => (
-                      <div key={order._id} className="order-premium-card reveal">
-                        <div className="order-card-header">
-                          <div className="id-date">
-                            <span className="order-id">#{order._id.slice(-8).toUpperCase()}</span>
-                            <span className="order-date">{new Date(order.createdAt).toLocaleDateString()}</span>
+                    {loading ? (
+                      Array(3).fill(0).map((_, i) => (
+                        <div key={i} className="order-premium-card" style={{ marginBottom: '20px' }}>
+                          <div className="order-card-header">
+                            <Skeleton type="text" style={{ width: '100px' }} />
+                            <Skeleton type="text" style={{ width: '80px', height: '24px', borderRadius: '12px' }} />
                           </div>
-                          <span className={`status-badge-mini ${order.orderStatus}`}>{order.orderStatus}</span>
+                          <div className="order-items-preview" style={{ padding: '15px' }}>
+                            <Skeleton type="circle" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                            <Skeleton type="circle" style={{ width: '50px', height: '50px' }} />
+                          </div>
+                          <div className="order-card-footer">
+                            <Skeleton type="text" style={{ width: '100px' }} />
+                            <Skeleton type="text" style={{ width: '120px' }} />
+                          </div>
                         </div>
-                        
-                        <div className="order-items-preview">
-                          {order.items.slice(0, 3).map((item, idx) => (
-                            <div key={idx} className="mini-item-wrapper">
-                              <img src={item.image} alt={item.name} className="mini-item-thumb" title={item.name} />
-                              {order.orderStatus === 'delivered' && (
-                                <button 
-                                  className="review-trigger-btn" 
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    openReviewModal({ _id: item.product, name: item.name });
-                                  }}
-                                  title="Write a Review"
-                                >
-                                  <Star size={12} fill="#f5a623" />
-                                </button>
-                              )}
+                      ))
+                    ) : (
+                      orders.map(order => (
+                        <div key={order._id} className="order-premium-card reveal">
+                          <div className="order-card-header">
+                            <div className="id-date">
+                              <span className="order-id">#{order._id.slice(-8).toUpperCase()}</span>
+                              <span className="order-date">{new Date(order.createdAt).toLocaleDateString()}</span>
                             </div>
-                          ))}
-                          {order.items.length > 3 && <span className="more-items">+{order.items.length - 3} more</span>}
-                        </div>
-
-                         <div className="order-card-footer">
-                          <div className="total-info">
-                            <label>Total Amount</label>
-                            <p>₹{order.totalAmount}</p>
+                            <span className={`status-badge-mini ${order.orderStatus}`}>{order.orderStatus}</span>
                           </div>
                           
-                          <div className="order-actions-wrapper">
-                            {/* Action Buttons for 24h limit */}
-                            {order.orderStatus !== 'cancelled' && 
-                             order.orderStatus !== 'delivered' && 
-                             order.orderStatus !== 'shipped' && 
-                             isWithin24Hours(order.createdAt) && (
-                              <div className="user-actions">
-                                <button className="btn-mini-outline" onClick={() => initEditOrder(order)}>Edit Address</button>
-                                <button className="btn-mini-danger" onClick={() => handleCancelOrder(order._id)}>Cancel</button>
+                          <div className="order-items-preview">
+                            {order.items.slice(0, 3).map((item, idx) => (
+                              <div key={idx} className="mini-item-wrapper">
+                                <img src={item.image} alt={item.name} className="mini-item-thumb" title={item.name} />
+                                {order.orderStatus === 'delivered' && (
+                                  <button 
+                                    className="review-trigger-btn" 
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      openReviewModal({ _id: item.product, name: item.name });
+                                    }}
+                                    title="Write a Review"
+                                  >
+                                    <Star size={12} fill="#f5a623" />
+                                  </button>
+                                )}
                               </div>
-                            )}
+                            ))}
+                            {order.items.length > 3 && <span className="more-items">+{order.items.length - 3} more</span>}
+                          </div>
 
-                            {order.trackingId ? (
-                              <div className="tracking-badge">
-                                <Truck size={14} />
-                                <span>{order.carrierName}: {order.trackingId}</span>
-                              </div>
-                            ) : (
-                              <div className="tracking-status">
-                                <p>{order.orderStatus === 'processing' ? 'Preparing your snacks...' : 
-                                    order.orderStatus === 'cancelled' ? 'Order Cancelled' : 'Awaiting tracking details'}</p>
-                              </div>
-                            )}
+                           <div className="order-card-footer">
+                            <div className="total-info">
+                              <label>Total Amount</label>
+                              <p>₹{order.totalAmount}</p>
+                            </div>
+                            
+                            <div className="order-actions-wrapper">
+                              {/* Action Buttons for 24h limit */}
+                              {order.orderStatus !== 'cancelled' && 
+                               order.orderStatus !== 'delivered' && 
+                               order.orderStatus !== 'shipped' && 
+                               isWithin24Hours(order.createdAt) && (
+                                <div className="user-actions">
+                                  <button className="btn-mini-outline" onClick={() => initEditOrder(order)}>Edit Address</button>
+                                  <button className="btn-mini-danger" onClick={() => handleCancelOrder(order._id)}>Cancel</button>
+                                </div>
+                              )}
+
+                              {order.trackingId ? (
+                                <div className="tracking-badge">
+                                  <Truck size={14} />
+                                  <span>{order.carrierName}: {order.trackingId}</span>
+                                </div>
+                              ) : (
+                                <div className="tracking-status">
+                                  <p>{order.orderStatus === 'processing' ? 'Preparing your snacks...' : 
+                                      order.orderStatus === 'cancelled' ? 'Order Cancelled' : 'Awaiting tracking details'}</p>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 ) : (
                   <div className="empty-state">
@@ -557,7 +601,7 @@ const ProfilePage = () => {
                         </div>
                         <div className="modal-actions">
                           <button type="submit" className="btn-save" disabled={loading}>
-                            {loading ? 'Updating...' : 'Save New Address'}
+                            {loading ? <Skeleton type="text" style={{ width: '80px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Save New Address'}
                           </button>
                         </div>
                       </form>

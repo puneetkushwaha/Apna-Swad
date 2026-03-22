@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminBanners = () => {
   const [banners, setBanners] = useState([]);
@@ -85,7 +86,7 @@ const AdminBanners = () => {
             </div>
             <div style={{ marginTop: '30px' }}>
               <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Projecting...' : 'Deploy Banner'}
+                {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Deploy Banner'}
               </button>
             </div>
           </form>
@@ -94,15 +95,27 @@ const AdminBanners = () => {
         <div className="admin-list-premium">
           <h2 className="admin-form-title">Active Showcases</h2>
           <div className="banner-grid-admin">
-            {banners.map(banner => (
-              <div key={banner._id} className="banner-card-premium">
-                <img src={banner.imageUrl} alt={banner.title} className="banner-img-preview" />
-                <div className="banner-meta">
-                  <h4 style={{ margin: '0' }}>{banner.title}</h4>
-                  <button className="btn-outline btn-small btn-delete" onClick={() => deleteBanner(banner._id)}>Decommission</button>
+            {loading && banners.length === 0 ? (
+              Array(2).fill(0).map((_, i) => (
+                <div key={i} className="banner-card-premium">
+                  <Skeleton type="rect" style={{ width: '100%', height: '150px', borderRadius: '12px' }} />
+                  <div className="banner-meta">
+                    <Skeleton type="text" style={{ width: '150px' }} />
+                    <Skeleton type="text" style={{ width: '100px', height: '30px' }} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              banners.map(banner => (
+                <div key={banner._id} className="banner-card-premium">
+                  <img src={banner.imageUrl} alt={banner.title} className="banner-img-preview" />
+                  <div className="banner-meta">
+                    <h4 style={{ margin: '0' }}>{banner.title}</h4>
+                    <button className="btn-outline btn-small btn-delete" onClick={() => deleteBanner(banner._id)}>Decommission</button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

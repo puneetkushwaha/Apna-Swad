@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { Megaphone, Save, CheckCircle } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 import './AdminAnnouncement.css';
 
 const AdminAnnouncement = () => {
@@ -76,7 +77,7 @@ const AdminAnnouncement = () => {
           </div>
 
           <button type="submit" className="save-btn" disabled={loading}>
-            {loading ? 'Saving...' : <><Save size={18} /> Update Ticker</>}
+            {loading ? <Skeleton type="text" style={{ width: '120px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : <><Save size={18} /> Update Ticker</>}
           </button>
 
           {message && (

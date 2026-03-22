@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
+import Skeleton from '../components/Loader/Skeleton';
 import { 
     ChevronLeft, 
     ShieldCheck, 
@@ -488,7 +489,7 @@ const CheckoutPage = () => {
                                         onClick={performPayment}
                                         disabled={loading}
                                     >
-                                        {loading ? 'Processing...' : (isLadduBypass ? 'Complete Free Order • ₹0' : `Complete Payment • ₹${cartTotal}`)}
+                                        {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : (isLadduBypass ? 'Complete Free Order • ₹0' : `Complete Payment • ₹${cartTotal}`)}
                                     </button>
                                     
                                     <p className="cancel-note" onClick={() => setStep(1)}>Go back to shipping</p>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import ProductCard from '../ProductCard/ProductCard';
+import Skeleton from '../Loader/Skeleton';
 import './NewArrivals.css';
 
 const NewArrivals = () => {
@@ -65,19 +66,25 @@ const NewArrivals = () => {
         </div>
         
         <div className="product-grid">
-          {newArrivals.map((product, index) => (
-            <ProductCard key={product._id === 'demo-new' ? `demo-new-${index}` : product._id} product={product} />
-          ))}
+          {newArrivals.length > 0 ? (
+            newArrivals.map((product, index) => (
+              <ProductCard key={product._id === 'demo-new' ? `demo-new-${index}` : product._id} product={product} />
+            ))
+          ) : (
+            loading && Array(6).fill(0).map((_, i) => (
+              <Skeleton key={i} type="card" />
+            ))
+          )}
         </div>
 
-        {hasMore && newArrivals.length >= limit && !isDemo && (
+        {hasMore && (newArrivals.length >= limit || loading) && !isDemo && (
           <div className="view-all-container">
             <button 
               className="btn btn-outline view-all-btn" 
               onClick={() => fetchNewArrivals(true)}
               disabled={loading}
             >
-              {loading ? 'Loading...' : 'View All New Arrivals'}
+              {loading ? <Skeleton type="text" style={{ width: '80px', margin: 0 }} /> : 'View All New Arrivals'}
             </button>
           </div>
         )}

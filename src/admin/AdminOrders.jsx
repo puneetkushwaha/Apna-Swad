@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { Package, Truck, CheckCircle, XCircle, Search, Eye, Edit, Printer, FileText } from 'lucide-react';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -23,6 +24,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
+      setLoading(true);
       const res = await api.get('/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -106,8 +108,6 @@ const AdminOrders = () => {
     }
   };
 
-  if (loading) return <div className="admin-loader">Loading Orders...</div>;
-
   return (
     <div className="admin-orders-page section">
       <div className="container">
@@ -141,55 +141,68 @@ const AdminOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredOrders.map(order => (
-                <tr key={order._id}>
-                  <td data-label="Order ID">#{order._id.slice(-6)}</td>
-                  <td data-label="Customer">
-                    <div className="customer-info">
-                      <span className="customer-name">{order.user?.name}</span>
-                      <span className="customer-email">{order.user?.email}</span>
-                    </div>
-                  </td>
-                  <td data-label="Amount" className="amount-cell">₹{order.totalAmount}</td>
-                  <td data-label="Status">
-                    <span className={`status-badge ${order.orderStatus}`}>
-                      {getStatusIcon(order.orderStatus)}
-                      {order.orderStatus}
-                    </span>
-                  </td>
-                  <td data-label="Date">{new Date(order.createdAt).toLocaleDateString()}</td>
-                  <td data-label="Actions" className="actions-cell">
-                    <div className="admin-item-actions">
-                      {!order.trackingId && (
-                        <button className="icon-btn" title="Sync to Shiprocket" onClick={() => handleManualSync(order._id)}>
-                          <Truck size={17} />
+              {loading ? (
+                Array(5).fill(0).map((_, i) => (
+                  <tr key={i}>
+                    <td><Skeleton type="text" style={{ width: '80px' }} /></td>
+                    <td><Skeleton type="text" style={{ width: '150px' }} /><Skeleton type="text" style={{ width: '120px', height: '12px' }} /></td>
+                    <td><Skeleton type="text" style={{ width: '60px' }} /></td>
+                    <td><Skeleton type="text" style={{ width: '100px', height: '24px', borderRadius: '12px' }} /></td>
+                    <td><Skeleton type="text" style={{ width: '100px' }} /></td>
+                    <td><Skeleton type="text" style={{ width: '100px' }} /></td>
+                  </tr>
+                ))
+              ) : (
+                filteredOrders.map(order => (
+                  <tr key={order._id}>
+                    <td data-label="Order ID">#{order._id.slice(-6)}</td>
+                    <td data-label="Customer">
+                      <div className="customer-info">
+                        <span className="customer-name">{order.user?.name}</span>
+                        <span className="customer-email">{order.user?.email}</span>
+                      </div>
+                    </td>
+                    <td data-label="Amount" className="amount-cell">₹{order.totalAmount}</td>
+                    <td data-label="Status">
+                      <span className={`status-badge ${order.orderStatus}`}>
+                        {getStatusIcon(order.orderStatus)}
+                        {order.orderStatus}
+                      </span>
+                    </td>
+                    <td data-label="Date">{new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td data-label="Actions" className="actions-cell">
+                      <div className="admin-item-actions">
+                        {!order.trackingId && (
+                          <button className="icon-btn" title="Sync to Shiprocket" onClick={() => handleManualSync(order._id)}>
+                            <Truck size={17} />
+                          </button>
+                        )}
+                        <button className="icon-btn" title="View Details" onClick={() => {
+                          setSelectedOrder(order);
+                          setTrackingData({
+                            orderStatus: order.orderStatus,
+                            trackingId: order.trackingId || '',
+                            carrierName: order.carrierName || ''
+                          });
+                        }}>
+                          <Eye size={17} />
                         </button>
-                      )}
-                      <button className="icon-btn" title="View Details" onClick={() => {
-                        setSelectedOrder(order);
-                        setTrackingData({
-                          orderStatus: order.orderStatus,
-                          trackingId: order.trackingId || '',
-                          carrierName: order.carrierName || ''
-                        });
-                      }}>
-                        <Eye size={17} />
-                      </button>
-                      <button className="icon-btn" title="Update Logistics" onClick={() => {
-                        setSelectedOrder(order);
-                        setEditingTracking(true);
-                        setTrackingData({
-                          orderStatus: order.orderStatus,
-                          trackingId: order.trackingId || '',
-                          carrierName: order.carrierName || ''
-                        });
-                      }}>
-                        <Edit size={17} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        <button className="icon-btn" title="Update Logistics" onClick={() => {
+                          setSelectedOrder(order);
+                          setEditingTracking(true);
+                          setTrackingData({
+                            orderStatus: order.orderStatus,
+                            trackingId: order.trackingId || '',
+                            carrierName: order.carrierName || ''
+                          });
+                        }}>
+                          <Edit size={17} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

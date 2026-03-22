@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
+import Skeleton from '../Loader/Skeleton';
 import './HeroBanner.css';
 
 const HeroBanner = () => {
@@ -35,14 +36,7 @@ const HeroBanner = () => {
   const nextSlide = () => setCurrent((prev) => (prev + 1) % banners.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + banners.length) % banners.length);
 
-  if (loading) return (
-    <div className="hero-banner-shimmer">
-      <div className="shimmer-content-group">
-        <div className="shimmer-title"></div>
-        <div className="shimmer-subtitle"></div>
-      </div>
-    </div>
-  );
+  if (loading) return <Skeleton type="banner" style={{ width: '100%', height: '500px' }} />;
 
   if (banners.length === 0) return null;
 

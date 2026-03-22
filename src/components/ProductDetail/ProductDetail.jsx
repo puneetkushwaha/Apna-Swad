@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { Heart, Share2, Star, Truck, ShieldCheck, Leaf, Clock, Package, MessageSquare } from 'lucide-react';
 import ProductReviewTicker from './ProductReviewTicker';
+import Skeleton from '../Loader/Skeleton';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -52,7 +53,35 @@ const ProductDetail = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  if (loading) return <div className="loading-screen">Loading Heritage Flavors...</div>;
+  if (loading) {
+    return (
+      <div className="product-detail-page">
+        <div className="container">
+          <div className="product-detail-grid">
+            <div className="product-gallery">
+              <Skeleton type="rect" style={{ width: '100%', aspectRatio: '1/1', borderRadius: '12px' }} />
+              <div className="thumbnails-grid" style={{ marginTop: '20px' }}>
+                {Array(4).fill(0).map((_, i) => (
+                  <Skeleton key={i} type="rect" style={{ width: '100%', aspectRation: '1/1', borderRadius: '8px' }} />
+                ))}
+              </div>
+            </div>
+            <div className="product-info-premium">
+              <Skeleton type="text" style={{ width: '150px', marginBottom: '10px' }} />
+              <Skeleton type="title" style={{ width: '80%', height: '40px', marginBottom: '20px' }} />
+              <Skeleton type="text" style={{ width: '120px', height: '30px', marginBottom: '20px' }} />
+              <Skeleton type="text" style={{ width: '100px', height: '20px', marginBottom: '30px' }} />
+              <Skeleton type="rect" style={{ width: '100%', height: '50px', borderRadius: '25px', marginBottom: '20px' }} />
+              <div style={{ marginTop: '40px' }}>
+                <Skeleton type="title" style={{ width: '200px', marginBottom: '15px' }} />
+                <Skeleton type="text" style={{ width: '100%', height: '100px' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (!product) return <div className="error">Product not found</div>;
 
   const allImages = [product.image, ...(product.images || [])].filter(Boolean);

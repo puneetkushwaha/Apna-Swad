@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
+import Skeleton from '../components/Loader/Skeleton';
 
 const AdminBrandStory = () => {
   const [formData, setFormData] = useState({
@@ -199,7 +200,7 @@ const AdminBrandStory = () => {
 
             <div style={{ marginTop: '40px' }}>
               <button type="submit" className="btn btn-primary" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Narrative'}
+                {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : 'Save Narrative'}
               </button>
             </div>
           </form>

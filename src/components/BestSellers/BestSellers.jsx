@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import ProductCard from '../ProductCard/ProductCard';
+import Skeleton from '../Loader/Skeleton';
 import './BestSellers.css';
 
 const BestSellers = () => {
@@ -47,19 +48,25 @@ const BestSellers = () => {
         </div>
         
         <div className="product-grid">
-          {bestSellers.map(product => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {bestSellers.length > 0 ? (
+            bestSellers.map(product => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            loading && Array(6).fill(0).map((_, i) => (
+              <Skeleton key={i} type="card" />
+            ))
+          )}
         </div>
 
-        {hasMore && bestSellers.length >= limit && (
+        {hasMore && (bestSellers.length >= limit || loading) && (
           <div className="view-all-container">
             <button 
               className="btn btn-outline view-all-btn" 
               onClick={() => fetchBestSellers(true)}
               disabled={loading}
             >
-              {loading ? 'Loading...' : 'View All Products'}
+              {loading ? <Skeleton type="text" style={{ width: '80px', margin: 0 }} /> : 'View All Products'}
             </button>
           </div>
         )}
