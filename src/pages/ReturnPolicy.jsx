@@ -1,5 +1,6 @@
 import React from 'react';
 import { Package, ShieldAlert, Clock, RefreshCw, MessageCircle, Mail, HelpCircle } from 'lucide-react';
+import WhatsAppIcon from '../Icons/WhatsAppIcon';
 import SEO from '../components/SEO/SEO';
 import './ReturnPolicy.css';
 
@@ -68,7 +69,7 @@ const ReturnPolicy = () => {
           <p>Our Heritage Support team is ready to resolve your concerns instantly.</p>
           <div className="contact-links">
             <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={20} color="#25D366" /> 8810905170
+              <WhatsAppIcon size={20} color="#25D366" /> 8810905170
             </a>
             <a href="mailto:support@apnaswad.store">
               <Mail size={20} color="#FF9933" /> support@apnaswad.store

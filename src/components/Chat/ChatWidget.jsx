@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../../api/api';
 import { MessageCircle, X, Send, User, ChevronRight, MessageSquare, Headphones, ShoppingBag, Truck, CreditCard, HelpCircle, Maximize2 } from 'lucide-react';
+import WhatsAppIcon from '../Icons/WhatsAppIcon';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import './ChatWidget.css';
@@ -129,7 +130,7 @@ const ChatWidget = () => {
             className="elite-connect-btn"
             onClick={() => window.open('https://wa.me/918810905170', '_blank')}
           >
-            <Headphones size={16} /> Connect to WhatsApp
+            <WhatsAppIcon size={16} color="white" /> Connect to WhatsApp
           </button>
         </div>
       );

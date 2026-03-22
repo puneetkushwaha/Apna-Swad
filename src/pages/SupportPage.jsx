@@ -1,6 +1,7 @@
 import React from 'react';
 import SEO from '../components/SEO/SEO';
 import { MessageCircle, Phone, Mail, Clock } from 'lucide-react';
+import WhatsAppIcon from '../components/Icons/WhatsAppIcon';
 
 const SupportPage = () => {
   return (
@@ -25,7 +26,7 @@ const SupportPage = () => {
 
       <div className="support-channels grid reveal">
         <div className="support-card box-shadow">
-          <MessageCircle className="icon" size={40} />
+          <WhatsAppIcon className="icon" size={40} color="#25D366" />
           <h3>Live WhatsApp Support</h3>
           <p>Get instant answers from our heritage experts on WhatsApp.</p>
           <a href="https://wa.me/918810905170" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Chat Now</a>

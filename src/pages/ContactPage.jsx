@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Instagram, Linkedin, MessageCircle, Utensils, Heart, ShieldCheck } from 'lucide-react';
+import WhatsAppIcon from '../components/Icons/WhatsAppIcon';
 import SEO from '../components/SEO/SEO';
 import api from '../api/api';
 import './ContactPage.css';
@@ -58,7 +59,7 @@ const ContactPage = () => {
               </div>
             </div>
             <div className="contact-item">
-              <div className="icon-box"><MessageCircle size={20} /></div>
+              <div className="icon-box"><WhatsAppIcon size={20} color="#25D366" /></div>
               <div className="text-box">
                 <span className="label">WhatsApp Support</span>
                 <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer">Chat with us</a>

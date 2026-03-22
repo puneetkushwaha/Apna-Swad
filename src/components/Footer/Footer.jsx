@@ -1,5 +1,6 @@
 import React from 'react';
 import { Instagram, Linkedin, Send, MessageCircle, Youtube } from 'lucide-react';
+import WhatsAppIcon from '../Icons/WhatsAppIcon';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -14,7 +15,7 @@ const Footer = () => {
             <div className="social-links">
               <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
               <a href="https://www.linkedin.com/company/apnaswad/" target="_blank" rel="noopener noreferrer" className="social-icon"><Linkedin size={18} /></a>
-              <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer" className="social-icon"><MessageCircle size={18} /></a>
+              <a href="https://wa.me/918810905170" target="_blank" rel="noopener noreferrer" className="social-icon"><WhatsAppIcon size={18} color="currentColor" /></a>
               <a href="https://www.youtube.com/@ApnaSwad-f3t" target="_blank" rel="noopener noreferrer" className="social-icon"><Youtube size={18} /></a>
             </div>
           </div>
