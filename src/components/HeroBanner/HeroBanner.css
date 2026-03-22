@@ -149,7 +149,11 @@
 
 @media (max-width: 480px) {
   .banner-track, .hero-banner-placeholder {
-    height: 350px;
+    height: auto;
+    aspect-ratio: 16/9; /* Set aspect ratio to show full image */
+  }
+  .banner-slide {
+    background-size: 100% 100%; /* Force full image fit */
   }
   .banner-controls-bar {
     gap: 20px;

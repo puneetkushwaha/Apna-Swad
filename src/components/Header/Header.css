@@ -19,8 +19,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 20px; /* Added padding to prevent overflow */
-  gap: clamp(10px, 2vw, 15px);
+  padding: 0 12px; /* Balanced padding */
+  gap: clamp(8px, 1.5vw, 12px);
 }
 
 .mobile-toggle {
