@@ -335,10 +335,55 @@
   color: var(--text-main);
 }
 
-.header-actions {
+.action-btn {
+  position: relative;
+  width: clamp(38px, 5vw, 44px);
+  height: clamp(38px, 5vw, 44px);
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(74, 44, 42, 0.05);
+  color: var(--text-main);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  flex-shrink: 0;
+}
+
+.action-btn:hover {
+  background: var(--text-main);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(74, 44, 42, 0.15);
+}
+
+.action-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.action-btn:hover svg {
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background);
+  box-shadow: 0 2px 8px rgba(255, 77, 77, 0.4);
+  line-height: 1;
+  z-index: 10;
 }
 
 .wishlist-count {
