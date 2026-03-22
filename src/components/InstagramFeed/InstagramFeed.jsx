@@ -43,8 +43,14 @@ const InstagramFeed = () => {
 
         <div className="insta-grid">
           {SOCIAL_CONFIG.INSTAGRAM_FEED_ID ? (
-            <div className="live-feed-container">
-              <behold-widget feed-id={SOCIAL_CONFIG.INSTAGRAM_FEED_ID}></behold-widget>
+            <div className="live-feed-wrapper elite-shadow">
+              <div className="live-status-badge">
+                <span className="live-dot"></span>
+                LIVE FROM INSTAGRAM
+              </div>
+              <div className="live-feed-container">
+                <behold-widget feed-id={SOCIAL_CONFIG.INSTAGRAM_FEED_ID}></behold-widget>
+              </div>
             </div>
           ) : (
             localFeed.map((item) => (
