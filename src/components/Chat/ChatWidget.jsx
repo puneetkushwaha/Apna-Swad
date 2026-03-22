@@ -209,6 +209,20 @@ const ChatWidget = () => {
               )}
 
               <div className="instant-answers-section">
+                <h4 className="section-label">Instant answers</h4>
+                <div className="faq-list">
+                  {faqOptions.map((faq, i) => (
+                    <button key={i} className="faq-card-btn" onClick={() => handleFaqClick(faq)}>
+                      <div className="faq-label-group">
+                        {faq.icon && <span className="faq-icon-mini">{faq.icon}</span>}
+                        <span>{faq.label}</span>
+                      </div>
+                      <ChevronRight size={16} className="faq-arrow" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div ref={messagesEndRef} />
             </div>
           </div>
 
