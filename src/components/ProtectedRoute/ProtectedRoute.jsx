@@ -2,8 +2,9 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, adminOnly = false }) => {
     const { user, token, loading } = useAuth();
+    const isAdminRoute = window.location.pathname.startsWith('/admin');
 
     if (loading) {
         return (
@@ -14,6 +15,12 @@ const ProtectedRoute = ({ children }) => {
         );
     }
 
+    // If it's an admin route and user is not admin OR not logged in, redirect to Home
+    if (isAdminRoute && (!user || user.role !== 'admin')) {
+        return <Navigate to="/" replace />;
+    }
+
+    // General protection for non-admin routes
     if (!token || !user) {
         return <Navigate to="/login" replace />;
     }

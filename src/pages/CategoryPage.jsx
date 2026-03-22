@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import ProductCard from '../components/ProductCard/ProductCard';
 import Skeleton from '../components/Loader/Skeleton';
+import SEO from '../components/SEO/SEO';
 
 const CategoryPage = () => {
   const { slug } = useParams();
@@ -45,6 +46,11 @@ const CategoryPage = () => {
 
   return (
     <div className="category-page container section">
+      <SEO 
+        title={category?.name || 'Categories'}
+        description={`Explore the finest collection of ${category?.name || 'traditional snacks'} at Apna Swad. Each item is crafted for a real shuddh swad (pure taste) experience.`}
+        url={`/category/${slug}`}
+      />
       {category && (
         <div className="section-header">
           <h2 className="brand-font">{category.name}</h2>

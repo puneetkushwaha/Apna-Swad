@@ -35,8 +35,7 @@ import CartPage from './pages/CartPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { WishlistProvider } from './context/WishlistContext';
-import WishlistPage from './pages/WishlistPage';
+import SEO from './components/SEO/SEO';
 import './App.css';
 
 function App() {
@@ -102,6 +101,10 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
+                <SEO 
+                  title="Home"
+                  description="Discover the real shuddh swad (pure taste) of Bihar with Apna Swad. Authentic Thekua, handmade snacks, and premium Indian delicacies delivered to your home."
+                />
                 <HeroBanner />
                 <div className="reveal"><BestSellers /></div>
                 <div className="reveal"><CategoryTicker /></div>
@@ -157,15 +160,15 @@ function App() {
             <Route path="/category/:slug" element={<CategoryPage />} />
             
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-            <Route path="/admin/products" element={<ProtectedRoute><AdminProducts /></ProtectedRoute>} />
-            <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
-            <Route path="/admin/banners" element={<ProtectedRoute><AdminBanners /></ProtectedRoute>} />
-            <Route path="/admin/reviews" element={<ProtectedRoute><AdminReviews /></ProtectedRoute>} />
-            <Route path="/admin/announcements" element={<ProtectedRoute><AdminAnnouncement /></ProtectedRoute>} />
-            <Route path="/admin/orders" element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
-            <Route path="/admin/chat" element={<ProtectedRoute><AdminChat /></ProtectedRoute>} />
-            <Route path="/admin/bulk-email" element={<ProtectedRoute><AdminBulkEmail /></ProtectedRoute>} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute adminOnly={true}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/products" element={<ProtectedRoute adminOnly={true}><AdminProducts /></ProtectedRoute>} />
+            <Route path="/admin/categories" element={<ProtectedRoute adminOnly={true}><AdminCategories /></ProtectedRoute>} />
+            <Route path="/admin/banners" element={<ProtectedRoute adminOnly={true}><AdminBanners /></ProtectedRoute>} />
+            <Route path="/admin/reviews" element={<ProtectedRoute adminOnly={true}><AdminReviews /></ProtectedRoute>} />
+            <Route path="/admin/announcements" element={<ProtectedRoute adminOnly={true}><AdminAnnouncement /></ProtectedRoute>} />
+            <Route path="/admin/orders" element={<ProtectedRoute adminOnly={true}><AdminOrders /></ProtectedRoute>} />
+            <Route path="/admin/chat" element={<ProtectedRoute adminOnly={true}><AdminChat /></ProtectedRoute>} />
+            <Route path="/admin/bulk-email" element={<ProtectedRoute adminOnly={true}><AdminBulkEmail /></ProtectedRoute>} />
           </Routes>
         </main>
         

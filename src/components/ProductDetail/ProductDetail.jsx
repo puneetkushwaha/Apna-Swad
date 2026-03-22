@@ -6,6 +6,7 @@ import { useWishlist } from '../../context/WishlistContext';
 import { Heart, Share2, Star, Truck, ShieldCheck, Leaf, Clock, Package, MessageSquare } from 'lucide-react';
 import ProductReviewTicker from './ProductReviewTicker';
 import Skeleton from '../Loader/Skeleton';
+import SEO from '../SEO/SEO';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -88,6 +89,36 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-page">
+      <SEO 
+        title={product.name}
+        description={`Buy authentic ${product.name} from Apna Swad. Experience the real shuddh swad (pure taste) of traditional Indian delicacies. ${product.description?.slice(0, 100)}...`}
+        image={product.image}
+        url={`/product/${product._id}`}
+        productSchema={{
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          "name": product.name,
+          "image": [product.image, ...(product.images || [])],
+          "description": product.description,
+          "sku": product._id,
+          "brand": {
+            "@type": "Brand",
+            "name": "Apna Swad"
+          },
+          "offers": {
+            "@type": "Offer",
+            "url": window.location.href,
+            "priceCurrency": "INR",
+            "price": product.price,
+            "availability": "https://schema.org/InStock"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": product.rating || "5.0",
+            "reviewCount": product.reviews || "1"
+          }
+        }}
+      />
       <div className="container">
         <button onClick={() => navigate(-1)} className="back-btn">
           ← Back to Collection
