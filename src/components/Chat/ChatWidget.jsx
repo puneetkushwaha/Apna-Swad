@@ -90,17 +90,53 @@ const ChatWidget = () => {
 
   const handleOptionClick = (option) => {
     if (option.type === 'whatsapp') {
-      window.open('https://wa.me/918810905170', '_blank');
+      const promptMsg = { 
+        message: "I can connect you with our heritage expert on WhatsApp for personalized assistance. Would you like to proceed?", 
+        createdAt: new Date(), 
+        isAdmin: true,
+        type: 'whatsapp-prompt'
+      };
+      setMessages(prev => [...prev, promptMsg]);
       return;
     }
     handleSendMessage(null, option.query);
+  };
+
+  const renderMessageContent = (msg) => {
+    if (msg.type === 'whatsapp-prompt') {
+      return (
+        <div className="whatsapp-prompt-content">
+          <p>{msg.message}</p>
+          <button 
+            className="elite-connect-btn"
+            onClick={() => window.open('https://wa.me/918810905170', '_blank')}
+          >
+            <Headphones size={16} /> Connect to WhatsApp
+          </button>
+        </div>
+      );
+    }
+    
+    // Simple systematic reply formatter (converts [Text](URL) to links)
+    const parts = msg.message.split(/(\[.*?\]\(.*?\))/g);
+    return (
+      <p>
+        {parts.map((part, i) => {
+          const match = part.match(/\[(.*?)\]\((.*?)\)/);
+          if (match) {
+            return <a key={i} href={match[2]} target="_blank" rel="noopener noreferrer" className="chat-link">{match[1]}</a>;
+          }
+          return part;
+        })}
+      </p>
+    );
   };
 
   return (
     <div className={`chat-widget-wrapper ${isOpen ? 'open' : ''}`}>
       {!isOpen && (
         <div className="chat-trigger-group">
-          <button className="chat-support-label glass shadow-premium">24/7 Support</button>
+          <button className="chat-support-label glass shadow-premium" onClick={() => setIsOpen(true)}>24/7 Support</button>
           <button className="chat-trigger-btn shadow-premium" onClick={() => setIsOpen(true)}>
             <MessageSquare size={26} />
           </button>
@@ -151,9 +187,9 @@ const ChatWidget = () => {
                 </div>
 
                 {messages.map((msg, idx) => (
-                  <div key={idx} className={`chat-msg-elite ${msg.isAdmin ? 'received' : 'sent'}`}>
+                  <div key={idx} className={`chat-msg-elite ${msg.isAdmin ? 'received' : 'sent'} ${msg.type || ''}`}>
                     <div className="msg-content-elite">
-                      <p>{msg.message}</p>
+                      {renderMessageContent(msg)}
                       <span className="msg-time">{new Date(msg.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                     </div>
                   </div>
