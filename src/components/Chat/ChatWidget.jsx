@@ -178,49 +178,51 @@ const ChatWidget = () => {
           </div>
 
           <div className="chat-content-scroller">
-            {messages.length === 0 ? (
-              <div className="chat-dashboard-view">
+            <div className="chat-dashboard-view">
+              {messages.length === 0 && (
                 <div className="quick-input-card shadow-sm" onClick={() => messagesEndRef.current?.scrollIntoView()}>
                   <span>Write message</span>
                   <Send size={18} className="input-placeholder-icon" />
                 </div>
+              )}
 
-                <div className="instant-answers-section">
-                  <h4 className="section-label">Instant answers</h4>
-                  <div className="faq-list">
-                    {faqOptions.map((faq, i) => (
-                      <button key={i} className="faq-card-btn" onClick={() => handleFaqClick(faq)}>
-                        <div className="faq-label-group">
-                          {faq.icon && <span className="faq-icon-mini">{faq.icon}</span>}
-                          <span>{faq.label}</span>
-                        </div>
-                        <ChevronRight size={16} className="faq-arrow" />
-                      </button>
-                    ))}
-                  </div>
+              {messages.length > 0 && (
+                <div className="messages-list-real">
+                  {messages.map((msg, idx) => (
+                    <div key={idx} className={`chat-msg-elite ${msg.isAdmin ? 'received' : 'sent'} ${msg.type || ''}`}>
+                      <div className="msg-content-elite">
+                        {renderMessageContent(msg)}
+                        <span className="msg-time">{new Date(msg.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {isTyping && (
+                    <div className="chat-msg-elite received">
+                      <div className="msg-content-elite typing">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="instant-answers-section">
+                <h4 className="section-label">Instant answers</h4>
+                <div className="faq-list">
+                  {faqOptions.map((faq, i) => (
+                    <button key={i} className="faq-card-btn" onClick={() => handleFaqClick(faq)}>
+                      <div className="faq-label-group">
+                        {faq.icon && <span className="faq-icon-mini">{faq.icon}</span>}
+                        <span>{faq.label}</span>
+                      </div>
+                      <ChevronRight size={16} className="faq-arrow" />
+                    </button>
+                  ))}
                 </div>
               </div>
-            ) : (
-              <div className="messages-list-real">
-                {messages.map((msg, idx) => (
-                  <div key={idx} className={`chat-msg-elite ${msg.isAdmin ? 'received' : 'sent'} ${msg.type || ''}`}>
-                    <div className="msg-content-elite">
-                      {renderMessageContent(msg)}
-                      <span className="msg-time">{new Date(msg.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                    </div>
-                  </div>
-                ))}
-                
-                {isTyping && (
-                  <div className="chat-msg-elite received">
-                    <div className="msg-content-elite typing">
-                      <span></span><span></span><span></span>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            )}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
 
           <div className="chat-footer-modern">
