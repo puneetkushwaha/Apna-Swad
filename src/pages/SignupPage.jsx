@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Lock, Loader2, AlertCircle } from 'lucide-react';
+import { User, Mail, Lock, Phone, Loader2, AlertCircle } from 'lucide-react';
 import './LoginPage.css';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ const SignupPage = () => {
     setLoading(true);
     setError('');
     try {
-      await signup(name, email, password);
+      await signup(name, email, phone, password);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to signup');
@@ -88,6 +89,22 @@ const SignupPage = () => {
                 placeholder="you@example.com" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
+                required 
+              />
+            </div>
+          </div>
+
+          <div className="input-block-premium">
+            <label>Mobile Number (for WhatsApp)</label>
+            <div className="input-wrapper-premium">
+              <Phone size={18} className="input-icon" />
+              <input 
+                type="tel" 
+                className="input-premium"
+                placeholder="10-digit number" 
+                value={phone} 
+                onChange={(e) => setPhone(e.target.value)} 
+                maxLength="10"
                 required 
               />
             </div>
