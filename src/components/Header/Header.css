@@ -23,6 +23,13 @@
   gap: clamp(8px, 1.5vw, 12px);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 15px);
+  flex-shrink: 0;
+}
+
 .mobile-toggle {
   display: none;
   cursor: pointer;
