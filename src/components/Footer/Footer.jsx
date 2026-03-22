@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-column footer-brand">
-            <img src="/text_logo.png" alt="Apna Swad" className="footer-logo-text" />
+            <img src="/logo text.png" alt="Apna Swad" className="footer-logo-text" />
             <p>Authentic Indian snacks, handcrafted with love and zero preservatives. Bringing the taste of tradition to your doorstep.</p>
             <div className="social-links">
               <a href="https://www.instagram.com/apnaswad_india/" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>

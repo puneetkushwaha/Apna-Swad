@@ -15,14 +15,14 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [showTextLogo, setShowTextLogo] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const { user, logout } = useAuth();
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
   const location = useLocation();
   const navigate = useNavigate();
 
-  
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -74,21 +74,21 @@ const Header = () => {
         <div className="logo-container">
           <Link to="/" className="logo-link">
             <div className="logo-wrapper">
-              <img 
-                src="/mascot_logo.png" 
-                alt="Apna Swad Mascot" 
-                className={`logo-img mascot ${!showTextLogo ? 'active' : ''}`} 
+              <img
+                src="/mascot_logo.png"
+                alt="Apna Swad Mascot"
+                className={`logo-img mascot ${!showTextLogo ? 'active' : ''}`}
               />
-              <img 
-                src="/logo text.png" 
-                alt="Apna Swad Text" 
-                className={`logo-img text-logo ${showTextLogo ? 'active' : ''}`} 
+              <img
+                src="/logo text.png"
+                alt="Apna Swad Text"
+                className={`logo-img text-logo ${showTextLogo ? 'active' : ''}`}
               />
             </div>
             {isAdminMode && <span className="admin-tag">Admin</span>}
           </Link>
         </div>
-        
+
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
           <ul className="nav-links main-nav">
             {!isAdminMode ? (
@@ -103,8 +103,8 @@ const Header = () => {
                     </span>
                   </Link>
                 </li>
-                
-                <li 
+
+                <li
                   className="dropdown-trigger"
                   onMouseEnter={() => setActiveDropdown('store')}
                   onMouseLeave={() => setActiveDropdown(null)}
@@ -120,9 +120,9 @@ const Header = () => {
                         { id: '69b846f56fac84f1c9686c12', name: 'Traditional Thekua' },
                         { id: '69b8476d6fac84f1c9686c18', name: 'Saunf Flavour' }
                       ].map(item => (
-                        <Link 
-                          key={item.id} 
-                          to={`/product/${item.id}`} 
+                        <Link
+                          key={item.id}
+                          to={`/product/${item.id}`}
                           className="mini-cat-item"
                           onClick={() => setActiveDropdown(null)}
                         >
@@ -146,7 +146,7 @@ const Header = () => {
                   </Link>
                 </li>
 
-                <li 
+                <li
                   className="dropdown-trigger"
                   onMouseEnter={() => setActiveDropdown('account')}
                   onMouseLeave={() => setActiveDropdown(null)}
@@ -170,9 +170,9 @@ const Header = () => {
                         <Link to="/profile#orders" className="nav-drop-item" onClick={() => setActiveDropdown(null)}>
                           <Truck size={18} /> 🚚 Track Your Order
                         </Link>
-                        <div 
-                          className="nav-drop-item" 
-                          style={{cursor: 'pointer'}} 
+                        <div
+                          className="nav-drop-item"
+                          style={{ cursor: 'pointer' }}
                           onClick={() => {
                             console.log('Dispatching toggleChat event');
                             window.dispatchEvent(new CustomEvent('toggleChat'));
@@ -205,9 +205,9 @@ const Header = () => {
             )}
           </ul>
         </nav>
-        
+
         <div className="header-actions">
-          <div className="action-btn" onClick={() => setIsSearchActive(true)} style={{cursor: 'pointer'}}>
+          <div className="action-btn" onClick={() => setIsSearchActive(true)} style={{ cursor: 'pointer' }}>
             <Search size={22} />
           </div>
 
@@ -215,9 +215,9 @@ const Header = () => {
             <Heart size={22} className={wishlistCount > 0 ? 'heart-filled' : ''} />
             {wishlistCount > 0 && <span className="cart-count wishlist-count">{wishlistCount}</span>}
           </Link>
-          
+
           <NotificationBell />
-          
+
           <div className="auth-actions">
             {!user ? (
               <Link to="/login" className="guest-auth">
@@ -242,8 +242,8 @@ const Header = () => {
       <div className={`search-overlay ${isSearchActive ? 'active' : ''}`}>
         <button className="search-close-btn" onClick={() => setIsSearchActive(false)}>×</button>
         <div className="search-container-inner">
-          <input 
-            type="text" 
+          <input
+            type="text"
             className="search-overlay-input"
             placeholder="Search for snacks, sweets..."
             value={searchQuery}
