@@ -1,6 +1,6 @@
 import React from 'react';
 import { Package, ShieldAlert, Clock, RefreshCw, MessageCircle, Mail, HelpCircle } from 'lucide-react';
-import WhatsAppIcon from '../Icons/WhatsAppIcon';
+import WhatsAppIcon from '../components/Icons/WhatsAppIcon';
 import SEO from '../components/SEO/SEO';
 import './ReturnPolicy.css';
 
