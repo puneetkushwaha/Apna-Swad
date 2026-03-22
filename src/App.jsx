@@ -10,6 +10,8 @@ import AdminBanners from './admin/AdminBanners';
 import AdminReviews from './admin/AdminReviews';
 import AdminAnnouncement from './admin/AdminAnnouncement';
 import AdminOrders from './admin/AdminOrders';
+import AdminChat from './admin/AdminChat';
+import AdminBulkEmail from './admin/AdminBulkEmail';
 import InstagramFeed from './components/InstagramFeed/InstagramFeed';
 import ChatWidget from './components/Chat/ChatWidget';
 import AnnouncementBoard from './components/AnnouncementBoard/AnnouncementBoard';
