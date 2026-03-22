@@ -14,8 +14,9 @@ const AdminOrders = () => {
     trackingId: '',
     carrierName: ''
   });
+  const [selectedOrderIds, setSelectedOrderIds] = useState([]);
+  const [isBulkLoading, setIsBulkLoading] = useState(false);
 
-  
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -93,6 +94,61 @@ const AdminOrders = () => {
     }
   };
 
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      const allIds = filteredOrders.map(o => o._id);
+      setSelectedOrderIds(allIds);
+    } else {
+      setSelectedOrderIds([]);
+    }
+  };
+
+  const handleSelectOrder = (orderId) => {
+    setSelectedOrderIds(prev => 
+      prev.includes(orderId) 
+        ? prev.filter(id => id !== orderId) 
+        : [...prev, orderId]
+    );
+  };
+
+  const handleBulkLabels = async () => {
+    if (selectedOrderIds.length === 0) return;
+    try {
+      setIsBulkLoading(true);
+      const res = await api.post('/orders/bulk-label', { orderIds: selectedOrderIds }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.data && res.data.label_url) {
+        window.open(res.data.label_url, '_blank');
+      } else {
+        alert('Bulk Label URL not found. Ensure selected orders are synced and processed.');
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error generating bulk labels');
+    } finally {
+      setIsBulkLoading(false);
+    }
+  };
+
+  const handleBulkInvoices = async () => {
+    if (selectedOrderIds.length === 0) return;
+    try {
+      setIsBulkLoading(true);
+      const res = await api.post('/orders/bulk-invoice', { orderIds: selectedOrderIds }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.data && res.data.invoice_url) {
+        window.open(res.data.invoice_url, '_blank');
+      } else {
+        alert('Bulk Invoice URL not found.');
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error generating bulk invoices');
+    } finally {
+      setIsBulkLoading(false);
+    }
+  };
+
   const filteredOrders = orders.filter(order => 
     order._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     order.user?.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -128,10 +184,43 @@ const AdminOrders = () => {
           </div>
         </div>
 
+        {selectedOrderIds.length > 0 && (
+          <div className="admin-bulk-actions glass active">
+            <div className="bulk-info">
+              <span className="count-badge">{selectedOrderIds.length}</span>
+              <span>Orders Selected</span>
+            </div>
+            <div className="bulk-buttons">
+              <button 
+                className="btn-bulk label" 
+                onClick={handleBulkLabels}
+                disabled={isBulkLoading}
+              >
+                {isBulkLoading ? 'Processing...' : <><Printer size={16} /> Bulk Labels</>}
+              </button>
+              <button 
+                className="btn-bulk invoice" 
+                onClick={handleBulkInvoices}
+                disabled={isBulkLoading}
+              >
+                {isBulkLoading ? 'Processing...' : <><FileText size={16} /> Bulk Invoices</>}
+              </button>
+              <button className="btn-bulk clear" onClick={() => setSelectedOrderIds([])}>Clear</button>
+            </div>
+          </div>
+        )}
+
         <div className="admin-table-container">
           <table className="admin-table">
             <thead>
               <tr>
+                <th style={{ width: '40px' }}>
+                  <input 
+                    type="checkbox" 
+                    onChange={handleSelectAll}
+                    checked={selectedOrderIds.length === filteredOrders.length && filteredOrders.length > 0}
+                  />
+                </th>
                 <th>Order ID</th>
                 <th>Customer</th>
                 <th>Amount</th>
@@ -144,6 +233,7 @@ const AdminOrders = () => {
               {loading ? (
                 Array(5).fill(0).map((_, i) => (
                   <tr key={i}>
+                    <td><Skeleton type="text" style={{ width: '20px' }} /></td>
                     <td><Skeleton type="text" style={{ width: '80px' }} /></td>
                     <td><Skeleton type="text" style={{ width: '150px' }} /><Skeleton type="text" style={{ width: '120px', height: '12px' }} /></td>
                     <td><Skeleton type="text" style={{ width: '60px' }} /></td>
@@ -154,7 +244,14 @@ const AdminOrders = () => {
                 ))
               ) : (
                 filteredOrders.map(order => (
-                  <tr key={order._id}>
+                  <tr key={order._id} className={selectedOrderIds.includes(order._id) ? 'selected-row' : ''}>
+                    <td>
+                      <input 
+                        type="checkbox" 
+                        checked={selectedOrderIds.includes(order._id)}
+                        onChange={() => handleSelectOrder(order._id)}
+                      />
+                    </td>
                     <td data-label="Order ID">#{order._id.slice(-6)}</td>
                     <td data-label="Customer">
                       <div className="customer-info">
