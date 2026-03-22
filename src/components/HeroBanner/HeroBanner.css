@@ -103,36 +103,39 @@
   height: 12px;
 }
 
-.hero-banner-placeholder {
+.hero-banner-shimmer {
   height: 650px;
+  width: 100%;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmerMove 1.5s infinite;
   display: flex;
   align-items: center;
-  background-size: cover;
-  background-position: center;
+  padding: 0 10%;
 }
 
-.banner-title {
-  font-family: var(--font-serif);
-  font-size: 5rem;
-  color: var(--text-main);
-  line-height: 1;
+.shimmer-content-group {
+  width: 60%;
+}
+
+.shimmer-title {
+  height: 80px;
+  width: 100%;
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
   margin-bottom: 20px;
-  letter-spacing: var(--letter-spacing-tight);
-  font-weight: 900;
 }
 
-.banner-title .accent {
-  color: var(--text-main);
-  font-style: italic;
-  font-weight: 400;
+.shimmer-subtitle {
+  height: 30px;
+  width: 60%;
+  background: rgba(0,0,0,0.05);
+  border-radius: 4px;
 }
 
-.hero-banner-placeholder p {
-  font-family: var(--font-sans);
-  font-size: 1.4rem;
-  color: var(--text-main);
-  opacity: 0.8;
-  font-weight: 300;
+@keyframes shimmerMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 @media (max-width: 768px) {

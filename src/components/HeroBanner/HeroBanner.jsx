@@ -6,15 +6,18 @@ const HeroBanner = () => {
   const [banners, setBanners] = useState([]);
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        
+        setLoading(true);
         const res = await api.get('/banners');
         setBanners(res.data);
       } catch (err) {
         console.error('Error fetching banners:', err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBanners();
@@ -32,14 +35,16 @@ const HeroBanner = () => {
   const nextSlide = () => setCurrent((prev) => (prev + 1) % banners.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + banners.length) % banners.length);
 
-  if (banners.length === 0) return (
-    <div className="hero-banner-placeholder" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.2)), url('/premium_besan_ladoo_hero_1773502060104.png')` }}>
-      <div className="container">
-        <h1 className="banner-title">Authentic Flavors, <br /><span className="accent">Modern Tradition.</span></h1>
-        <p>Handcrafted Indian snacks delivered to your doorstep.</p>
+  if (loading) return (
+    <div className="hero-banner-shimmer">
+      <div className="shimmer-content-group">
+        <div className="shimmer-title"></div>
+        <div className="shimmer-subtitle"></div>
       </div>
     </div>
   );
+
+  if (banners.length === 0) return null;
 
   return (
     <div className="hero-banner">

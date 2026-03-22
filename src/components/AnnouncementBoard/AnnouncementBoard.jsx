@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
-import { MapPin } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './AnnouncementBoard.css';
 
 const AnnouncementBoard = () => {
   const [announcement, setAnnouncement] = useState('');
   const { user } = useAuth();
-  const [displayPincode, setDisplayPincode] = useState('');
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -24,12 +22,6 @@ const AnnouncementBoard = () => {
     fetchAnnouncement();
   }, []);
 
-  useEffect(() => {
-    const pincode = user?.pincode || localStorage.getItem('userPincode');
-    if (pincode) {
-      setDisplayPincode(pincode);
-    }
-  }, [user]);
 
   // Always show the board if not on admin path (handled in App.jsx)
   // We remove the conditional null return to ensure the layout remains consistent
@@ -54,26 +46,12 @@ const AnnouncementBoard = () => {
                   <span>SALE SALE SALE - EXCLUSIVE OFFERS INSIDE! • Heritage of Taste • Premium Quality Ingredients • </span>
                 </>
               )}
-            </div>
           </div>
-        </div>
-        
-        <div className="pincode-section">
-          {displayPincode ? (
-            <div className="pincode-display">
-              <span className="pincode-text">{displayPincode}</span>
-              <MapPin size={14} className="pin-icon-small" />
-            </div>
-          ) : (
-            <div className="pincode-display unassigned" onClick={() => window.dispatchEvent(new CustomEvent('openPincodeModal'))}>
-              <span>Enter Pincode</span>
-              <MapPin size={14} />
-            </div>
-          )}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default AnnouncementBoard;

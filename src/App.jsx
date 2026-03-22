@@ -15,8 +15,8 @@ import AdminBulkEmail from './admin/AdminBulkEmail';
 import InstagramFeed from './components/InstagramFeed/InstagramFeed';
 import ChatWidget from './components/Chat/ChatWidget';
 import AnnouncementBoard from './components/AnnouncementBoard/AnnouncementBoard';
-import PincodeModal from './components/PincodeModal/PincodeModal';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import LoadingScreen from './components/Loader/LoadingScreen';
 import CategoryPage from './pages/CategoryPage';
 import HeroBanner from './components/HeroBanner/HeroBanner';
 import BestSellers from './components/BestSellers/BestSellers';
@@ -40,9 +40,18 @@ import WishlistPage from './pages/WishlistPage';
 import './App.css';
 
 function App() {
+  const [appLoading, setAppLoading] = useState(true);
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
   const isAdminLogin = location.pathname === '/admin/login';
+
+  useEffect(() => {
+    // Premium loading simulation/auth check
+    const timer = setTimeout(() => {
+      setAppLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -81,13 +90,13 @@ function App() {
       mutationObserver.disconnect();
     };
   }, [location]);
+  if (appLoading) return <LoadingScreen />;
 
   return (
     <WishlistProvider>
       <div className="app">
         {(!isAdminPath || (isAdminPath && !isAdminLogin)) && <Header />}
         {!isAdminPath && <AnnouncementBoard />}
-        <PincodeModal />
         
         <main>
           <Routes>
