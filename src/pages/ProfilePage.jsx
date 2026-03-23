@@ -457,14 +457,15 @@ const ProfilePage = () => {
                     <h4>Earn Complimentary Rewards</h4>
                     <p>Refer 5 friends to Apna Swad and receive a complimentary heritage snack box!</p>
                   </div>
-                  <div className="referral-code-box">
+                    <div className="referral-code-box">
                     <label>Your Unique Code</label>
                     <div className="code-display">
-                      <code>{user.referralCode}</code>
+                      <code>{user.referralCode || 'Generating...'}</code>
                       <button onClick={() => {
+                        if (!user.referralCode) return alert('Please wait, code is being generated.');
                         navigator.clipboard.writeText(user.referralCode);
                         alert('Referral code copied!');
-                      }} className="copy-btn">Copy</button>
+                      }} className="copy-btn" disabled={!user.referralCode}>Copy</button>
                     </div>
                   </div>
                 </div>
