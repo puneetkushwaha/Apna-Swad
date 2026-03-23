@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Lock, Phone, AlertCircle } from 'lucide-react';
+import { User, Mail, Lock, Phone, AlertCircle, Star } from 'lucide-react';
 import Skeleton from '../components/Loader/Skeleton';
 import './LoginPage.css';
 
@@ -11,6 +11,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [referralCode, setReferralCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup, googleLogin, user } = useAuth();
@@ -25,7 +26,7 @@ const SignupPage = () => {
     setLoading(true);
     setError('');
     try {
-      await signup(name, email, phone, password);
+      await signup(name, email, phone, password, referralCode);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to signup');
@@ -36,7 +37,7 @@ const SignupPage = () => {
 
   const handleGoogleSuccess = async (response) => {
     try {
-      await googleLogin(response.credential);
+      await googleLogin(response.credential, referralCode);
       navigate('/');
     } catch (err) {
       setError('Google Login Failed');
@@ -122,6 +123,20 @@ const SignupPage = () => {
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
                 required 
+              />
+            </div>
+          </div>
+
+          <div className="input-block-premium">
+            <label>Referral Code (Optional)</label>
+            <div className="input-wrapper-premium">
+              <Star size={18} className="input-icon" />
+              <input 
+                type="text" 
+                className="input-premium"
+                placeholder="ASXXXXXX" 
+                value={referralCode} 
+                onChange={(e) => setReferralCode(e.target.value.toUpperCase())} 
               />
             </div>
           </div>

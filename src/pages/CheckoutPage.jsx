@@ -14,7 +14,8 @@ import {
     ShoppingBag,
     User,
     Lock,
-    Phone
+    Phone,
+    Star
 } from 'lucide-react';
 import './CheckoutPage.css';
 
@@ -52,6 +53,16 @@ const CheckoutPage = () => {
         phone: user?.phone || ''
     });
 
+    const [couponCode, setCouponCode] = useState('');
+    const [couponLoading, setCouponLoading] = useState(false);
+    const [checkoutDetails, setCheckoutDetails] = useState({
+        itemTotal: cartTotal,
+        finalTotal: cartTotal,
+        discountApplied: 0,
+        couponUsed: null,
+        promos: {}
+    });
+
     useEffect(() => {
         if (user) {
             setShippingAddress(prev => ({
@@ -66,6 +77,32 @@ const CheckoutPage = () => {
             }));
         }
     }, [user]);
+
+    // Live price calculation
+    useEffect(() => {
+        const updateCheckoutDetails = async () => {
+            setCouponLoading(true);
+            try {
+                const res = await api.calculateCheckout({ 
+                    items: cartItems.map(item => ({
+                        product: item._id,
+                        quantity: item.quantity,
+                        price: item.price
+                    })),
+                    couponCode: couponCode 
+                });
+                setCheckoutDetails(res.data);
+            } catch (err) {
+                console.error('Checkout calculation failed:', err);
+            } finally {
+                setCouponLoading(false);
+            }
+        };
+
+        if (cartItems.length > 0) {
+            updateCheckoutDetails();
+        }
+    }, [cartItems, couponCode]);
 
     const handleAddressChange = (e) => {
         setShippingAddress({
@@ -104,7 +141,7 @@ const CheckoutPage = () => {
     };
 
     const performPayment = async () => {
-        if (isLadduBypass) {
+        if (checkoutDetails.finalTotal === 0) {
             await handleFreeOrder();
             return;
         }
@@ -115,11 +152,9 @@ const CheckoutPage = () => {
         }
 
         setLoading(true);
-        // ... (rest of online payment logic)
         try {
-            
             const { data: orderData } = await api.post('/payment/create-order', {
-                amount: cartTotal,
+                amount: checkoutDetails.finalTotal,
                 currency: 'INR'
             });
 
@@ -135,7 +170,6 @@ const CheckoutPage = () => {
                         const verifyRes = await api.post('/payment/verify-payment', response);
                         
                         if (verifyRes.data.status === 'success') {
-                            // Save address to profile if selected
                             if (saveToProfile) {
                                 try {
                                     const updateRes = await api.put('/user/profile', {
@@ -167,7 +201,9 @@ const CheckoutPage = () => {
                                     price: item.price,
                                     image: item.image
                                 })),
-                                totalAmount: cartTotal,
+                                totalAmount: checkoutDetails.finalTotal,
+                                discountAmount: checkoutDetails.discountApplied,
+                                couponCode: checkoutDetails.couponUsed,
                                 shippingAddress: {
                                     street: `${shippingAddress.street}${shippingAddress.landmark ? ', ' + shippingAddress.landmark : ''}`,
                                     city: shippingAddress.city,
@@ -526,16 +562,44 @@ const CheckoutPage = () => {
                         <div className="luxury-calculations">
                             <div className="calc-row">
                                 <span>Subtotal</span>
-                                <span>₹{cartTotal}</span>
+                                <span>₹{checkoutDetails.itemTotal}</span>
                             </div>
+                            {checkoutDetails.discountApplied > 0 && (
+                                <div className="calc-row discount-row" style={{color: '#2E7D32', fontWeight: 600}}>
+                                    <span>Promotional Savings</span>
+                                    <span>-₹{checkoutDetails.discountApplied}</span>
+                                </div>
+                            )}
                             <div className="calc-row">
-                                <span>Shipping Fees</span>
-                                <span className="text-success">Complimentary</span>
+                                <span>Heritage Shipping</span>
+                                <span style={{color: '#2E7D32', fontWeight: 600}}>FREE</span>
                             </div>
+
+                            <div className="lux-coupon-box">
+                                <label>Promo Code</label>
+                                <div className="coupon-input-group">
+                                    <input 
+                                        type="text" 
+                                        placeholder="ASXXXX"
+                                        value={couponCode}
+                                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                        disabled={couponLoading}
+                                    />
+                                    <button className="lux-coupon-btn" disabled={couponLoading}>
+                                        {couponLoading ? '...' : 'Apply'}
+                                    </button>
+                                </div>
+                                {checkoutDetails.couponUsed && (
+                                    <div className="coupon-applied-msg">
+                                        <Star size={10} fill="#C5A059" /> Coupon {checkoutDetails.couponUsed} Active
+                                    </div>
+                                )}
+                            </div>
+
                             <div className="calc-divider"></div>
                             <div className="calc-row grand-total">
-                                <span>Total to Pay</span>
-                                <span>₹{cartTotal}</span>
+                                <span>Order Total</span>
+                                <span>₹{checkoutDetails.finalTotal}</span>
                             </div>
                         </div>
 

@@ -50,9 +50,9 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
-  const signup = async (name, email, password) => {
+  const signup = async (name, email, phone, password, referralCode) => {
     
-    const res = await api.post('/auth/signup', { name, email, password });
+    const res = await api.post('/auth/signup', { name, email, phone, password, referralCode });
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
     setUser(res.data.user);
@@ -61,9 +61,9 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
-  const googleLogin = async (credential) => {
+  const googleLogin = async (credential, referralCode) => {
     
-    const res = await api.post('/auth/google', { credential });
+    const res = await api.post('/auth/google', { credential, referralCode });
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
     setUser(res.data.user);

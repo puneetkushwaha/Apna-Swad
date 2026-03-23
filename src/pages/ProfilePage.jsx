@@ -295,8 +295,8 @@ const ProfilePage = () => {
               </div>
               <div className="stat-divider"></div>
               <div className="stat-item">
-                <span className="stat-value">0</span>
-                <span className="stat-label">Reviews</span>
+                <span className="stat-value">{user.referralCount || 0}</span>
+                <span className="stat-label">Referrals</span>
               </div>
             </div>
 
@@ -308,6 +308,13 @@ const ProfilePage = () => {
                 <User size={18} /> 
                 <span className="btn-text">Profile Details</span>
                 <Edit2 size={14} className="hover-icon" />
+              </button>
+              <button 
+                className={`sidebar-btn ${activeTab === 'referral' ? 'active' : ''}`}
+                onClick={() => setActiveTab('referral')}
+              >
+                <Star size={18} /> 
+                <span className="btn-text">Referral Hub</span>
               </button>
               <button 
                 className={`sidebar-btn ${activeTab === 'orders' ? 'active' : ''}`}
@@ -436,6 +443,49 @@ const ProfilePage = () => {
                     </div>
                   </div>
                 )}
+              </div>
+            )}
+
+            {activeTab === 'referral' && (
+              <div className="tab-content fade-in">
+                <div className="section-header">
+                  <h3>Referral Heritage Hub</h3>
+                </div>
+                
+                <div className="referral-bonus-card">
+                  <div className="bonus-info">
+                    <h4>Earn Complimentary Rewards</h4>
+                    <p>Refer 5 friends to Apna Swad and receive a complimentary heritage snack box!</p>
+                  </div>
+                  <div className="referral-code-box">
+                    <label>Your Unique Code</label>
+                    <div className="code-display">
+                      <code>{user.referralCode}</code>
+                      <button onClick={() => {
+                        navigator.clipboard.writeText(user.referralCode);
+                        alert('Referral code copied!');
+                      }} className="copy-btn">Copy</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="profile-info-grid" style={{marginTop: '30px'}}>
+                  <div className="info-block">
+                    <label>Total Referrals</label>
+                    <p className="stat-highlight">{user.referralCount || 0}</p>
+                  </div>
+                  <div className="info-block">
+                    <label>Rewards Earned</label>
+                    <p className="stat-highlight">{user.rewardsEarned || 0}</p>
+                  </div>
+                  <div className="info-block full-width">
+                    <label>Progress to Next Reward</label>
+                    <div className="progress-container">
+                      <div className="progress-bar" style={{width: `${((user.referralCount % 5) / 5) * 100}%`}}></div>
+                      <span className="progress-text">{(user.referralCount % 5)} / 5 Referrals</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
