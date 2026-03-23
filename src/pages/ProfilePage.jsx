@@ -486,6 +486,32 @@ const ProfilePage = () => {
                     </div>
                   </div>
                 </div>
+
+                {user.referralRewards && user.referralRewards.length > 0 && (
+                  <div className="earned-rewards-section" style={{marginTop: '40px'}}>
+                    <h4 className="brand-font" style={{marginBottom: '20px', color: 'var(--text-main)'}}>Your Earned Rewards</h4>
+                    <div className="rewards-grid">
+                      {user.referralRewards.map((code, idx) => (
+                        <div key={idx} className="reward-coupon-card">
+                          <div className="coupon-tag">100% OFF</div>
+                          <div className="coupon-details">
+                            <span className="coupon-title">Free Heritage Pack</span>
+                            <code className="reward-code">{code}</code>
+                          </div>
+                          <button 
+                            className="reward-copy-btn"
+                            onClick={() => {
+                              navigator.clipboard.writeText(code);
+                              alert('Reward code copied!');
+                            }}
+                          >
+                            Copy Code
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

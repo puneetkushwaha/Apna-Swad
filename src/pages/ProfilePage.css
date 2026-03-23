@@ -826,3 +826,85 @@
     margin: 0 auto;
   }
 }
+
+/* Reward Coupon Card Styles */
+.earned-rewards-section {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.reward-coupon-card {
+  background: white;
+  border: 2px dashed #9E7E6B;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.reward-coupon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 153, 51, 0.15);
+  border-style: solid;
+  border-color: var(--secondary);
+}
+
+.coupon-tag {
+  background: var(--secondary);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+.coupon-details {
+  flex: 1;
+}
+
+.coupon-title {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.reward-code {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: 1px;
+}
+
+.reward-copy-btn {
+  background: var(--text-main);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reward-copy-btn:hover {
+  background: var(--secondary);
+}
