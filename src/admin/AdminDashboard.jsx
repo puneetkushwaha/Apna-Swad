@@ -81,6 +81,11 @@ const AdminDashboard = () => {
             <h3>Broadcaster</h3>
             <p>Bulk Email Tool</p>
           </div>
+          <div className="admin-card" onClick={() => navigate('/admin/promos')}>
+            <span className="card-icon">🏷️</span>
+            <h3>Offer Lab</h3>
+            <p>Promos & Coupons</p>
+          </div>
         </div>
       </div>
     </div>

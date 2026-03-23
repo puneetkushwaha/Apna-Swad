@@ -12,6 +12,7 @@ import AdminAnnouncement from './admin/AdminAnnouncement';
 import AdminOrders from './admin/AdminOrders';
 import AdminChat from './admin/AdminChat';
 import AdminBulkEmail from './admin/AdminBulkEmail';
+import AdminPromos from './admin/AdminPromos';
 import InstagramFeed from './components/InstagramFeed/InstagramFeed';
 import ChatWidget from './components/Chat/ChatWidget';
 import AnnouncementBoard from './components/AnnouncementBoard/AnnouncementBoard';
@@ -188,6 +189,7 @@ function App() {
             <Route path="/admin/orders" element={<ProtectedRoute adminOnly={true}><AdminOrders /></ProtectedRoute>} />
             <Route path="/admin/chat" element={<ProtectedRoute adminOnly={true}><AdminChat /></ProtectedRoute>} />
             <Route path="/admin/bulk-email" element={<ProtectedRoute adminOnly={true}><AdminBulkEmail /></ProtectedRoute>} />
+            <Route path="/admin/promos" element={<ProtectedRoute adminOnly={true}><AdminPromos /></ProtectedRoute>} />
           </Routes>
         </main>
         

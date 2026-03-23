@@ -22,6 +22,11 @@ const api = axios.create({
     baseURL: getBaseURL(),
 });
 
+// Extend the api object with custom methods
+api.getPromoSettings = () => api.get('/admin/promo-settings');
+api.updatePromoSettings = (settings) => api.put('/admin/promo-settings', settings);
+api.generateBulkCoupons = (data) => api.post('/admin/coupons/bulk', data);
+
 // Request interceptor for the Authorization header
 api.interceptors.request.use(
     (config) => {
