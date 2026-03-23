@@ -27,6 +27,7 @@ api.getPromoSettings = () => api.get('/admin/promo-settings');
 api.updatePromoSettings = (settings) => api.put('/admin/promo-settings', settings);
 api.generateBulkCoupons = (data) => api.post('/admin/coupons/bulk', data);
 api.calculateCheckout = (data) => api.post('/orders/calculate-checkout', data);
+api.sendBulkEmail = (data) => api.post('/admin/bulk-email', data);
 
 // Request interceptor for the Authorization header
 api.interceptors.request.use(

@@ -1022,3 +1022,112 @@ input:checked + .slider:before {
   from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+/* --- Marketing Command Center Styles --- */
+.bg-maroon { background-color: #4a2c2a !important; }
+.text-maroon { color: #4a2c2a !important; }
+.text-white { color: white !important; }
+
+.bulk-email-layout {
+  margin-top: 20px;
+}
+
+.input-group-premium {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group-premium label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #4a2c2a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group-premium input,
+.input-group-premium textarea {
+  padding: 15px 20px;
+  border: 1.5px solid #eee;
+  border-radius: 14px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fdfaf8;
+}
+
+.input-group-premium input:focus,
+.input-group-premium textarea:focus {
+  border-color: #c48c4e;
+  background: white;
+  box-shadow: 0 4px 15px rgba(196, 140, 78, 0.1);
+  outline: none;
+}
+
+.form-info {
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: #999;
+  font-style: italic;
+}
+
+.form-actions-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.btn-maroon-glow {
+  background: #4a2c2a;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 44, 42, 0.3);
+}
+
+.btn-maroon-glow:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(74, 44, 42, 0.4);
+  background: #5d3835;
+}
+
+.btn-outline-maroon {
+  background: transparent;
+  color: #4a2c2a;
+  border: 1.5px solid #4a2c2a;
+  padding: 12px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-maroon:hover {
+  background: rgba(74, 44, 42, 0.05);
+  transform: scale(1.02);
+}
+
+.animated-fade {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
