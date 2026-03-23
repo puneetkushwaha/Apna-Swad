@@ -59,16 +59,20 @@ const AdminPromos = () => {
     return (
         <div className="admin-promos-page section">
             <div className="container">
-                <h1 className="premium-title">Offer Lab</h1>
-                <p className="premium-subtitle">Manage dynamic promotions and bulk coupon campaigns.</p>
+                <div className="admin-header-flex">
+                    <div>
+                        <h1 className="premium-title">Promotion Hub</h1>
+                        <p className="premium-subtitle">Manage dynamic offers and elite coupon campaigns.</p>
+                    </div>
+                </div>
 
                 {message && <div className="alert-banner">{message}</div>}
 
-                <div className="settings-grid">
+                <div className="admin-items-grid-premium">
                     {/* B2G1 Section */}
                     <div className="admin-card-large">
                         <h3>Buy 2 Get 1 Free (B2G1)</h3>
-                        <div className="input-group">
+                        <div className="input-group-row">
                             <label className="switch">
                                 <input 
                                     type="checkbox" 
@@ -77,15 +81,15 @@ const AdminPromos = () => {
                                 />
                                 <span className="slider round"></span>
                             </label>
-                            <span>Enable B2G1 Logic</span>
+                            <span style={{fontWeight: 600, color: 'var(--admin-accent)'}}>Active Status</span>
                         </div>
-                        <button onClick={handleUpdateSettings} className="premium-btn">Save B2G1 Config</button>
+                        <button onClick={handleUpdateSettings} className="btn-primary">Update B2G1 Setting</button>
                     </div>
 
                     {/* First 100 Orders Section */}
                     <div className="admin-card-large">
-                        <h3>Global Order Discount (First X Orders)</h3>
-                        <div className="input-group">
+                        <h3>Elite Welcome Program</h3>
+                        <div className="input-group-row">
                             <label className="switch">
                                 <input 
                                     type="checkbox" 
@@ -94,33 +98,35 @@ const AdminPromos = () => {
                                 />
                                 <span className="slider round"></span>
                             </label>
-                            <span>Enable Welcome Discount</span>
+                            <span style={{fontWeight: 600, color: 'var(--admin-accent)'}}>Active Status</span>
                         </div>
-                        <div className="flex-inputs">
-                            <div>
+                        <div className="flex-inputs-premium">
+                            <div className="admin-input-group">
                                 <label>Discount Amount (Rs)</label>
                                 <input 
                                     type="number" 
+                                    className="admin-input-premium"
                                     value={settings.firstOrders.discountValue} 
                                     onChange={(e) => setSettings({...settings, firstOrders: {...settings.firstOrders, discountValue: parseInt(e.target.value)}})} 
                                 />
                             </div>
-                            <div>
-                                <label>Order Limit</label>
+                            <div className="admin-input-group">
+                                <label>Target Order Count</label>
                                 <input 
                                     type="number" 
+                                    className="admin-input-premium"
                                     value={settings.firstOrders.orderLimit} 
                                     onChange={(e) => setSettings({...settings, firstOrders: {...settings.firstOrders, orderLimit: parseInt(e.target.value)}})} 
                                 />
                             </div>
                         </div>
-                        <button onClick={handleUpdateSettings} className="premium-btn">Save Order Config</button>
+                        <button onClick={handleUpdateSettings} className="btn-primary">Update Welcome Logic</button>
                     </div>
 
                     {/* Referral Section */}
                     <div className="admin-card-large">
-                        <h3>Referral Reward System</h3>
-                        <div className="input-group">
+                        <h3>Referral Heritage System</h3>
+                        <div className="input-group-row">
                             <label className="switch">
                                 <input 
                                     type="checkbox" 
@@ -129,61 +135,67 @@ const AdminPromos = () => {
                                 />
                                 <span className="slider round"></span>
                             </label>
-                            <span>Enable Referrals</span>
+                            <span style={{fontWeight: 600, color: 'var(--admin-accent)'}}>Active Status</span>
                         </div>
-                        <div className="flex-inputs">
-                            <div>
-                                <label>Referrals Needed for Reward</label>
+                        <div className="flex-inputs-premium">
+                            <div className="admin-input-group">
+                                <label>Required Successful Referrals</label>
                                 <input 
                                     type="number" 
+                                    className="admin-input-premium"
                                     value={settings.referral.targetCount} 
                                     onChange={(e) => setSettings({...settings, referral: {...settings.referral, targetCount: parseInt(e.target.value)}})} 
                                 />
                             </div>
                         </div>
-                        <button onClick={handleUpdateSettings} className="premium-btn">Save Referral Config</button>
+                        <button onClick={handleUpdateSettings} className="btn-primary">Update Referral Config</button>
                     </div>
 
                     {/* Bulk Coupon Generation */}
                     <div className="admin-card-large">
-                        <h3>Bulk Coupon Generator</h3>
-                        <div className="flex-inputs">
-                            <div>
-                                <label>Quantity</label>
+                        <h3>Bulk Coupon Architect</h3>
+                        <div className="flex-inputs-premium">
+                            <div className="admin-input-group">
+                                <label>Batch Quantity</label>
                                 <input 
                                     type="number" 
+                                    className="admin-input-premium"
                                     value={bulkCoupon.quantity} 
                                     onChange={(e) => setBulkCoupon({...bulkCoupon, quantity: parseInt(e.target.value)})} 
                                 />
                             </div>
-                            <div>
-                                <label>Prefix (e.g., HOLI)</label>
+                            <div className="admin-input-group">
+                                <label>Code Prefix</label>
                                 <input 
                                     type="text" 
+                                    className="admin-input-premium"
+                                    placeholder="e.g. FESTIVAL"
                                     value={bulkCoupon.prefix} 
                                     onChange={(e) => setBulkCoupon({...bulkCoupon, prefix: e.target.value.toUpperCase()})} 
                                 />
                             </div>
-                            <div>
-                                <label>Discount Value</label>
+                            <div className="admin-input-group">
+                                <label>Reward Value</label>
                                 <input 
                                     type="number" 
+                                    className="admin-input-premium"
                                     value={bulkCoupon.discountValue} 
                                     onChange={(e) => setBulkCoupon({...bulkCoupon, discountValue: parseInt(e.target.value)})} 
                                 />
                             </div>
-                            <div>
-                                <label>Discount Type</label>
+                            <div className="admin-input-group">
+                                <label>Type</label>
                                 <select 
+                                    className="admin-input-premium"
                                     value={bulkCoupon.discountType} 
                                     onChange={(e) => setBulkCoupon({...bulkCoupon, discountType: e.target.value})}
                                 >
-                                    <option value="flat">Flat (Rs)</option>
+                                    <option value="flat">Flat Cash (Rs)</option>
                                     <option value="percentage">Percentage (%)</option>
                                 </select>
                             </div>
                         </div>
-                        <button onClick={handleGenerateCoupons} className="premium-btn gold">Generate Unique Codes</button>
+                        <button onClick={handleGenerateCoupons} className="btn-primary">Create Elite Batch</button>
                     </div>
                 </div>
             </div>
