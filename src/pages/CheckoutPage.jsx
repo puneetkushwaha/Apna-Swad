@@ -525,7 +525,7 @@ const CheckoutPage = () => {
                                         onClick={performPayment}
                                         disabled={loading}
                                     >
-                                        {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : (isLadduBypass ? 'Complete Free Order • ₹0' : `Complete Payment • ₹${cartTotal}`)}
+                                        {loading ? <Skeleton type="text" style={{ width: '100px', background: 'rgba(255,255,255,0.2)', margin: 0 }} /> : `Complete Payment • ₹${checkoutDetails.finalTotal}`}
                                     </button>
                                     
                                     <p className="cancel-note" onClick={() => setStep(1)}>Go back to shipping</p>
@@ -589,6 +589,11 @@ const CheckoutPage = () => {
                                         {couponLoading ? '...' : 'Apply'}
                                     </button>
                                 </div>
+                                {checkoutDetails.error && (
+                                    <div className="coupon-error-msg" style={{color: '#d32f2f', fontSize: '0.75rem', marginTop: '5px'}}>
+                                        {checkoutDetails.error}
+                                    </div>
+                                )}
                                 {checkoutDetails.couponUsed && (
                                     <div className="coupon-applied-msg">
                                         <Star size={10} fill="#C5A059" /> Coupon {checkoutDetails.couponUsed} Active
