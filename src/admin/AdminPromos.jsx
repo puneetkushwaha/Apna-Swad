@@ -9,12 +9,12 @@ const AdminPromos = () => {
         referral: { isEnabled: true, targetCount: 5 }
     });
     const [bulkCoupon, setBulkCoupon] = useState({
-        quantity: 10,
-        prefix: 'SAVE',
+        quantity: 1,
+        prefix: 'WELCOME100',
         discountValue: 100,
         discountType: 'flat',
         expiryDate: '',
-        maxUses: 1
+        maxUses: 100000
     });
     const [coupons, setCoupons] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -172,27 +172,19 @@ const AdminPromos = () => {
                         <button onClick={handleUpdateSettings} className="btn-primary">Update Referral Config</button>
                     </div>
 
-                    {/* Bulk Coupon Generation */}
+                    {/* Global Coupon Generation */}
                     <div className="admin-card-large">
-                        <h3>Bulk Coupon Architect</h3>
+                        <h3>Global Elite Coupon</h3>
+                        <p className="text-muted" style={{fontSize: '0.8rem', marginBottom: '15px'}}>Create a single code that many customers can use (but each only once every 10 days).</p>
                         <div className="flex-inputs-premium">
                             <div className="admin-input-group">
-                                <label>Batch Quantity</label>
-                                <input 
-                                    type="number" 
-                                    className="admin-input-premium"
-                                    value={bulkCoupon.quantity} 
-                                    onChange={(e) => setBulkCoupon({...bulkCoupon, quantity: parseInt(e.target.value)})} 
-                                />
-                            </div>
-                            <div className="admin-input-group">
-                                <label>Code Prefix</label>
+                                <label>Coupon Code</label>
                                 <input 
                                     type="text" 
                                     className="admin-input-premium"
-                                    placeholder="e.g. FESTIVAL"
+                                    placeholder="e.g. WELCOME100"
                                     value={bulkCoupon.prefix} 
-                                    onChange={(e) => setBulkCoupon({...bulkCoupon, prefix: e.target.value.toUpperCase()})} 
+                                    onChange={(e) => setBulkCoupon({...bulkCoupon, prefix: e.target.value.toUpperCase(), quantity: 1})} 
                                 />
                             </div>
                             <div className="admin-input-group">
@@ -215,8 +207,17 @@ const AdminPromos = () => {
                                     <option value="percentage">Percentage (%)</option>
                                 </select>
                             </div>
+                            <div className="admin-input-group">
+                                <label>Total Max Uses</label>
+                                <input 
+                                    type="number" 
+                                    className="admin-input-premium"
+                                    value={bulkCoupon.maxUses} 
+                                    onChange={(e) => setBulkCoupon({...bulkCoupon, maxUses: parseInt(e.target.value)})} 
+                                />
+                            </div>
                         </div>
-                        <button onClick={handleGenerateCoupons} className="btn-primary">Create Elite Batch</button>
+                        <button onClick={handleGenerateCoupons} className="btn-primary">Activate Global Code</button>
                     </div>
                 </div>
 
