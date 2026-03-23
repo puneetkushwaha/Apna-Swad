@@ -110,7 +110,7 @@ const LoginPage = () => {
             size="large"
             text="signin_with"
             shape="circle"
-            width="370"
+            width="300"
           />
         </div>
 

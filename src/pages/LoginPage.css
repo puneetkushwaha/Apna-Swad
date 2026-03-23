@@ -178,6 +178,9 @@
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .auth-footer-premium {
